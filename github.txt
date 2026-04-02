@@ -1,0 +1,3 @@
+git add .
+git commit -m "무슨 업데이트 했는지 설명"
+git push
