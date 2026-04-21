@@ -1371,23 +1371,34 @@ a {
 }
 
 @media (max-width: 768px) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: visible;
+  }
+
   .hero__mockup {
-    height: 52vh;
-    overflow: hidden;
+    flex: 1;
+    min-height: 0;
+    overflow: visible;
+    padding: 0;
   }
 
   .hero__mockup-img {
-    width: 180%;
+    width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top;
-    margin-left: calc(-40% - 20px);
+    object-position: center top;
+    margin-left: 0;
+    border-radius: 0;
   }
 
   .hero__inner {
     flex-shrink: 0;
-    padding: 20px 20px 24px;
-    margin-top: -120px;
+    position: static;
+    padding: 20px 20px 36px;
+    margin: 0;
   }
 
   .br-mobile {
