@@ -1426,7 +1426,8 @@ a {
 
   .hero__inner {
     padding: 0 20px 0;
-    margin-top: -80px;
+    transform: translateY(-80px);
+    margin-bottom: -80px;
   }
 
   .hero__title {
