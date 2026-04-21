@@ -164,6 +164,8 @@ a {
   display: none;
 }
 
+.br-mobile { display: none; }
+
 .research-desktop {
   display: block;
 }
@@ -1371,6 +1373,8 @@ a {
     width: 180%;
     margin-left: calc(-40% - 20px);
   }
+
+  .br-mobile { display: block; }
 
   .section {
     padding: 40px 0 20px 0;
