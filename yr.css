@@ -1487,6 +1487,12 @@ a {
   }
 }
 
+.rotating-gap { display: none; }
+
+@media (max-width: 768px) {
+  .rotating-gap { display: block; height: 4px; }
+}
+
 @media (max-width: 480px) {
   .project-info__grid {
     grid-template-columns: 1fr 1fr;
