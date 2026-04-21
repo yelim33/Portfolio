@@ -1611,6 +1611,23 @@ a {
 
   .ut-metrics {
     grid-template-areas: 1fr;
+    margin: 20px 0;
+  }
+
+  .crazy8-video-grid {
+    margin-bottom: 0 !important;
+  }
+
+  .takeaway-section {
+    margin-top: 20px;
+  }
+
+  .ut-metric-card {
+    padding: 20px;
+  }
+
+  .thematic-img {
+    margin-top: 20px !important;
   }
 
   .takeaway-grid {
