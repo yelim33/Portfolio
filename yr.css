@@ -216,6 +216,14 @@ a {
   margin-bottom: 14px;
 }
 
+.section-desc,
+.hero__desc,
+.rationale__desc,
+.hifi-content__desc,
+.takeaway-card__desc {
+  word-break: keep-all;
+}
+
 .section-desc {
   font-size: clamp(16px, 1vw, 18px);
   color: var(--color-text-muted);
@@ -888,7 +896,7 @@ a {
   font-weight: 700;
   color: var(--color-text-muted);
   margin-bottom: 10px;
-  line-height: 1.6;
+  line-height: 1.65;
   letter-spacing: -0.02em;
 }
 
@@ -1514,13 +1522,15 @@ a {
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 8px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--color-primary);
+    color: var(--color-text-light);
     list-style: none;
     padding: 10px 0;
     border-top: none;
+    text-align: right;
   }
 
   .research-docs__summary::-webkit-details-marker {
@@ -1528,13 +1538,19 @@ a {
   }
 
   .research-docs__summary::after {
-    content: '﹀';
-    font-size: 12px;
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
     transition: transform 0.2s;
+    flex-shrink: 0;
   }
 
   .research-docs[open] .research-docs__summary::after {
-    transform: rotate(180deg);
+    transform: rotate(-135deg) translateY(-2px);
   }
 
   .research-docs__content {
