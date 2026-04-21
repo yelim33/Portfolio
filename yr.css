@@ -62,7 +62,7 @@
   --color-text-light: #999999;
   --color-border: #E8E8E8;
   --color-img: #D9D9D9;
-  --color-tag-bg: #F6F6F6;
+  --color-tag-bg: rgb(245, 245, 247, 0.5);
 
   --font-ko: 'SpoqaHanSansNeo', sans-serif;
   --font-en: 'SpoqaHanSansNeo', sans-serif;
@@ -495,7 +495,7 @@ a {
 /* ===================== 히어로 ===================== */
 .hero {
   min-height: 100vh;
-  background: linear-gradient(to bottom, rgba(240, 228, 244, 90) 0%, rgba(255, 236, 208, 0) 100%);
+  background: linear-gradient(to bottom, rgba(240, 228, 244, 90) 0%, rgba(255, 236, 208, 0.1) 60%, rgba(255, 255, 255, 0) 70%);
   padding-top: var(--nav-h);
   position: relative;
   overflow-x: clip;
@@ -517,7 +517,7 @@ a {
   margin-bottom: 38px;
 }
 
-.hero__tags span.tag {
+[data-theme="portfolio"] .hero__tags span.tag {
   padding: 0px 6px;
 }
 
@@ -650,6 +650,8 @@ a {
   width: auto;
   max-width: none;
   border-radius: 0;
+  transform: scale(1.09);
+  transform-origin: top center;
 }
 
 @media (min-width: 1441px) {
@@ -675,6 +677,7 @@ a {
   .hero__mockup-img {
     height: calc(800px * (100vw / 1440));
     width: auto;
+    transform: scale(1.04);
   }
 }
 
@@ -885,7 +888,7 @@ a {
 }
 
 .rationale__question {
-  font-size: clamp(18px, 2.8vw, 24px);
+  font-size: clamp(18px, 2.8vw, 22px);
   font-weight: 700;
   color: var(--color-text-muted);
   margin-bottom: 10px;
@@ -1427,7 +1430,7 @@ a {
   }
 
   .section {
-    padding: 40px 0 20px 0;
+    padding: 60px 0 20px 0;
   }
 
   .double-diamond-title {
