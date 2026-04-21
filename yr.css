@@ -175,7 +175,7 @@ a {
 }
 
 .section {
-  padding: 0 0 80px 0;
+  padding: 0 0 120px 0;
 }
 
 .section--gray {
@@ -768,6 +768,10 @@ a {
   text-align: center;
 }
 
+.info-item-group {
+  display: contents;
+}
+
 .info-item__label {
   font-family: var(--font-en);
   font-size: 12px;
@@ -906,7 +910,7 @@ a {
   font-size: 28px;
   font-weight: 700;
   color: var(--color-primary);
-  padding: 20px 0 80px 0;
+  padding: 20px 0 120px 0;
   line-height: 1.45;
   letter-spacing: -0.02em;
   text-align: center;
@@ -1369,7 +1373,43 @@ a {
   }
 
   .section {
-    padding: 70px 0;
+    padding: 40px 0 20px 0;
+  }
+
+  .double-diamond-title {
+    padding: 60px 0 20px 0;
+  }
+
+  .project-info {
+    padding: 60px 20px 20px;
+  }
+
+  .rationale-spacer {
+    margin: 0 !important;
+  }
+
+  .project-concept {
+    padding-bottom: 60px;
+  }
+
+  .section-desc {
+    margin-bottom: 24px;
+  }
+
+  .hmw-section {
+    margin: 40px 0 20px 0;
+  }
+
+  .spacer-80 {
+    margin: 0 !important;
+  }
+
+  .proto-cta {
+    margin-bottom: 20px !important;
+  }
+
+  .matrix-title {
+    margin-top: 60px !important;
   }
 
   .navbar__links {
@@ -1381,7 +1421,7 @@ a {
   }
 
   .hero__inner {
-    padding: 20px 20px 0;
+    padding: 0 20px 0;
   }
 
   .hero__title {
@@ -1394,6 +1434,12 @@ a {
 
   .project-info__grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .info-item-group {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 
   .concept-grid {
