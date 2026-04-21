@@ -1,49 +1,1315 @@
-
-
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="portfolio">
+
 <head>
+    <link rel="stylesheet" href="yr.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work</title>
+    <link rel="icon" href="Temi_Image/logo.png" type="image/png">
+    <title>Yerim Shin — Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        .button-container {
-            display: flex;
-            gap: 24px;
-        }
-        .button-container a {
-            width: 30%;
-        }
-        .button-container button {
+        html,
+        body {
             width: 100%;
+            height: 100%;
+            background: #fff;
+            font-family: var(--font-ko);
+            -webkit-font-smoothing: antialiased;
+            overflow: hidden;
+        }
+
+        .layout {
+            position: fixed;
+            top: 48px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tube-section {
+            flex: 0 0 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        #tubeCanvas {
+            display: block;
+            width: 340px;
+            height: 260px;
+            align-items: center;
+
+        }
+
+        .gallery-section {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1400px;
+            perspective-origin: 50% 50%;
+            overflow: hidden;
+            cursor: grab;
+            padding-bottom: 24px;
+        }
+
+        .rig {
+            transform-style: preserve-3d;
+            width: 0;
+            height: 0;
+            position: relative;
+            scale: clamp(0.65, calc(100vw / 1231px), 2.6);
+        }
+
+        .card {
+            position: absolute;
+            width: 330px;
+            height: 210px;
+            margin-left: -165px;
+            margin-top: -105px;
+            overflow: hidden;
+            border-radius: var(--radius-sm);
+            outline: 1px solid rgba(0, 0, 0, 0.1);
+            outline-offset: -1px;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            z-index: 100;
+            pointer-events: none;
+            border-radius: var(--radius-sm);
+        }
+
+        .card.back-facing::after {
+            opacity: 1;
+        }
+
+        .card.back-facing .card-face {
+            opacity: 0.6;
+            transform: scaleX(-1);
+            transition: opacity 0.25s ease, transform 0s;
+        }
+
+        /* 호버 시 뒷면이라도 원본 색상 복원 */
+        .card:hover::after {
+            opacity: 0 !important;
+        }
+
+        .card:hover .card-face {
+            opacity: 1 !important;
+        }
+
+        .card.back-facing:hover .card-face {
+            transform: scaleX(-1);
+        }
+
+        .card-face {
+            display: block;
+            position: absolute;
+            inset: 0;
+            border-radius: 3px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #arrowLeft {
+            position: absolute;
+            left: 24px;
+            top: calc(50% - 12px);
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        #arrowRight {
+            position: absolute;
+            right: 24px;
+            top: calc(50% - 12px);
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .gallery-arrow {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            opacity: 0.7;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.18s;
+            user-select: none;
+        }
+
+        .gallery-arrow:hover {
+            background: #e0e0e0;
+        }
+
+        .gallery-arrow:active {
+            background: #d0d0d0;
+        }
+
+        .gallery-arrow svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* yr.css img { cursor: zoom-in } 덮어쓰기 — 카드 갤러리 */
+        .card img {
+            cursor: inherit;
+        }
+
+        /* === Card image fill & overlay === */
+        .card-img-fill {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .card-gradient-bg-temi {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgb(246, 239, 255, 1) 0%, rgb(255, 236, 208, 0.2) 100%);
+            border-radius: 3px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card-gradient-bg-wise {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgb(245, 253, 244, 0.8) 40%, rgb(136, 235, 124, 0.4) 70%, rgb(245, 253, 244, 0.8) 90%);
+            border-radius: 3px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card-gradient-bg-persoAI {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(89, 125, 255, 0.3) 0%, rgba(158, 140, 243, 0.3) 20%, rgba(161, 167, 255, 0.1) 80%);
+            border-radius: 3px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card-text-block {
+            position: absolute;
+            align-items: flex-start;
+            justify-content: flex-end;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            padding: 10px 14px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .card-text-block h1 {
+            color: var(--color-text);
+            line-height: 1.15;
+            font-family: SpoqaHanSansNeo, sans-serif;
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .card-text-block p {
+            color: var(--color-text);
+            font-size: 8px;
+            font-weight: 500;
+            margin: 0;
+            font-family: SpoqaHanSansNeo, sans-serif;
+        }
+
+        /* === Custom "See" cursor === */
+        .card-see-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: rgba(10, 10, 10, 0.82);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+
+        .card-see-cursor.active {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .card-bubble {
+            position: absolute;
+            bottom: calc(100% + 14px);
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            background: rgba(10, 10, 10, 0.82);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            padding: 6px 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.18s ease, transform 0.18s ease;
+        }
+
+        .card-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: rgba(10, 10, 10, 0.82);
+        }
+
+        .card-see-cursor.active .card-bubble {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* === Card hover selection response === */
+        .card {
+            transition: filter 0.22s ease;
+        }
+
+        .card-face {
+            transition: opacity 0.22s ease;
+        }
+
+        .card-face:hover {
+            cursor: none !important;
+        }
+
+        /* === 뷰 토글 버튼 === */
+        .view-toggle {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2px;
+            background: rgba(240, 240, 240, 0.9);
+            border-radius: 20px;
+            padding: 3px;
+            z-index: 20;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .view-toggle-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            border: none;
+            background: transparent;
+            color: #999;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .view-toggle-btn.active {
+            background: #fff;
+            color: #222;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .view-toggle-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* === 그리드 뷰 === */
+        .grid-view {
+            display: none;
+            flex-direction: row;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0 40px;
+            box-sizing: border-box;
+        }
+
+        .grid-view.active {
+            display: flex;
+        }
+
+        .grid-card {
+            flex: 1;
+            aspect-ratio: 330 / 210;
+            border-radius: var(--radius-sm);
+            outline: 1px solid rgba(0, 0, 0, 0.1);
+            outline-offset: -1px;
+            overflow: hidden;
+            position: relative;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+            transition: filter 0.22s ease;
+        }
+
+        /* 다른 카드 흑백 처리 */
+        .gallery-section:has(.card-face:hover) .card:not(:hover) {
+            filter: grayscale(1) brightness(0.9) contrast(0.1) blur(1px) opacity(20%);
+        }
+
+        .grid-view:has(.grid-card:hover) .grid-card:not(:hover) {
+            filter: grayscale(1) brightness(0.9) contrast(0.1) blur(1px) opacity(20%);
+        }
+
+        /* === 인트로 블록 === */
+        .intro-block {
+            flex: 0 0 150px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .intro-block__text {
+            text-align: left;
+        }
+
+        /* 모바일 카드 그리드 (기본 숨김) */
+        .mobile-cards {
+            display: none;
+        }
+
+        #site-footer {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+
+            html,
+            body {
+                overflow: auto;
+            }
+
+            .intro-block {
+                flex-direction: column;
+                gap: 24px;
+                padding: 12px 0;
+            }
+
+            .intro-block__text {
+                text-align: center;
+            }
+
+            #arrowLeft,
+            #arrowRight {
+                display: none;
+            }
+
+            #site-footer {
+                display: block;
+            }
+
+            .layout {
+                position: static;
+                height: auto;
+                padding-top: 80px;
+            }
+
+            .gallery-section {
+                display: none;
+            }
+
+            .rotating-edu {
+                align-items: center;
+            }
+
+            .mobile-cards {
+                display: flex;
+                flex-direction: column;
+                gap: 32px;
+                padding: 80px 24px 48px;
+            }
+
+            .mobile-card {
+                display: block;
+                flex: 1;
+                aspect-ratio: 330 / 210;
+                border-radius: 3px;
+                text-decoration: none;
+                overflow: hidden;
+                border-radius: var(--radius-sm);
+
+            }
+
+            .mobile-card>div {
+                overflow: hidden;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <header>
-        <h1>Work</h1>
-    </header>
-
-    <main>
-        <p>테스트 여기가 홈화면</p>
-        <div class="button-container">
-            <a href="Wise.html">
-                <button>Wise 프로젝트 보기</button>
-            </a>
-            <a href="Temi.html">
-                <button>Temi 프로젝트 보기</button>
-            </a>
-            <a href="Wise.html">
-                <button>Wise 프로젝트 보기</button>
-            </a>
+    <!-- ==================== 네비게이션 ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar__inner">
+            <a href="index.html" class="navbar__logo"><img src="Temi_Image/logo.png"
+                    style="width: 20px; height: 20px;">Yerim Shin</a>
+            <ul class="navbar__links">
+                <li><a href="#">English</a></li>
+                <li class="navbar__dropdown">
+                    <a href="#">Projects</a>
+                    <div class="navbar__dropdown-menu">
+                        <a href="Temi.html">Temi</a>
+                        <a href="Wise.html">Wise</a>
+                        <a href="PersoAI.html">Perso.AI</a>
+                    </div>
+                </li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="Index_Image/resume.pdf" target="_blank">Resume</a></li>
+            </ul>
+            <div class="navbar__hamburger" id="hamburger" aria-label="메뉴 열기" role="button" tabindex="0">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        
-    </main>
+        <div class="navbar__mobile-menu" id="mobileMenu">
+            <a href="#">English</a>
+            <div class="mobile-projects-row" id="mobileProjectsRow">
+                Projects <span class="mobile-projects-arrow">+</span>
+            </div>
+            <div class="mobile-projects-submenu" id="mobileProjectsSubmenu">
+                <a href="Temi.html">Temi</a>
+                <a href="Wise.html">Wise</a>
+                <a href="PersoAI.html">Perso.AI</a>
+            </div>
+            <a href="About.html">About</a>
+            <a href="Index_Image/resume.pdf" target="_blank">Resume</a>
+        </div>
+    </nav>
 
-    <footer>
-        <p>© 2026 Your Name</p>
+    <div class="layout">
+        <!-- 상단: 인트로 섹션 -->
+        <div class="intro-block">
+            <div
+                style="position:relative; width:64px; height: 88px; border-radius:32px; background-color:#f5f5f5; overflow:hidden; flex-shrink:0;">
+                <img src="Index_Image/profile.png" alt="profile"
+                    style="position:absolute; bottom:0; left:50%; transform:translateX(-50%) scale(1.2); transform-origin:bottom center; width:100%; height:auto;">
+            </div>
+            <div class="intro-block__text">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <h2 style="margin:0;">Hi! I'm Yerim Shin</h2>
+                    <p style="font-size:14px; font-weight:500; color:rgb(62,75,255); margin:0;">UX/UI Designer</p>
+                </div>
+                <div style="margin-top:4px;"></div>
+                <div style="overflow:hidden;">
+                    <p id="rotating-text"
+                        style="font-size:15px; margin:0; white-space:nowrap; transition: transform 0.45s ease, opacity 0.45s ease;">
+                        리서치부터
+                        UT까지 end-to-end로 작업하며,<br>사용자 데이터를 근거로 디자인합니다.</p>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 12px; text-align:center;">
+            <p style="
+                 font-size: 12px;
+                 letter-spacing: 0.12em;
+                 color: var(--color-text-light);
+                 text-align: center;
+                 margin: 0;
+                 font-family: 'Inter', sans-serif;
+                 font-weight: 400;
+                 padding: 4px 12px;
+                 border-radius: var(--radius-sm);
+                 background-color:rgba(155, 155, 155, 0.2);
+                 display:inline-block;">Figma &nbsp;·&nbsp; HTML / CSS &nbsp;·&nbsp; Antigravity
+            </p>
+        </div>
+        <!-- 하단: 갤러리 섹션 -->
+        <div class="gallery-section" id="scene">
+            <div class="rig" id="rig">
+                <div class="card" id="c0">
+                    <a class="card-face" href="PersoAI.html" style="background:#fff;" data-bubble="AI 아바타 영상 제작 에이전트">
+                        <div style="position:relative; width:100%; height:100%;">
+                            <div class="card-gradient-bg-persoAI"></div>
+                            <img class="card-img-fill" src="PersoAI_Image/Perso_hero.png" alt="PersoAI hero"
+                                style="scale:calc(1.6); padding-top:20px; padding-left:20px; object-position: top;">
+                            <div class="card-text-block">
+                                <h1>Perso.AI</h1>
+                                <div class="hero__tags" span>
+                                    <span class="tag"><span>Web</span></span>
+                                    <span class="tag"><span>SaaS</span></span>
+                                    <span class="tag"><span>AI agent</span></span>
+                                    <span class="tag"><span>Video AI</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="card" id="c1">
+                    <a class="card-face" href="Temi.html" style="background:#fff;" data-bubble="시니어 케어 AI 홈 IoT 앱">
+                        <div style="position:relative; width:100%; height:100%;">
+                            <div class="card-gradient-bg-temi"></div>
+                            <img class="card-img-fill" src="Temi_Image/Temi_hero.png" alt="Temi hero"
+                                style="scale:calc(1.3)">
+                            <div class="card-text-block">
+                                <h1>Temi</h1>
+                                <div class="hero__tags" span>
+                                    <span class="tag"><span>App</span></span>
+                                    <span class="tag"><span>AI agent</span></span>
+                                    <span class="tag"><span>HomeIoT</span></span>
+                                    <span class="tag"><span>Senior Care</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="card" id="c2">
+                    <a class="card-face" href="Wise.html" style="background:#fff;" data-bubble="핀테크 송금 투명성 개선">
+                        <div style="position:relative; width:100%; height:100%;">
+                            <div class="card-gradient-bg-wise"></div>
+                            <img class="card-img-fill" src="Wise_Image/Wise_hero.png" alt="Wise hero"
+                                style="object-fit: contain; padding-top:12px; padding-left: 64px;scale:calc(1.03)">
+                            <div class="card-text-block">
+                                <h1>Wise</h1>
+                                <div class="hero__tags" span>
+                                    <span class="tag"><span>App</span></span>
+                                    <span class="tag"><span>Fintech</span></span>
+                                    <span class="tag"><span>Transparency</span></span>
+                                    <span class="tag"><span>Transfer</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="card" id="c3">
+                    <a class="card-face" href="PersoAI.html" style="background:#fff;" data-bubble="AI 아바타 영상 제작 에이전트">
+                        <div style="position:relative; width:100%; height:100%;">
+                            <div class="card-gradient-bg-persoAI"></div>
+                            <img class="card-img-fill" src="PersoAI_Image/Perso_hero.png" alt="PersoAI hero"
+                                style="scale:calc(1.6); padding-top:20px; padding-left:20px; object-position: top;">
+                            <div class="card-text-block">
+                                <h1>Perso.AI</h1>
+                                <div class="hero__tags" span>
+                                    <span class="tag"><span>Web</span></span>
+                                    <span class="tag"><span>SaaS</span></span>
+                                    <span class="tag"><span>AI agent</span></span>
+                                    <span class="tag"><span>Video AI</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="card" id="c4">
+                    <a class="card-face" href="Temi.html" style="background:#fff;" data-bubble="시니어 케어 AI 홈 IoT 앱">
+                        <div style="position:relative; width:100%; height:100%;">
+                            <div class="card-gradient-bg-temi"></div>
+                            <img class="card-img-fill" src="Temi_Image/Temi_hero.png" alt="Temi hero"
+                                style="scale:calc(1.3)">
+                            <div class="card-text-block">
+                                <h1>Temi</h1>
+                                <div class="hero__tags" span>
+                                    <span class="tag"><span>App</span></span>
+                                    <span class="tag"><span>AI agent</span></span>
+                                    <span class="tag"><span>HomeIoT</span></span>
+                                    <span class="tag"><span>Senior Care</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="card" id="c5">
+                    <a class="card-face" href="Wise.html" style="background:#fff;" data-bubble="핀테크 송금 투명성 개선">
+                        <div style="position:relative; width:100%; height:100%;">
+                            <div class="card-gradient-bg-wise"></div>
+                            <img class="card-img-fill" src="Wise_Image/Wise_hero.png" alt="Wise hero"
+                                style="object-fit: contain; padding-top:12px; padding-left: 64px;scale:calc(1.03)">
+                            <div class="card-text-block">
+                                <h1>Wise</h1>
+                                <div class="hero__tags" span>
+                                    <span class="tag"><span>App</span></span>
+                                    <span class="tag"><span>Fintech</span></span>
+                                    <span class="tag"><span>Transparency</span></span>
+                                    <span class="tag"><span>Transfer</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- 갤러리 컨트롤 버튼 -->
+            <!-- 그리드 뷰 -->
+            <div class="grid-view" id="gridView">
+                <a class="grid-card" href="PersoAI.html" data-bubble="AI 아바타 영상 제작 에이전트">
+                    <div style="position:relative; width:100%; height:100%;">
+                        <div class="card-gradient-bg-persoAI"></div>
+                        <img class="card-img-fill" src="PersoAI_Image/Perso_hero.png" alt="PersoAI hero"
+                            style="scale:calc(1.6); padding-top:20px; padding-left:20px; object-position:top;">
+                        <div class="card-text-block">
+                            <h1>Perso.AI</h1>
+                            <div class="hero__tags" span>
+                                <span class="tag"><span>Web</span></span>
+                                <span class="tag"><span>SaaS</span></span>
+                                <span class="tag"><span>AI agent</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a class="grid-card" href="Temi.html" data-bubble="시니어 케어 AI 홈 IoT 앱">
+                    <div style="position:relative; width:100%; height:100%;">
+                        <div class="card-gradient-bg-temi"></div>
+                        <img class="card-img-fill" src="Temi_Image/Temi_hero.png" alt="Temi hero"
+                            style="scale:calc(1.3);">
+                        <div class="card-text-block">
+                            <h1>Temi</h1>
+                            <div class="hero__tags" span>
+                                <span class="tag"><span>App</span></span>
+                                <span class="tag"><span>AI agent</span></span>
+                                <span class="tag"><span>HomeIoT</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a class="grid-card" href="Wise.html" data-bubble="핀테크 송금 투명성 개선">
+                    <div style="position:relative; width:100%; height:100%;">
+                        <div class="card-gradient-bg-wise"></div>
+                        <img class="card-img-fill" src="Wise_Image/Wise_hero.png" alt="Wise hero"
+                            style="object-fit:contain; padding-top:12px; padding-left:64px; scale:calc(1.03);">
+                        <div class="card-text-block">
+                            <h1>Wise</h1>
+                            <div class="hero__tags" span>
+                                <span class="tag"><span>App</span></span>
+                                <span class="tag"><span>Fintech</span></span>
+                                <span class="tag"><span>Transparency</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 뷰 토글 버튼 -->
+            <div class="view-toggle">
+                <button class="view-toggle-btn active" id="viewBtnGallery" aria-label="갤러리 뷰">
+                    <svg viewBox="0 0 26 20" fill="none" stroke="currentColor" stroke-width="1.2"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="5" width="4" height="10" rx="1" />
+                        <rect x="9.5" y="3" width="7" height="14" rx="1" />
+                        <rect x="21" y="5" width="4" height="10" rx="1" />
+                    </svg>
+                </button>
+                <button class="view-toggle-btn" id="viewBtnGrid" aria-label="그리드 뷰">
+                    <svg viewBox="0 0 26 20" fill="none" stroke="currentColor" stroke-width="1.2"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="4" width="5" height="12" rx="1" />
+                        <rect x="10.5" y="4" width="5" height="12" rx="1" />
+                        <rect x="20" y="4" width="5" height="12" rx="1" />
+                    </svg>
+                </button>
+            </div>
+
+            <button class="gallery-arrow" id="arrowLeft" aria-label="이전">
+                <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 14L6 9L11 4" stroke="#555" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            <button class="gallery-arrow" id="arrowRight" aria-label="다음">
+                <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 4L12 9L7 14" stroke="#555" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- 모바일 카드 (≤768px) -->
+    <div class="mobile-cards">
+        <a class="mobile-card" href="Temi.html" style="background:#fff;">
+            <div style="position:relative; width:100%; height:100%;">
+                <div class="card-gradient-bg-temi"></div>
+                <img class="card-img-fill" src="Temi_Image/Temi_hero.png" alt="Temi hero" style="scale:calc(1.3)">
+                <div class="card-text-block">
+                    <h1>Temi</h1>
+                    <div class="hero__tags" span>
+                        <span class="tag"><span>App</span></span>
+                        <span class="tag"><span>AI agent</span></span>
+                        <span class="tag"><span>HomeIoT</span></span>
+                        <span class="tag"><span>Senior Care</span></span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a class="mobile-card" href="Wise.html" style="background:#fff;">
+            <div style="position:relative; width:100%; height:100%;">
+                <div class="card-gradient-bg-wise"></div>
+                <img class="card-img-fill" src="Wise_Image/Wise_hero2.png" alt="Wise hero" style="object-fit: cover;">
+                <div class="card-text-block">
+                    <h1>Wise</h1>
+                    <div class="hero__tags" span>
+                        <span class="tag"><span>App</span></span>
+                        <span class="tag"><span>Fintech</span></span>
+                        <span class="tag"><span>Transparency</span></span>
+                        <span class="tag"><span>Transfer</span></span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a class="mobile-card" href="PersoAI.html" style="background:#fff;">
+            <div style="position:relative; width:100%; height:100%;">
+                <div class="card-gradient-bg-persoAI"></div>
+                <img class="card-img-fill" src="PersoAI_Image/Perso_hero.png" alt="PersoAI hero"
+                    style="scale:calc(1.6); padding-top:20px; padding-left:20px; object-position: top;">
+                <div class="card-text-block">
+                    <h1>Perso.AI</h1>
+                    <div class="hero__tags" span>
+                        <span class="tag"><span>Web</span></span>
+                        <span class="tag"><span>SaaS</span></span>
+                        <span class="tag"><span>AI agent</span></span>
+                        <span class="tag"><span>Video AI</span></span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- ==================== 푸터 ==================== -->
+    <footer id="site-footer" class="site-footer">
+        <div class="container">
+            <div class="site-footer__name">Yerim Shin</div>
+            <div class="site-footer__info">UX/UI · Product Designer · <a href="mailto:yerimsh.design@gmail.com"
+                    style="color:inherit; text-decoration:none;">yerimsh.design@gmail.com</a> · ⓒ 2026. Yerim Shin All
+                rights reserved.</div>
+        </div>
     </footer>
 
+    <div style="width: 50%;">
+        <script>
+            /* ─── CAROUSEL ─── */
+            const N = 6, STEP = 360 / N, R = 495;
+            const rig = document.getElementById('rig');
+            const scene = document.getElementById('scene');
+
+            for (let i = 0; i < N; i++) {
+                document.getElementById('c' + i).style.transform = `rotateY(${i * STEP}deg) translateZ(${R}px)`;
+            }
+
+            let rotY = 0, rotX = 0;
+            let isDrag = false, prevX = 0, prevY = 0, startX = 0, velX = 0, velY = 0, cRaf;
+            let isCardHovered = false;
+            const cards = document.querySelectorAll('.card-face');
+
+            function setCardLinks(enabled) {
+                cards.forEach(c => c.style.pointerEvents = enabled ? 'auto' : 'none');
+            }
+
+            function renderRig() {
+                rig.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+                for (let i = 0; i < N; i++) {
+                    const eff = ((i * STEP + rotY) % 360 + 360) % 360;
+                    const isBack = eff > 90 && eff < 270;
+                    document.getElementById('c' + i).classList.toggle('back-facing', isBack);
+                }
+            }
+
+            function inertRig() {
+                cancelAnimationFrame(cRaf);
+                function s() {
+                    if (isDrag) return;
+                    if (isCardHovered) { cRaf = requestAnimationFrame(s); return; }
+                    rotY += velY;
+                    velY *= 0.94;
+                    renderRig();
+                    if (Math.abs(velY) > 0.04) cRaf = requestAnimationFrame(s);
+                }
+                cRaf = requestAnimationFrame(s);
+            }
+
+            scene.addEventListener('mousedown', e => {
+                isDrag = true; startX = e.clientX;
+                prevX = e.clientX; prevY = e.clientY; velX = 0; velY = 0;
+                cancelAnimationFrame(cRaf); scene.style.cursor = 'grabbing';
+            });
+
+            window.addEventListener('mousemove', e => {
+                if (!isDrag) return;
+                if (Math.abs(e.clientX - startX) > 4) setCardLinks(false);
+                velY = (e.clientX - prevX) * 0.38;
+                prevX = e.clientX; prevY = e.clientY;
+                rotY += velY; renderRig();
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (!isDrag) return;
+                isDrag = false; scene.style.cursor = 'grab';
+                setCardLinks(true);
+                inertRig();
+            });
+
+            scene.addEventListener('touchstart', e => {
+                isDrag = true; startX = e.touches[0].clientX;
+                prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; velX = 0; velY = 0;
+                cancelAnimationFrame(cRaf);
+            }, { passive: true });
+
+            window.addEventListener('touchmove', e => {
+                if (!isDrag) return;
+                if (Math.abs(e.touches[0].clientX - startX) > 4) setCardLinks(false);
+                velY = (e.touches[0].clientX - prevX) * 0.38;
+                prevX = e.touches[0].clientX;
+                rotY += velY; renderRig();
+            }, { passive: true });
+
+            window.addEventListener('touchend', () => {
+                if (!isDrag) return;
+                isDrag = false;
+                setCardLinks(true);
+                inertRig();
+            });
+
+            let idleT;
+            function resetIdle() {
+                clearTimeout(idleT);
+                idleT = setTimeout(() => {
+                    cancelAnimationFrame(cRaf);
+                    (function sp() {
+                        if (isDrag || isCardHovered) { cRaf = requestAnimationFrame(sp); return; }
+                        rotY += 0.12; renderRig(); cRaf = requestAnimationFrame(sp);
+                    })();
+                }, 2500);
+            }
+
+            scene.addEventListener('mousedown', resetIdle);
+            scene.addEventListener('touchstart', resetIdle, { passive: true });
+
+            function snapNext(dir) {
+                cancelAnimationFrame(cRaf);
+                const target = Math.round(rotY / STEP) * STEP + dir * STEP;
+                resetIdle();
+                (function animate() {
+                    rotY += (target - rotY) * 0.14;
+                    renderRig();
+                    if (Math.abs(target - rotY) > 0.1) {
+                        cRaf = requestAnimationFrame(animate);
+                    } else {
+                        rotY = target;
+                        renderRig();
+                    }
+                })();
+            }
+
+            document.getElementById('arrowLeft').addEventListener('click', () => snapNext(-1));
+            document.getElementById('arrowRight').addEventListener('click', () => snapNext(1));
+
+            resetIdle();
+            renderRig();
+        </script>
+
+        <script>
+
+            /* ─── TUBE ─── */
+            const canvas = document.getElementById('tubeCanvas');
+            const ctx = canvas.getContext('2d');
+            const TW_C = 680, TH_C = 520;
+            canvas.width = TW_C;
+            canvas.height = TH_C;
+
+            const LINE_D = "M14.4547 0.613238C14.3949 0.941166 14.3351 1.26909 14.2753 1.59702C26.3605 4.35478 38.2637 13.1077 40.2459 25.7103C42.3423 38.1942 37.1572 50.5458 30.9946 61.5981C26.0264 70.3378 20.0166 78.5453 13.5549 86.4519C13.4852 86.5371 13.4158 86.6222 13.3467 86.7073C2.49993 99.6461 -4.56524 118.837 3.43946 135.096C11.1704 151.362 30.6153 158.378 47.4548 156.436C82.6327 152.31 108.024 123.279 124.547 94.4565C125.929 92.0378 127.295 89.5389 128.644 86.9578C146.245 53.225 172.161 21.8259 208.176 8.32618C230.051 0.144149 256.736 -1.79033 277.115 8.35223C217.003 48.5582 160.67 94.853 111.01 147.604C94.0273 165.958 77.8155 185.175 64.5405 206.324C58.0055 216.918 51.9909 228.131 48.7765 240.365C45.3948 252.084 46.6402 267.397 57.7183 274.78C58.2556 275.173 58.8139 275.553 59.3933 275.921L59.4827 275.967C82.6535 287.103 105.828 266.926 116.08 247.257C128.079 225.951 134.798 202.266 139.485 178.531C140.048 175.602 140.703 172.774 141.477 169.928C145.79 154.013 153.587 139.043 164.181 126.411C189.841 94.9365 247.057 68.3946 276.072 105.846C276.239 106.112 276.403 106.381 276.564 106.654C291.429 128.76 272.331 156.862 248.824 163.395C225.305 171.529 199.37 168.974 175.528 162.381C207.256 169.44 241.659 179.457 264.5 204.395C282.695 223.408 281.018 253.096 268.311 274.783C269.173 275.231 270.036 275.679 270.899 276.127C283.381 253.641 284.397 222.541 265.488 203.521C241.776 178.904 207.724 167.746 174.87 162.772C199.29 169.513 225.229 172.424 249.197 164.464C273.047 158.321 293.646 129 278.046 105.777C277.877 105.491 277.705 105.209 277.53 104.931C246.492 65.8026 189.333 94.4767 163.556 125.887C152.89 138.606 144.946 153.628 140.488 169.655C139.688 172.52 139.002 175.367 138.405 178.319C133.505 201.927 126.311 225.346 114.481 246.338C104.28 265.741 82.5654 285.612 59.9073 274.924L59.9967 274.97C59.4369 274.615 58.8986 274.249 58.3816 273.872C47.7904 266.797 46.5735 252.237 49.9059 240.655C53.087 228.632 59.0799 217.501 65.6062 206.989C78.8631 185.99 95.0808 166.86 112.026 148.548C161.571 95.9162 217.447 49.134 277.515 8.95803C256.786 -3.94252 229.938 -1.2604 207.551 6.65611C170.851 20.4561 145.4 52.7223 127.866 86.5525C126.529 89.1274 125.172 91.6186 123.796 94.0273C107.373 122.765 81.6919 151.309 47.3178 154.963C30.8478 156.708 12.3125 149.664 5.15475 134.275C-2.28606 118.926 4.3824 100.683 14.9721 88.0272C15.0395 87.9442 15.1071 87.8613 15.175 87.7783C21.6889 79.806 27.7412 71.496 32.7409 62.5809C38.924 51.3075 44.2249 38.5964 41.8583 25.4053C39.5307 12.0147 26.909 3.17569 14.4547 0.613238Z";
+            const THICK_D = "M28.5912 2.96888C27.7542 7.55988 26.9172 12.1509 26.0802 16.7419C48.4803 26.2817 45.223 44.1714 32.6147 63.9598C27.8509 71.5599 22.117 79.1009 15.9948 86.5808C15.9137 86.6798 15.8327 86.779 15.7521 86.8783C3.23461 101.656 -6.40924 127.012 5.26075 149.186C16.7173 171.147 42.0746 177.986 61.3156 174.762C101.718 167.57 125.226 135.372 142.401 105.996C143.82 103.513 145.245 100.964 146.674 98.3427C164.707 65.2426 193.649 39.48 225.21 27.9319C235.046 24.2473 245.129 20.3922 256.044 18.4574C261.511 17.4953 267.131 17.0239 272.726 17.3629C275.589 17.55 278.246 17.8924 280.975 18.5449C282.316 18.8677 283.571 19.2337 284.793 19.7021C285.295 19.8868 286 20.2026 286.344 20.3834C286.574 20.5022 286.757 20.6197 286.748 20.6111C286.76 20.6115 286.664 20.5737 286.344 20.2034C286.264 20.1077 286.17 19.9871 286.063 19.8251C286.01 19.7439 285.953 19.6523 285.895 19.5471C285.859 19.482 285.856 19.4799 285.787 19.3416C285.723 19.2119 285.658 19.0643 285.596 18.8956C285.35 18.2455 285.128 17.1025 285.505 15.8431C285.864 14.5776 286.794 13.5989 287.484 13.165C287.484 13.1648 287.484 13.1648 287.484 13.1648C227.089 53.5663 167.786 96.6925 117.376 150.215C100.151 168.839 83.9766 188.627 70.5841 210.752C63.9924 221.873 57.8371 233.624 54.406 247.231C50.7036 259.842 52.1344 280.048 66.3779 289.438C67.0469 289.926 67.7349 290.398 68.4416 290.855L69.6936 291.5C81.7724 297.102 98.7385 297.469 111.403 290.219C124.126 283.362 133.092 272.905 139.446 261.979C152.541 238.635 156.168 213.221 159.472 188.664C159.816 185.873 160.274 183.171 160.881 180.453C164.245 165.27 171.086 150.634 181.215 138.562C206.113 106.675 263.702 93.9932 279.56 120.543C279.677 120.729 279.792 120.917 279.905 121.107C289.989 135.948 280.649 156.129 259.372 165.193C238.768 174.459 212.855 174.217 189.469 167.66C189.303 167.613 189.136 167.567 188.97 167.52C189.045 167.542 189.133 167.563 189.377 167.659C189.505 167.715 189.666 167.773 190.003 167.983C190.174 168.095 190.396 168.241 190.711 168.564C191.009 168.888 191.493 169.427 191.722 170.507C191.984 171.58 191.532 173.031 190.935 173.691C190.349 174.394 189.858 174.622 189.533 174.782C188.881 175.064 188.64 175.063 188.439 175.1C188.073 175.146 187.972 175.134 187.872 175.136C187.553 175.127 187.57 175.118 187.52 175.115C187.459 175.109 187.471 175.11 187.488 175.112C187.509 175.115 187.693 175.142 187.713 175.145C187.793 175.157 187.889 175.172 188.001 175.19C188.212 175.224 188.553 175.28 188.814 175.324C189.226 175.395 189.722 175.483 190.296 175.588C191.262 175.767 192.303 175.971 193.325 176.183C195.277 176.587 197.28 177.039 199.375 177.55C203.285 178.505 207.434 179.662 211.282 180.88C219.188 183.375 226.887 186.37 234.243 189.933C248.871 197.028 262.615 206.642 271.052 218.829C284.606 237.79 278.633 258.303 264.454 274.799C276.535 281.07 288.616 287.341 300.697 293.612C311.707 265.934 308.428 225.659 284.878 206.588C270.8 193.599 254.498 186.217 238.288 180.28C230.147 177.356 221.922 174.898 213.603 172.753C209.554 171.711 205.224 170.684 201.153 169.809C198.972 169.338 196.889 168.913 194.852 168.522C193.785 168.317 192.698 168.115 191.679 167.935C191.074 167.828 190.547 167.738 190.103 167.665C189.822 167.618 189.451 167.558 189.211 167.52C189.084 167.5 188.972 167.483 188.873 167.468C188.866 167.467 188.781 167.455 188.715 167.445C188.647 167.435 188.589 167.427 188.534 167.419C188.476 167.412 188.435 167.406 188.343 167.396C188.277 167.391 188.283 167.382 187.959 167.373C187.857 167.375 187.756 167.363 187.389 167.408C187.188 167.446 186.947 167.445 186.294 167.727C185.97 167.887 185.478 168.115 184.892 168.818C184.296 169.478 183.843 170.929 184.105 172.002C184.334 173.082 184.819 173.622 185.116 173.946C185.432 174.269 185.654 174.414 185.824 174.526C186.161 174.736 186.323 174.795 186.452 174.85C186.696 174.948 186.785 174.968 186.865 174.992C187.035 175.04 187.208 175.088 187.38 175.137C211.747 181.77 237.707 186.994 264.59 180.167C277.769 176.62 291.595 169.446 300.365 155.82C309.486 142.434 309.203 122.296 300.647 108.824C300.43 108.456 300.209 108.093 299.983 107.734C283.001 81.1159 249.346 82.3902 228.197 90.4926C205.588 98.7923 187.203 113.736 172.464 131.237C161.332 144.516 152.432 159.871 147.025 176.631C146.058 179.624 145.176 182.596 144.359 185.686C138.076 208.472 127.79 230.163 117.056 249.117C107.187 266.785 94.9638 284.672 75.6378 276.891L76.8898 277.536C76.4573 277.27 76.0487 276.996 75.6634 276.715C60.3703 266.533 73.0513 238.863 85.504 220.062C98.6434 200.038 114.899 181.479 131.602 163.437C180.397 111.577 233.303 61.6264 293.087 21.646C293.087 21.6459 293.087 21.6459 293.087 21.6459C293.873 21.1486 294.864 20.0934 295.249 18.7389C295.653 17.3906 295.422 16.1463 295.135 15.3833C295.063 15.1865 294.985 15.01 294.907 14.8507C294.821 14.6801 294.817 14.6763 294.772 14.594C294.697 14.4601 294.623 14.3392 294.55 14.2281C294.404 14.0062 294.263 13.8233 294.129 13.6631C293.86 13.3442 293.618 13.1118 293.389 12.9083C293.274 12.807 293.163 12.7141 293.053 12.6264C292.943 12.5393 292.911 12.5147 292.84 12.4611C292.345 12.0864 291.803 11.749 291.325 11.4738C290.591 11.0431 289.566 10.5378 288.901 10.2231C287.27 9.46153 285.808 8.85846 284.256 8.2546C281.117 7.04857 278.208 6.05369 275.023 5.09887C268.825 3.23661 262.477 1.77511 255.921 0.89272C242.946 -0.892438 228.982 -0.160539 216.458 4.55091C175.305 20.3026 152.88 58.2051 135.778 92.6677C134.521 95.2029 133.223 97.6438 131.884 99.988C116.113 128.173 88.548 153.55 59.3983 154.138C45.3299 154.601 32.7069 147.379 29.2749 137.686C25.4993 128.251 29.5891 116.173 38.5081 105.357C38.564 105.288 38.6201 105.219 38.6765 105.15C45.5299 96.7509 51.8582 87.7744 57.0622 77.7197C63.3789 65.0089 69.4323 49.9608 65.3097 32.1727C60.7368 13.6607 43.4444 4.26185 28.5912 2.96888Z";
+
+            const TW = 308, TH = 296, RS = 2, RW = TW * RS, RH = TH * RS;
+            const tOff = document.createElement('canvas');
+            tOff.width = RW; tOff.height = RH;
+            const tCtx = tOff.getContext('2d');
+            tCtx.scale(RS, RS);
+            tCtx.fillStyle = 'black';
+            tCtx.fill(new Path2D(THICK_D));
+            const tPx = tCtx.getImageData(0, 0, RW, RH).data;
+
+            function isIn(x, y) {
+                const ix = Math.round(x * RS), iy = Math.round(y * RS);
+                if (ix < 0 || iy < 0 || ix >= RW || iy >= RH) return false;
+                return tPx[(iy * RW + ix) * 4 + 3] > 128;
+            }
+
+            function measR(x, y) {
+                for (let r = 0.5; r <= 40; r += 0.5) {
+                    for (let a = 0; a < 12; a++) {
+                        if (!isIn(x + Math.cos(a * Math.PI / 6) * r, y + Math.sin(a * Math.PI / 6) * r)) return r - 0.5;
+                    }
+                }
+                return 14;
+            }
+
+            const lEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            lEl.setAttribute('d', LINE_D);
+            document.body.appendChild(lEl);
+            const tLen = lEl.getTotalLength();
+            const SN = 600;
+            const spine = [];
+
+            for (let i = 0; i <= SN; i++) {
+                const pt = lEl.getPointAtLength((i / SN) * tLen);
+                const r = measR(pt.x * (TW / 284), pt.y * (TH / 280));
+                spine.push({ x: pt.x / 284 - 0.5, y: (pt.y / 280 - 0.5) * (280 / 284), r: r / TW });
+            }
+
+            document.body.removeChild(lEl);
+            const sr = spine.map(p => p.r);
+            for (let k = 0; k < 4; k++)
+                for (let i = 3; i < spine.length - 3; i++)
+                    sr[i] = (sr[i - 3] + sr[i - 2] + sr[i - 1] + sr[i] + sr[i + 1] + sr[i + 2] + sr[i + 3]) / 7;
+            spine.forEach((p, i) => p.r = sr[i]);
+            const rMin = Math.min(...spine.map(p => p.r)), rMax = Math.max(...spine.map(p => p.r));
+
+            function cr(a, b) { return { x: a.y * b.z - a.z * b.y, y: a.z * b.x - a.x * b.z, z: a.x * b.y - a.y * b.x }; }
+            function nm(v) { const l = Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z) || 1; return { x: v.x / l, y: v.y / l, z: v.z / l }; }
+            function dt(a, b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
+
+            const Tv = [], Nv = [], Bv = [];
+            for (let i = 0; i < spine.length; i++) {
+                const a = spine[Math.max(0, i - 1)], b = spine[Math.min(spine.length - 1, i + 1)];
+                Tv.push(nm({ x: b.x - a.x, y: b.y - a.y, z: 0 }));
+            }
+
+            Nv[0] = nm(cr(Tv[0], { x: 0, y: 0, z: 1 }));
+            Bv[0] = nm(cr(Tv[0], Nv[0]));
+
+            for (let i = 1; i < spine.length; i++) {
+                const bv = cr(Tv[i - 1], Tv[i]);
+                const bl = Math.sqrt(bv.x * bv.x + bv.y * bv.y + bv.z * bv.z);
+                if (bl < 1e-7) {
+                    Nv[i] = { ...Nv[i - 1] };
+                    Bv[i] = { ...Bv[i - 1] };
+                } else {
+                    const bn = nm(bv), th = Math.acos(Math.min(1, Math.max(-1, dt(Tv[i - 1], Tv[i])))), n0 = Nv[i - 1];
+                    const c = Math.cos(th), s = Math.sin(th), d = dt(bn, n0);
+                    Nv[i] = nm({ x: c * (n0.x - bn.x * d) + s * (bn.y * n0.z - bn.z * n0.y) + bn.x * d, y: c * (n0.y - bn.y * d) + s * (bn.z * n0.x - bn.x * n0.z) + bn.y * d, z: c * (n0.z - bn.z * d) + s * (bn.x * n0.y - bn.y * n0.x) + bn.z * d });
+                    Bv[i] = nm(cr(Tv[i], Nv[i]));
+                }
+            }
+
+            const MAX_RING = 16, MIN_RING = 4;
+            const allPts = [];
+            for (let i = 0; i < spine.length; i++) {
+                const s = spine[i];
+                const t = (s.r - rMin) / (rMax - rMin || 1);
+                const ringN = Math.max(4, Math.round(Math.round((MIN_RING + (MAX_RING - MIN_RING) * t) / 2) * 2));
+                for (let j = 0; j < ringN; j++) allPts.push({ si: i, baseAng: (j / ringN) * Math.PI * 2, type: 'ring' });
+                if (i % 2 === 0) allPts.push({ si: i, baseAng: 0, type: 'spine' });
+                if (i < spine.length - 1 && i % 2 === 0)
+                    for (let j = 0; j < 4; j++) allPts.push({ si: i + 0.5, baseAng: (j / 4) * Math.PI * 2, type: 'edge' });
+            }
+
+            const LIGHT = nm({ x: 0.5, y: -0.65, z: 0.85 });
+            let spinAngle = 0;
+            const SPIN_SPEED = 0.7;
+
+            function getSpinePt(si) {
+                const i0 = Math.floor(si), i1 = Math.min(spine.length - 1, i0 + 1), f = si - i0;
+                const s0 = spine[i0], s1 = spine[i1];
+                return {
+                    x: s0.x + (s1.x - s0.x) * f, y: s0.y + (s1.y - s0.y) * f, r: s0.r + (s1.r - s0.r) * f,
+                    Nx: Nv[i0].x + (Nv[i1].x - Nv[i0].x) * f, Ny: Nv[i0].y + (Nv[i1].y - Nv[i0].y) * f, Nz: Nv[i0].z + (Nv[i1].z - Nv[i0].z) * f,
+                    Bx: Bv[i0].x + (Bv[i1].x - Bv[i0].x) * f, By: Bv[i0].y + (Bv[i1].y - Bv[i0].y) * f, Bz: Bv[i0].z + (Bv[i1].z - Bv[i0].z) * f
+                };
+            }
+
+            function rotP(x, y, z, rx, ry) {
+                const y1 = y * Math.cos(rx) - z * Math.sin(rx), z1 = y * Math.sin(rx) + z * Math.cos(rx);
+                return { x: x * Math.cos(ry) + z1 * Math.sin(ry), y: y1, z: -x * Math.sin(ry) + z1 * Math.cos(ry) };
+            }
+
+            let tRotX = 0.3, tRotY = 0.05, tVX = 0.0002, tVY = 0.002;
+            let mSx = TW_C / 2, mSy = TH_C / 2, tmx = TW_C / 2, tmy = TH_C / 2;
+            let onTube = false, explode = 0, tExplode = 0;
+
+            const CP = Array.from({ length: 32 }, () => ({ x: 0, y: 0, vx: 0, vy: 0, life: 0, ml: 1 }));
+            let cpI = 0, tFrame = 0, lastT = performance.now();
+            const SC = 540, OX = TW_C / 2, OY = TH_C / 2 + 5;
+
+            canvas.addEventListener('mousemove', e => {
+                const r = canvas.getBoundingClientRect();
+                tmx = (e.clientX - r.left) * (TW_C / r.width);
+                tmy = (e.clientY - r.top) * (TH_C / r.height);
+                onTube = true; tExplode = 1;
+                if (tFrame % 2 === 0) {
+                    const cp = CP[cpI++ % CP.length];
+                    const a = Math.random() * Math.PI * 2, sp = 0.5 + Math.random() * 2.2;
+                    cp.x = tmx; cp.y = tmy; cp.vx = Math.cos(a) * sp; cp.vy = Math.sin(a) * sp - 0.4;
+                    cp.life = 1; cp.ml = 28 + Math.random() * 30;
+                }
+            });
+
+            canvas.addEventListener('mouseleave', () => {
+                onTube = false; tExplode = 0; tmx = TW_C / 2; tmy = TH_C / 2;
+            });
+
+            function drawTube(now) {
+                tFrame++;
+                const delta = Math.min((now - lastT) / 1000, 0.05);
+                lastT = now;
+                spinAngle += SPIN_SPEED * delta;
+                mSx += (tmx - mSx) * 0.08;
+                mSy += (tmy - mSy) * 0.08;
+                explode += (tExplode - explode) * 0.06;
+                const mdx = (tmx - TW_C / 2) / TW_C, mdy = (tmy - TH_C / 2) / TH_C;
+
+                if (onTube) {
+                    tVX += (-mdy * 0.003 - tVX) * 0.05;
+                    tVY += (mdx * 0.003 - tVY) * 0.05;
+                }
+                tVX *= 0.97; tVY *= 0.97;
+                tRotX += tVX; tRotY += tVY;
+
+                ctx.clearRect(0, 0, TW_C, TH_C);
+
+                const proj = allPts.map(p => {
+                    const sp = getSpinePt(p.si);
+                    let x, y, z, nx, ny, nz;
+                    if (p.type === 'spine') {
+                        x = sp.x; y = sp.y; z = 0; nx = 0; ny = 0; nz = 1;
+                    } else {
+                        const ang = p.baseAng + spinAngle;
+                        const ca = Math.cos(ang), sa = Math.sin(ang);
+                        nx = ca * sp.Nx + sa * sp.Bx; ny = ca * sp.Ny + sa * sp.By; nz = ca * sp.Nz + sa * sp.Bz;
+                        x = sp.x + sp.r * nx; y = sp.y + sp.r * ny; z = sp.r * nz;
+                    }
+                    const rp = rotP(x, y, z, tRotX, tRotY);
+                    const rn = rotP(nx, ny, nz, tRotX, tRotY);
+                    let sx = rp.x * SC + OX, sy = rp.y * SC + OY;
+                    if (explode > 0.01) {
+                        const ddx = sx - mSx, ddy = sy - mSy, d = Math.sqrt(ddx * ddx + ddy * ddy);
+                        if (d < 170 && d > 0.5) {
+                            const f = (1 - d / 170) * 100 * explode, a = Math.atan2(ddy, ddx);
+                            sx += Math.cos(a) * f; sy += Math.sin(a) * f;
+                        }
+                    }
+                    const diffuse = Math.max(0, dt(rn, LIGHT));
+                    const depth = rp.z + 0.5;
+                    let bright, sz, alpha;
+                    if (p.type === 'spine') {
+                        bright = 0.55; sz = 0.9; alpha = 0.5;
+                    } else if (p.type === 'edge') {
+                        bright = 0.2 + diffuse * 0.6; sz = 0.7; alpha = 0.28 + depth * 0.45;
+                    } else {
+                        bright = 0.15 + diffuse * 0.85; sz = 0.85; alpha = 0.35 + depth * 0.5;
+                    }
+                    return { x: sx, y: sy, z: rp.z, bright, sz: Math.max(0.4, sz + depth * 0.5), alpha: Math.min(0.95, alpha) };
+                });
+
+                proj.sort((a, b) => a.z - b.z);
+
+                proj.forEach(p => {
+                    const g = Math.round(p.bright * 215);
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.sz, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${g},${g},${g},${p.alpha.toFixed(2)})`;
+                    ctx.fill();
+                });
+
+                CP.forEach(cp => {
+                    if (cp.life <= 0) return;
+                    cp.x += cp.vx; cp.y += cp.vy; cp.vy += 0.05; cp.vx *= 0.95; cp.vy *= 0.96;
+                    cp.life -= 1 / cp.ml;
+                    ctx.beginPath();
+                    ctx.arc(cp.x, cp.y, 1.2 + cp.life * 0.8, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(12,12,12,${(cp.life * 0.85).toFixed(2)})`;
+                    ctx.fill();
+                });
+
+                if (onTube) {
+                    ctx.beginPath();
+                    ctx.arc(mSx, mSy, 2.2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(10,10,10,0.9)';
+                    ctx.fill();
+                }
+
+                requestAnimationFrame(drawTube);
+            }
+
+            requestAnimationFrame(drawTube);
+        </script>
+    </div>
+
+    <!-- 텍스트 로테이션 -->
+    <script>
+        (function () {
+            const iconPen = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:6px;flex-shrink:0"><path d="M11.333 2a1.886 1.886 0 0 1 2.667 2.667L5.333 13.333 2 14l.667-3.333L11.333 2z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+            const iconCap = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:6px;flex-shrink:0;color:#aaa"><path d="M8 2L1 6l7 4 7-4-7-4z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.5 8v3.5S5.5 13 8 13s4.5-1.5 4.5-1.5V8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+            const iconBook = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:6px;flex-shrink:0;color:#aaa"><path d="M8 13s-5-1.5-5-7V3l5-1 5 1v3c0 5.5-5 7-5 7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 7.5l1.5 1.5L10 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+            const texts = [
+                `<span style="display:inline-flex;align-items:flex-start;"<span>리서치부터 UT까지 end-to-end로 작업하며,<br>사용자 데이터를 근거로 디자인합니다.</span></span>`,
+                `<span class="rotating-edu" style="display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:700;color:#aaa;"><span style="display:inline-flex;align-items:center;gap:4px;">${iconBook}Blossom UX School - UX / UI</span><span style="display:inline-flex;align-items:center;gap:4px;">${iconCap}Ewha Women\'s University - Design</span></span>`,
+            ];
+            const el = document.getElementById('rotating-text');
+            if (!el) return;
+            const wrap = el.parentElement;
+            const textBlock = el.closest('.intro-block__text');
+            document.fonts.ready.then(() => {
+                wrap.style.height = el.scrollHeight + 'px';
+                if (textBlock) textBlock.style.width = textBlock.offsetWidth + 'px';
+            });
+            let idx = 0;
+            setInterval(() => {
+                el.style.transform = 'translateY(100%)';
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    idx = (idx + 1) % texts.length;
+                    el.innerHTML = texts[idx];
+                    el.style.transition = 'none';
+                    el.style.transform = 'translateY(-100%)';
+                    el.style.opacity = '0';
+                    requestAnimationFrame(() => requestAnimationFrame(() => {
+                        el.style.transition = 'transform 0.45s ease, opacity 0.45s ease';
+                        el.style.transform = 'translateY(0)';
+                        el.style.opacity = '1';
+                    }));
+                }, 450);
+            }, 3000);
+        })();
+    </script>
+
+    <!-- Custom "See" cursor + card hover stop -->
+    <script>
+        (function () {
+            const cursor = document.createElement('div');
+            cursor.className = 'card-see-cursor';
+
+            const bubble = document.createElement('div');
+            bubble.className = 'card-bubble';
+            cursor.appendChild(bubble);
+
+            const seeLabel = document.createElement('span');
+            seeLabel.textContent = 'see';
+            cursor.appendChild(seeLabel);
+
+            document.body.appendChild(cursor);
+
+            document.addEventListener('mousemove', e => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            document.querySelectorAll('.card-face, .grid-card').forEach(face => {
+                face.addEventListener('mouseenter', () => {
+                    isCardHovered = true;
+                    bubble.textContent = face.dataset.bubble || '';
+                    cursor.classList.add('active');
+                });
+                face.addEventListener('mouseleave', () => {
+                    isCardHovered = false;
+                    cursor.classList.remove('active');
+                });
+            });
+        })();
+    </script>
+
+    <script>
+        /* ─── 네비게이션 ─── */
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            const spans = hamburger.querySelectorAll('span');
+            if (mobileMenu.classList.contains('open')) {
+                spans[0].style.transform = 'translateY(7px) rotate(45deg)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+            } else {
+                spans[0].style.transform = '';
+                spans[1].style.opacity = '';
+                spans[2].style.transform = '';
+            }
+        });
+
+        document.addEventListener('click', e => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.remove('open');
+                const spans = hamburger.querySelectorAll('span');
+                spans[0].style.transform = '';
+                spans[1].style.opacity = '';
+                spans[2].style.transform = '';
+            }
+        });
+
+        hamburger.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); hamburger.click(); }
+        });
+
+        // 모바일 Projects 서브메뉴 토글
+        const mobileProjectsRow = document.getElementById('mobileProjectsRow');
+        const mobileProjectsSubmenu = document.getElementById('mobileProjectsSubmenu');
+        if (mobileProjectsRow && mobileProjectsSubmenu) {
+            mobileProjectsRow.addEventListener('click', () => {
+                const isOpen = mobileProjectsSubmenu.classList.toggle('open');
+                mobileProjectsRow.classList.toggle('open', isOpen);
+                mobileProjectsRow.querySelector('.mobile-projects-arrow').textContent = isOpen ? '−' : '+';
+            });
+        }
+
+        // 뷰 토글 (갤러리 ↔ 그리드)
+        const viewBtnGallery = document.getElementById('viewBtnGallery');
+        const viewBtnGrid = document.getElementById('viewBtnGrid');
+        const gridView = document.getElementById('gridView');
+        const rigEl = document.getElementById('rig');
+        const arrowLeftEl = document.getElementById('arrowLeft');
+        const arrowRightEl = document.getElementById('arrowRight');
+
+        function setView(mode) {
+            const isGrid = mode === 'grid';
+            rigEl.style.display = isGrid ? 'none' : '';
+            gridView.classList.toggle('active', isGrid);
+            arrowLeftEl.style.display = isGrid ? 'none' : '';
+            arrowRightEl.style.display = isGrid ? 'none' : '';
+            viewBtnGallery.classList.toggle('active', !isGrid);
+            viewBtnGrid.classList.toggle('active', isGrid);
+        }
+
+        viewBtnGallery.addEventListener('click', () => setView('gallery'));
+        viewBtnGrid.addEventListener('click', () => setView('grid'));
+    </script>
+
 </body>
+
 </html>

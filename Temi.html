@@ -1,815 +1,33 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="temi">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Temi — 치매 일몰증후군 대응 홈IoT | Yerim Shin</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-
-  <style>
-    /* ===================== CSS 변수 / 토큰 ===================== */
-    :root {
-      --color-primary:        #7C6CF5;
-      --color-primary-mid:    #9D91F7;
-      --color-primary-light:  #EEF0FF;
-      --color-primary-bg:     #F5F3FF;
-      --color-bg:             #FFFFFF;
-      --color-bg-section:     #F7F7F9;
-      --color-text:           #111111;
-      --color-text-muted:     #555555;
-      --color-text-light:     #999999;
-      --color-border:         #E8E8E8;
-      --color-img:            #D9D9D9;
-      --color-tag-bg:         #F0F0F0;
-
-      --font-ko: 'Noto Sans KR', sans-serif;
-      --font-en: 'Inter', sans-serif;
-
-      --max-w: 1100px;
-      --nav-h: 64px;
-
-      --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
-      --radius-pill: 999px;
-
-      --shadow-card: 0 2px 16px rgba(0,0,0,0.07);
-    }
-
-    /* ===================== 리셋 & 기본 ===================== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-ko);
-      background: var(--color-bg);
-      color: var(--color-text);
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-    }
-    img { max-width: 100%; display: block; }
-    a { text-decoration: none; color: inherit; }
-
-    /* ===================== 유틸 ===================== */
-    .container {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-    .section { padding: 100px 0; }
-    .section--gray { background: var(--color-bg-section); }
-    .section--purple-light { background: var(--color-primary-bg); }
-
-    /* 섹션 레이블 (작은 대문자) */
-    .label {
-      font-family: var(--font-en);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-      margin-bottom: 12px;
-      display: block;
-    }
-    .label--gray {
-      color: var(--color-text-light);
-    }
-
-    /* 섹션 제목 */
-    .section-title {
-      font-size: clamp(24px, 3vw, 34px);
-      font-weight: 700;
-      line-height: 1.35;
-      letter-spacing: -0.02em;
-      color: var(--color-text);
-      margin-bottom: 20px;
-    }
-    .section-desc {
-      font-size: 15px;
-      color: var(--color-text-muted);
-      line-height: 1.85;
-      max-width: 640px;
-    }
-
-    /* 이미지 플레이스홀더 */
-    .img-placeholder {
-      background: var(--color-img);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .img-placeholder__label {
-      font-family: var(--font-en);
-      font-size: 12px;
-      color: #aaa;
-      letter-spacing: 0.08em;
-    }
-
-    /* 그리드 */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
-
-    /* 이미지 캡션 */
-    .img-caption {
-      font-size: 12px;
-      color: var(--color-text-light);
-      text-align: center;
-      margin-top: 10px;
-    }
-
-    /* 구분선 */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--color-border);
-      margin: 60px 0;
-    }
-
-    /* ===================== 네비게이션 ===================== */
-    .navbar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--nav-h);
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--color-border);
-      z-index: 1000;
-      transition: box-shadow 0.3s;
-    }
-    .navbar.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
-    .navbar__inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 40px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .navbar__logo {
-      font-family: var(--font-en);
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--color-text);
-    }
-    .navbar__links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-    .navbar__links a {
-      font-family: var(--font-en);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--color-text-muted);
-      transition: color 0.2s;
-    }
-    .navbar__links a:hover { color: var(--color-primary); }
-
-    /* 모바일 햄버거 */
-    .navbar__hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-    }
-    .navbar__hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--color-text);
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-    .navbar__mobile-menu {
-      display: none;
-      position: fixed;
-      top: var(--nav-h);
-      left: 0; right: 0;
-      background: #fff;
-      border-bottom: 1px solid var(--color-border);
-      padding: 20px 40px;
-      z-index: 999;
-    }
-    .navbar__mobile-menu.open { display: block; }
-    .navbar__mobile-menu a {
-      display: block;
-      padding: 12px 0;
-      font-family: var(--font-en);
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--color-text-muted);
-      border-bottom: 1px solid var(--color-border);
-    }
-    .navbar__mobile-menu a:last-child { border-bottom: none; }
-
-    /* ===================== 히어로 ===================== */
-    .hero {
-      min-height: 100vh;
-      background: linear-gradient(145deg, #F2F0FF 0%, #FAF9FF 55%, #FFFFFF 100%);
-      display: flex;
-      align-items: center;
-      padding-top: var(--nav-h);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero__inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 80px 40px 60px;
-      display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: 60px;
-      align-items: center;
-      width: 100%;
-    }
-    .hero__tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      padding: 5px 14px;
-      border-radius: var(--radius-pill);
-      font-family: var(--font-en);
-      font-size: 12px;
-      font-weight: 500;
-      background: rgba(124,108,245,0.12);
-      color: var(--color-primary);
-    }
-    .hero__eyebrow {
-      font-family: var(--font-en);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-      margin-bottom: 16px;
-      display: block;
-    }
-    .hero__title {
-      font-size: clamp(36px, 5.5vw, 64px);
-      font-weight: 900;
-      line-height: 1.2;
-      letter-spacing: -0.03em;
-      color: var(--color-text);
-      margin-bottom: 8px;
-    }
-    .hero__subtitle {
-      font-size: clamp(18px, 2.5vw, 26px);
-      font-weight: 700;
-      color: var(--color-text-muted);
-      margin-bottom: 24px;
-      letter-spacing: -0.02em;
-    }
-    .hero__desc {
-      font-size: 15px;
-      line-height: 1.9;
-      color: var(--color-text-muted);
-      margin-bottom: 36px;
-      max-width: 480px;
-    }
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      background: var(--color-primary);
-      color: #fff;
-      border-radius: var(--radius-pill);
-      font-size: 14px;
-      font-weight: 600;
-      font-family: var(--font-ko);
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      border: none;
-    }
-    .btn-primary:hover { background: #6657e0; transform: translateY(-1px); }
-    .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      background: transparent;
-      color: var(--color-primary);
-      border: 1.5px solid var(--color-primary);
-      border-radius: var(--radius-pill);
-      font-size: 14px;
-      font-weight: 600;
-      font-family: var(--font-ko);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-outline:hover { background: var(--color-primary-light); }
-
-    /* 히어로 목업 이미지 영역 */
-    .hero__mockup {
-      position: relative;
-      height: 500px;
-    }
-    .hero__mockup-placeholder {
-      width: 100%;
-      height: 100%;
-      background: rgba(124,108,245,0.08);
-      border-radius: var(--radius-lg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .hero__mockup-placeholder span {
-      font-family: var(--font-en);
-      font-size: 13px;
-      color: var(--color-primary-mid);
-      letter-spacing: 0.05em;
-    }
-
-    /* 스크롤 다운 표시 */
-    .scroll-indicator {
-      position: absolute;
-      right: 40px;
-      bottom: 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-    }
-    .scroll-indicator__text {
-      font-family: var(--font-en);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--color-text-light);
-      writing-mode: vertical-rl;
-    }
-    .scroll-indicator__line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--color-primary), transparent);
-      animation: scrollLine 2s infinite;
-    }
-    @keyframes scrollLine {
-      0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
-      50% { opacity: 1; transform: scaleY(1); }
-      100% { opacity: 0; transform: scaleY(1); transform-origin: bottom; }
-    }
-
-    /* ===================== 프로젝트 인포 ===================== */
-    .project-info {
-      padding: 64px 0;
-      border-bottom: 1px solid var(--color-border);
-    }
-    .project-info__grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 32px;
-    }
-    .info-item__label {
-      font-family: var(--font-en);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-text-light);
-      margin-bottom: 12px;
-    }
-    .info-item__value {
-      font-size: 14px;
-      line-height: 1.8;
-      color: var(--color-text);
-      font-weight: 500;
-    }
-    .info-item__value span {
-      display: block;
-      font-weight: 400;
-      color: var(--color-text-muted);
-      font-size: 13px;
-    }
-
-    /* ===================== 프로젝트 컨셉 ===================== */
-    .project-concept { padding: 80px 0; }
-    .concept-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-    .concept-box {
-      padding: 48px 44px;
-    }
-    .concept-box:first-child {
-      border-right: 1px solid var(--color-border);
-    }
-    .concept-box__title {
-      font-family: var(--font-en);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-      margin-bottom: 24px;
-    }
-    .concept-box__row {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .concept-box__row:last-child { margin-bottom: 0; }
-    .concept-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--color-primary);
-      margin-top: 8px;
-      flex-shrink: 0;
-    }
-    .concept-text {
-      font-size: 14px;
-      color: var(--color-text-muted);
-      line-height: 1.7;
-    }
-    .concept-text strong {
-      color: var(--color-text);
-      font-weight: 600;
-    }
-
-    /* ===================== 프로젝트 레이셔널 ===================== */
-    .project-rationale {
-      padding: 100px 0;
-      background: var(--color-primary-bg);
-    }
-    .rationale__inner {
-      text-align: center;
-      max-width: 760px;
-      margin: 0 auto;
-    }
-    .rationale__question {
-      font-size: clamp(20px, 2.8vw, 28px);
-      font-weight: 700;
-      color: var(--color-text);
-      margin-bottom: 28px;
-      line-height: 1.45;
-      letter-spacing: -0.02em;
-    }
-    .rationale__avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: var(--color-primary-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 24px;
-      font-size: 28px;
-    }
-    .rationale__desc {
-      font-size: 15px;
-      line-height: 1.9;
-      color: var(--color-text-muted);
-    }
-
-    /* ===================== 페이즈 배지 ===================== */
-    .phase-divider {
-      padding: 60px 0 40px;
-      text-align: center;
-    }
-    .phase-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 24px;
-      border-radius: var(--radius-pill);
-      background: var(--color-primary);
-      color: #fff;
-      font-family: var(--font-en);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-    .phase-badge__num {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    /* ===================== 배경 정보 ===================== */
-    .background-info { padding: 100px 0; }
-    .background-info__text {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: start;
-      margin-bottom: 48px;
-    }
-
-    /* ===================== 디자이너 노트 ===================== */
-    .designer-note {
-      background: var(--color-primary-light);
-      border-radius: var(--radius-md);
-      padding: 28px 32px;
-      margin: 40px 0;
-      position: relative;
-    }
-    .designer-note__header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .designer-note__icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--color-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-    }
-    .designer-note__title {
-      font-family: var(--font-en);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-    }
-    .designer-note__body {
-      font-size: 14px;
-      line-height: 1.8;
-      color: var(--color-text-muted);
-    }
-    .designer-note__body p {
-      margin-bottom: 8px;
-    }
-    .designer-note__body p:last-child { margin-bottom: 0; }
-
-    /* ===================== 연구 카드 ===================== */
-    .research-card {
-      background: var(--color-primary-light);
-      border-radius: var(--radius-md);
-      padding: 28px 24px;
-    }
-    .research-card__tag {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--color-primary-mid);
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-    .research-card__title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--color-text);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-    }
-    .research-card__body {
-      font-size: 13px;
-      color: var(--color-text-muted);
-      line-height: 1.75;
-    }
-    .research-card__cite {
-      font-size: 11px;
-      color: var(--color-text-light);
-      margin-top: 12px;
-      font-style: italic;
-    }
-
-    /* ===================== HMW 강조 섹션 ===================== */
-    .hmw-section {
-      padding: 80px 0;
-      background: var(--color-bg-section);
-      text-align: center;
-    }
-    .hmw-quote {
-      font-size: clamp(18px, 2.5vw, 26px);
-      font-weight: 700;
-      color: var(--color-text);
-      letter-spacing: -0.02em;
-      max-width: 700px;
-      margin: 0 auto;
-      line-height: 1.5;
-    }
-    .hmw-quote::before, .hmw-quote::after {
-      content: '"';
-      color: var(--color-primary);
-    }
-
-    /* ===================== 인사이트 하이라이트 카드 ===================== */
-    .insight-card {
-      background: var(--color-primary);
-      color: #fff;
-      border-radius: var(--radius-md);
-      padding: 24px 28px;
-    }
-    .insight-card__icon {
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-    .insight-card__text {
-      font-size: 14px;
-      line-height: 1.75;
-      font-weight: 500;
-    }
-
-    /* ===================== 최종화면 (모바일 목업) ===================== */
-    .hifi-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-      padding: 64px 0;
-      border-bottom: 1px solid var(--color-border);
-    }
-    .hifi-row:last-child { border-bottom: none; }
-    .hifi-row--reverse { direction: rtl; }
-    .hifi-row--reverse > * { direction: ltr; }
-    .hifi-content__label {
-      font-family: var(--font-en);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-text-light);
-      margin-bottom: 12px;
-    }
-    .hifi-content__title {
-      font-size: clamp(18px, 2.2vw, 24px);
-      font-weight: 700;
-      color: var(--color-text);
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-      line-height: 1.4;
-    }
-    .hifi-content__desc {
-      font-size: 14px;
-      line-height: 1.9;
-      color: var(--color-text-muted);
-    }
-    .phone-mockup {
-      width: 260px;
-      height: 520px;
-      margin: 0 auto;
-    }
-
-    /* ===================== 사용성 테스트 ===================== */
-    .ut-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin: 48px 0;
-    }
-    .ut-metric-card {
-      background: var(--color-bg-section);
-      border-radius: var(--radius-md);
-      padding: 32px 24px;
-      text-align: center;
-      border: 1px solid var(--color-border);
-    }
-    .ut-metric-card__value {
-      font-family: var(--font-en);
-      font-size: 40px;
-      font-weight: 800;
-      color: var(--color-primary);
-      letter-spacing: -0.03em;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    .ut-metric-card__unit {
-      font-size: 18px;
-      font-weight: 600;
-    }
-    .ut-metric-card__label {
-      font-size: 13px;
-      color: var(--color-text-muted);
-      line-height: 1.5;
-    }
-
-    /* ===================== 키 테이크어웨이 ===================== */
-    .takeaway-section {
-      padding: 100px 0;
-      background: var(--color-primary-bg);
-    }
-    .takeaway-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      margin-top: 48px;
-    }
-    .takeaway-card {
-      background: #fff;
-      border-radius: var(--radius-md);
-      padding: 32px 28px;
-      box-shadow: var(--shadow-card);
-    }
-    .takeaway-card__icon {
-      font-size: 24px;
-      margin-bottom: 16px;
-    }
-    .takeaway-card__title {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--color-text);
-    }
-    .takeaway-card__desc {
-      font-size: 14px;
-      color: var(--color-text-muted);
-      line-height: 1.8;
-    }
-
-    /* ===================== 프로토타입 CTA ===================== */
-    .prototype-cta {
-      padding: 80px 0;
-      text-align: center;
-    }
-    .prototype-cta .btn-primary {
-      font-size: 15px;
-      padding: 16px 36px;
-    }
-
-    /* ===================== 반응형 ===================== */
-    @media (max-width: 1024px) {
-      .project-info__grid { grid-template-columns: repeat(3, 1fr); }
-      .hero__inner { grid-template-columns: 1fr; gap: 40px; }
-      .hero__mockup { height: 360px; }
-      .background-info__text { grid-template-columns: 1fr; gap: 32px; }
-      .hifi-row { grid-template-columns: 1fr; gap: 40px; }
-      .hifi-row--reverse { direction: ltr; }
-    }
-
-    @media (max-width: 768px) {
-      .container { padding: 0 20px; }
-      .section { padding: 70px 0; }
-      .navbar__inner { padding: 0 20px; }
-      .navbar__links { display: none; }
-      .navbar__hamburger { display: flex; }
-      .navbar__mobile-menu { padding: 16px 20px; }
-
-      .hero__inner { padding: 60px 20px 40px; }
-      .hero__title { font-size: 38px; }
-      .hero__mockup { height: 280px; }
-      .scroll-indicator { display: none; }
-
-      .project-info__grid { grid-template-columns: repeat(2, 1fr); }
-      .concept-grid { grid-template-columns: 1fr; }
-      .concept-box:first-child { border-right: none; border-bottom: 1px solid var(--color-border); }
-      .grid-2 { grid-template-columns: 1fr; }
-      .grid-3 { grid-template-columns: 1fr; }
-      .grid-4 { grid-template-columns: 1fr 1fr; }
-      .ut-metrics { grid-template-columns: 1fr; }
-      .takeaway-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 480px) {
-      .project-info__grid { grid-template-columns: 1fr 1fr; }
-      .grid-4 { grid-template-columns: 1fr; }
-      .hero__title { font-size: 30px; }
-      .hero__subtitle { font-size: 17px; }
-    }
-  </style>
+  <link rel="icon" href="Temi_Image/logo.png" type="image/png">
+  <link rel="stylesheet" href="yr.css">
 </head>
+
 <body>
 
   <!-- ==================== 네비게이션 ==================== -->
   <nav class="navbar" id="navbar">
     <div class="navbar__inner">
-      <a href="#" class="navbar__logo">Yerim Shin</a>
+      <a href="index.html" class="navbar__logo"><img src="Temi_Image/logo.png" style="width: 20px; height: 20px;">Yerim
+        Shin</a>
       <ul class="navbar__links">
         <li><a href="#">English</a></li>
-        <li><a href="#">Work</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Resume</a></li>
+        <li class="navbar__dropdown">
+          <a href="#">Projects</a>
+          <div class="navbar__dropdown-menu">
+            <a href="Temi.html">Temi</a>
+            <a href="Wise.html">Wise</a>
+            <a href="PersoAI.html">Perso.AI</a>
+          </div>
+        </li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="Index_Image/resume.pdf" target="_blank">Resume</a></li>
       </ul>
       <div class="navbar__hamburger" id="hamburger" aria-label="메뉴 열기" role="button" tabindex="0">
         <span></span>
@@ -819,22 +37,33 @@
     </div>
     <div class="navbar__mobile-menu" id="mobileMenu">
       <a href="#">English</a>
-      <a href="#">Work</a>
-      <a href="#">About</a>
-      <a href="#">Resume</a>
+      <div class="mobile-projects-row" id="mobileProjectsRow">
+        Projects <span class="mobile-projects-arrow">+</span>
+      </div>
+      <div class="mobile-projects-submenu" id="mobileProjectsSubmenu">
+        <a href="Temi.html">Temi</a>
+        <a href="Wise.html">Wise</a>
+        <a href="PersoAI.html">Perso.AI</a>
+      </div>
+      <a href="About.html">About</a>
+      <a href="Index_Image/resume.pdf" target="_blank">Resume</a>
     </div>
   </nav>
 
   <!-- ==================== 히어로 ==================== -->
   <section class="hero" id="hero">
+    <!-- 전체 배경 이미지 -->
+    <div class="hero__mockup">
+      <img src="Temi_Image/Temi_hero.png" alt="Temi App Mockup" class="hero__mockup-img">
+    </div>
     <div class="hero__inner">
-      <!-- 왼쪽: 텍스트 -->
+      <!-- 텍스트 -->
       <div class="hero__text">
-        <span class="hero__eyebrow">Original Case Study</span>
+        <span class="hero__eyebrow">Case Study</span>
         <h1 class="hero__title">Temi</h1>
         <p class="hero__subtitle">치매 일몰증후군 대응 홈IoT</p>
         <p class="hero__desc">
-          치매가 진행하면서 나타나는 '일몰증후군' 증상은 오후~야간 시간에
+          치매가 진행되며 나타나는 '일몰증후군' 증상은 오후~야간 시간에
           환자에게 불안을 일으켜 보호자를 더욱 힘겹게 합니다. 환자를 모니터링하고
           증상에 원격으로 대응할 수 있는 홈 IoT 서비스를 설계했습니다.
         </p>
@@ -844,13 +73,8 @@
           <span class="tag">HomeIoT</span>
           <span class="tag">Senior Care</span>
         </div>
-        <a href="#" class="btn-primary">프로토타입 보기 →</a>
-      </div>
-      <!-- 오른쪽: 목업 -->
-      <div class="hero__mockup">
-        <div class="hero__mockup-placeholder">
-          <span>App Mockup Image</span>
-        </div>
+        <a href="https://www.figma.com/proto/bJdPb3ZPGRcatDsFiU6MCD/40%EA%B8%B0_%EB%B0%95%EC%9C%A0%EB%B9%88-%EC%8B%A0%EC%98%88%EB%A6%BC_3rd-project-Temi_Design-system%F0%9F%8C%99?node-id=1804-19698&viewport=-28701%2C-22395%2C0.38&t=muBw9dYM6fFmQikI-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1804%3A19698&show-proto-sidebar=1&page-id=993%3A28292"
+          class="btn-primary" target="_blank" rel="noopener noreferrer">프로토타입 보기 →</a>
       </div>
     </div>
     <!-- 스크롤 다운 표시 -->
@@ -898,29 +122,25 @@
   </div>
 
   <!-- ==================== 프로젝트 컨셉 ==================== -->
-  <section class="project-concept">
+  <section class="section project-concept">
     <div class="container">
-      <span class="label label--gray">Project Concept</span>
-      <div class="concept-grid" style="margin-top: 32px;">
+      <span class="label label--gray" style="display:block; text-align:center;">Project Concept</span>
+      <div class="concept-grid" style="margin-top: 16px;">
         <div class="concept-box">
           <div class="concept-box__title">Keyword</div>
           <div class="concept-box__row">
-            <div class="concept-dot"></div>
             <span class="concept-text"><strong>AI 추천 · 자동화</strong></span>
           </div>
           <div class="concept-box__row">
-            <div class="concept-dot"></div>
             <span class="concept-text"><strong>AI 기반 홈 IoT 원격 제어</strong></span>
           </div>
         </div>
         <div class="concept-box">
           <div class="concept-box__title">Main Feature</div>
           <div class="concept-box__row">
-            <div class="concept-dot"></div>
             <span class="concept-text">환자 상태를 인식하여 IoT를 이용한 케어 추천</span>
           </div>
           <div class="concept-box__row">
-            <div class="concept-dot"></div>
             <span class="concept-text">보호자의 원격 승인으로 환자 케어용 IoT 실행</span>
           </div>
         </div>
@@ -929,29 +149,30 @@
   </section>
 
   <!-- ==================== 프로젝트 레이셔널 ==================== -->
+  <div class="rationale__avatar"><img src="Temi_Image/icon_yerim.png" alt="avatar"></div>
   <section class="project-rationale">
     <div class="container">
       <div class="rationale__inner">
-        <span class="label" style="text-align:center; display:block; margin-bottom:20px;">Project Rationale</span>
-        <div class="rationale__avatar">🧠</div>
-        <h2 class="rationale__question">치매 가족이 도움을 받을 수 있는<br>프로덕트는 없을까?</h2>
+        <div class="label--gray" style="margin-bottom:6px;">Project Rationale</div>
+        <h2 class="rationale__question">치매 가족이 도움을 받을 수 있는 프로덕트는 없을까?</h2>
         <p class="rationale__desc">
-          기술이 발전해도 노화는 지속되고 아픈 사람은 생깁니다. 치매를 앓게 되신 할머니를 통해 알게 된 것은
-          노인성 질병은 당사자 뿐만 아니라 모든 가족 구성원 특히 주 보호자의 삶에 큰 영향을 주는 문제라는
-          점이었습니다. Temi 프로젝트는 물리적인 몸이 없는 AI 기술이 보호자의 존재가 중요한 치매 증상
-          케어에 어떻게 사용될 수 있을까에 대한 관심으로부터 시작하게 되었습니다.
+          기술이 발전해도 노화는 지속되고 아픈 사람은 생깁니다. 치매를 앓고 계신 할머니를 통해 노인성 질병은
+          당사자 뿐만 아니라 모든 가족 구성원 특히 주 보호자의 삶에 큰 영향을 주는 문제라는 점을 알게되었습니다.
+          Temi 프로젝트는 물리적인 몸이 없는 AI 기술이 보호자의 존재가 중요한 치매 증상 케어에 어떻게
+          사용될 수 있을까에 대한 관심으로부터 시작하게 되었습니다.
         </p>
       </div>
     </div>
+    <div style="margin: 0 0 80px 0;"></div>
   </section>
 
   <!-- ==================== 배경 정보 ==================== -->
-  <section class="background-info">
+  <section class="section background-info">
     <div class="container">
       <span class="label label--gray">Background Information</span>
       <div class="background-info__text">
         <div>
-          <h2 class="section-title" style="margin-top:16px;">오후, 치매 환자를 불안하게 만드는<br>일몰증후군</h2>
+          <h2 class="section-title">오후, 치매 환자를 불안하게 만드는 일몰증후군</h2>
         </div>
         <div>
           <p class="section-desc">
@@ -963,79 +184,76 @@
       </div>
 
       <!-- 이미지 플레이스홀더: Reddit 사례들 -->
-      <div class="img-placeholder" style="width:100%; height:320px; margin-bottom: 12px;">
-        <span class="img-placeholder__label">Reddit 치매 커뮤니티 — 일몰증후군 사례 스크린샷</span>
-      </div>
+      <img src="Temi_Image/Reddit.png" alt="Reddit 치매 커뮤니티 — 일몰증후군 사례 스크린샷">
       <p class="img-caption">Reddit 내 치매 커뮤니티에서 확인한 실제 일몰증후군 사례들</p>
     </div>
   </section>
 
   <!-- ==================== DISCOVER 페이즈 ==================== -->
-  <div class="phase-divider">
-    <div class="phase-badge">
-      <span class="phase-badge__num">1</span>
-      Discover
-    </div>
+  <div class="double-diamond-title">
+    ➊ DISCOVER
   </div>
 
   <!-- 논문 리서치 -->
   <section class="section">
     <div class="container">
       <span class="label label--gray">Desk Research / Literature Review</span>
-      <h2 class="section-title" style="margin-top:16px;">논문으로 일몰증후군 기존 연구 파악</h2>
-      <p class="section-desc" style="margin-bottom:48px;">
+      <h2 class="section-title">논문으로 일몰증후군 기존 연구 파악</h2>
+      <p class="section-desc">
         총 6개의 논문으로 치매 일몰증후군에 대한 기존 연구를 살펴보며, 인간중심 돌봄 모델과
         스마트 홈 설계의 가능성 및 한계를 중점적으로 고찰하였습니다. 이를 통해 치매 일몰증후군
         완화를 위한 정서적 대처와 기술적 중재의 필요성을 함께 확인했습니다.
       </p>
 
-      <div class="grid-3" style="margin-bottom:48px;">
+      <div class="grid-3">
         <div class="research-card">
-          <div class="research-card__title">
-            <span class="research-card__tag"></span>인간 중심 돌봄 (PCC)
+          <div class="research-card__title span">
+            ⚪️<span style="word-spacing:4px">인간 중심 돌봄 (PCC)</span>
           </div>
           <div class="research-card__body">
-            일몰증후군 증상을 보이는 환자에게는 '전환, 비억압, 평화화' 방식의 차분하고
-            부드러운 대처가 중요합니다.
+            일몰증후군 환자에게는 ‘전환, 비억압, 평화화¹’방식의 차분하고 부드러운 대처가 중요
           </div>
           <div class="research-card__cite">Huang et al.(2023)</div>
-          <div class="research-card__cite" style="margin-top:8px; font-style:normal; font-size:12px; color:var(--color-text-light);">
-            ¹ 치매 환자가 혼란스러워할 때 논리적으로 대응하지 않고 부드럽게 화제를 바꾸는 소통 기법
-          </div>
         </div>
         <div class="research-card">
-          <div class="research-card__title">
-            <span class="research-card__tag"></span>홈IoT의 가능성
+          <div class="research-card__title span">
+            ⚪️<span style="word-spacing:4px">홈IoT의 가능성</span>
           </div>
           <div class="research-card__body">
-            홈IoT 센서를 활용한 스마트 홈이 치매 환자가 오랫동안 집에서 안전하게
-            생활하게 도울 수 있습니다.
+            홈IoT 센서²를 활용한 스마트 홈이 치매 환자가 오랫동안 집에서 안전하게
+            생활하게 도움
           </div>
-          <div class="research-card__cite">Tiersen et al.(2021) — 인지적, 행동적, 생체적 지표 활용</div>
+          <div class="research-card__cite">Tiersen et al.(2021)</div>
         </div>
         <div class="research-card">
-          <div class="research-card__title">
-            <span class="research-card__tag"></span>기술에서의 문제점
+          <div class="research-card__title span">
+            ⚪️<span style="word-spacing:4px">기술에서의 문제점</span>
           </div>
           <div class="research-card__body">
             기술에 대한 노인들의 기본적인 저항감과 데이터가 유저를 불안하게 할
-            가능성이 있습니다.
+            가능성 존재
           </div>
           <div class="research-card__cite">임정원 et al.(2023)</div>
         </div>
       </div>
+      <div class="grid-3">
+        <div class="research-card__cite"
+          style="font-style:normal; font-size:12px; color:var(--color-text-light);padding:0px 16px;">
+          ¹ 치매 환자가 혼란스러워할 때 논리적으로 대응하지 않고 부드럽게 화제를 바꾸는 소통 기법
+        </div>
+        <div class="research-card__cite"
+          style="font-style:normal; font-size:12px; color:var(--color-text-light);padding:0px 16px;">
+          ² 인지적, 행동적, 생체적 지표 활용
+        </div>
+        <div></div>
+      </div>
 
       <!-- 논문 분석 이미지 -->
-      <div class="img-placeholder" style="width:100%; height:280px; margin-bottom:12px;">
-        <span class="img-placeholder__label">6개 논문 분석 정리본</span>
-      </div>
+      <img src="Temi_Image/Literature Review.png" alt="논문 분석 정리본"
+        style="width:100%; height:auto; margin-bottom:12px;margin-top:20px">
       <p class="img-caption">6개 논문 분석 정리본</p>
-
       <div class="designer-note">
-        <div class="designer-note__header">
-          <div class="designer-note__icon">🗒️</div>
-          <span class="designer-note__title">Designer's Note</span>
-        </div>
+        <div class="designer-note__title">🗒️ Designer's Note</div>
         <div class="designer-note__body">
           <p>Q. 국내 치매 환자 돌봄 상황의 특이점과 주요한 고충은 무엇일까?</p>
           <p>Q. 앞서 확인한 돌봄 모델과 기술 활용가능성이 일반적인 국내 치매 가족에게도 적용될 수 있을까?</p>
@@ -1048,54 +266,46 @@
   <section class="section section--gray">
     <div class="container">
       <span class="label label--gray">Desk Research / Survey</span>
-      <h2 class="section-title" style="margin-top:16px;">서베이를 통해 국내 치매 돌봄의 경향성 파악</h2>
-      <p class="section-desc" style="margin-bottom:48px;">
+      <h2 class="section-title">서베이를 통해 국내 치매 돌봄의 경향성 파악</h2>
+      <p class="section-desc">
         우리는 국내의 치매 돌봄에 대해 알아보고자 주 보호자 16명을 대상으로 설문조사를 진행했습니다.
         치매 돌봄이 대체로 가정 내에서 가족 구성원끼리만 이루어지며, 이것이 주보호자에게 부담과
         어려움이 될 수 있음을 확인했습니다.
       </p>
 
-      <div class="grid-2" style="margin-bottom:32px;">
+      <div class="grid-2" style="margin-bottom:24px;">
         <div>
-          <div class="img-placeholder" style="width:100%; height:240px; margin-bottom:10px;">
-            <span class="img-placeholder__label">돌봄 공간 그래프</span>
-          </div>
+          <img src="Temi_Image/survey1.png" alt="돌봄 공간 그래프" style="width:100%; height:auto">
           <p class="img-caption">돌봄 공간 그래프</p>
         </div>
         <div>
-          <div class="img-placeholder" style="width:100%; height:240px; margin-bottom:10px;">
-            <span class="img-placeholder__label">환자와 보내는 시간 그래프</span>
-          </div>
+          <img src="Temi_Image/survey2.png" alt="환자와 보내는 시간 그래프" style="width:100%; height">
           <p class="img-caption">환자와 보내는 시간 그래프</p>
         </div>
       </div>
 
-      <div class="grid-2" style="margin-bottom:48px; gap:16px;">
+      <div class="grid-2" style="margin-bottom:40px; gap:16px;">
         <div class="insight-card">
           <div class="insight-card__icon">💡</div>
-          <div class="insight-card__text">
-            치매 환자 돌봄이 주로 가정 내에서만 이루어졌습니다. 공동 보호자가 있는 경우도 대부분 가족 구성원이었습니다.
+          <div class="insight-card__content">
+            <div class="insight-card__title">치매 환자 돌봄이 주로 가정 내에서만 이루어졌습니다.</div>
+            <div class="insight-card__text">공동 보호자가 있는 경우도 대부분 가족 구성원이었습니다.</div>
           </div>
         </div>
         <div class="insight-card">
           <div class="insight-card__icon">💡</div>
-          <div class="insight-card__text">
-            환자와 보내는 시간이 적은 주 보호자가 환자의 상태 변화를 계속 살피기에 어려움이 있었습니다.
+          <div class="insight-card__content">
+            <div class="insight-card__title">환자와 보내는 시간이 적은 주 보호자가 환자의 <br>상태 변화를 계속 살피기에 어려움이 있었습니다.</div>
           </div>
         </div>
       </div>
 
       <!-- 서베이 전체 이미지 -->
-      <div class="img-placeholder" style="width:100%; height:280px; margin-bottom:12px;">
-        <span class="img-placeholder__label">전체 서베이 분석 정리</span>
-      </div>
+      <img src="Temi_Image/survey_whole.png" alt="전체 서베이 분석 정리" style="width:100%; height:auto">
       <p class="img-caption">전체 서베이 분석 정리</p>
 
       <div class="designer-note">
-        <div class="designer-note__header">
-          <div class="designer-note__icon">🗒️</div>
-          <span class="designer-note__title">Designer's Note</span>
-        </div>
+        <div class="designer-note__title">🗒️ Designer's Note</div>
         <div class="designer-note__body">
           <p>환자와 보내는 시간이 부족한 보호자를 원격 지원 기술이 도와줄 수 있을 거라 가설을 세우고 질적 연구를 이어가자.</p>
         </div>
@@ -1107,148 +317,160 @@
   <section class="section">
     <div class="container">
       <span class="label label--gray">Primary Research / 2-1 In-Depth User Interview</span>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-top:16px;">
+      <div class="interview-header"
+        style="display:grid; grid-template-columns:1fr auto; gap:20px; align-items:start; margin-top:16px;">
         <div>
-          <h2 class="section-title">심층 인터뷰로 드러난<br>보호자의 부담과 회의감</h2>
+          <h2 class="section-title">심층 인터뷰로 드러난 보호자 부담과 회의</h2>
           <p class="section-desc">
             우리는 서베이 응답자 중 5명을 대상으로, 반구조화 2대1 심층 인터뷰를 진행했습니다.
             주요 질문과 보조 질문을 나누어 구성한 유연한 진행으로 보호자가 겪는 어려움과
             IoT 기술에 대해 보다 솔직한 생각을 듣고자 했습니다.
           </p>
         </div>
-        <div class="img-placeholder" style="width:100%; height:260px; border-radius:var(--radius-md);">
-          <span class="img-placeholder__label">인터뷰 현장 사진</span>
+        <div class="interview-photo"
+          style="width:280px; height:182px; margin-left:auto; display:flex; justify-content:flex-end;">
+          <img src="Temi_Image/interview_yerim.png" alt="인터뷰 현장 사진"
+            style="width:80%; height:80%; object-fit:cover; object-position:top; border-radius:var(--radius-sm);">
         </div>
       </div>
 
-      <div class="grid-2" style="margin-top:40px;">
-        <div>
-          <div class="img-placeholder" style="width:100%; height:220px; margin-bottom:10px;">
-            <span class="img-placeholder__label">인터뷰 프로토콜</span>
+      <!-- 데스크톱: 그리드 레이아웃 -->
+      <div class="research-desktop">
+        <div class="grid-3">
+          <div>
+            <div
+              style="width:100%; aspect-ratio:4/3; overflow:hidden; border-radius:var(--radius-sm); margin-bottom:10px; outline:1px solid var(--color-border);">
+              <img src="Temi_Image/interview_protocol.png" alt="인터뷰 프로토콜"
+                style="width:100%; height:100%; object-fit:cover; object-position:top;">
+            </div>
+            <p class="img-caption">인터뷰 프로토콜</p>
           </div>
-          <p class="img-caption">인터뷰 프로토콜</p>
+          <div>
+            <div
+              style="width:100%; aspect-ratio:4/3; overflow:hidden; border-radius:var(--radius-sm); margin-bottom:10px;">
+              <img src="Temi_Image/interview_memo.png" alt="인터뷰 질문지 & 진행 시 메모"
+                style="width:100%; height:100%; object-fit:cover; object-position:top;">
+            </div>
+            <p class="img-caption">인터뷰 질문지 &amp; 진행 시 메모</p>
+          </div>
+          <div>
+            <div
+              style="width:100%; aspect-ratio:4/3; overflow:hidden; border-radius:var(--radius-sm); margin-bottom:10px;">
+              <img src="Temi_Image/interview_color.png" alt="인터뷰 컬러 분석"
+                style="width:100%; height:100%; object-fit:cover; object-position:top;">
+            </div>
+            <p class="img-caption">인터뷰 컬러 코딩</p>
+          </div>
         </div>
-        <div>
-          <div class="img-placeholder" style="width:100%; height:220px; margin-bottom:10px;">
-            <span class="img-placeholder__label">인터뷰 질문지 & 진행 시 메모</span>
+        <div style="padding-top:40px; margin-bottom:10px;">
+          <img src="Temi_Image/interview_ qualitative.png" alt="인터뷰 정성 분석"
+            style="display:block; width:60%; object-fit:cover; object-position:top; border-radius:var(--radius-sm); margin-bottom:10px;">
+          <p class="img-caption" style="width:60%;">인터뷰 정성 분석</p>
+        </div>
+
+        <div class="designer-note">
+          <div class="designer-note__title">🗒️ Designer's Note</div>
+          <div class="designer-note__body">
+            <p>기술을 그대로 쓰기보다, 보호자의 부담을 줄이는 방향으로 문제를 다시 정의해보자.</p>
           </div>
-          <p class="img-caption">인터뷰 질문지 &amp; 진행 시 메모</p>
         </div>
       </div>
 
-      <div class="grid-2" style="margin-top:24px;">
-        <div>
-          <div class="img-placeholder" style="width:100%; height:220px; margin-bottom:10px;">
-            <span class="img-placeholder__label">인터뷰 프로토콜</span>
+      <!-- 모바일: 정성분석 먼저, 나머지는 토글 -->
+      <div class="research-mobile">
+        <div style="margin-top:40px;">
+          <img src="Temi_Image/interview_ qualitative.png" alt="인터뷰 정성 분석"
+            style="width:100%; height:auto; border-radius:var(--radius-sm); margin-bottom:10px;">
+          <p class="img-caption">인터뷰 정성 분석</p>
+        </div>
+        <details class="research-docs" style="margin-top:24px;">
+          <summary class="research-docs__summary">Research Documentation 보기</summary>
+          <div class="research-docs__content">
+            <div>
+              <img src="Temi_Image/interview_protocol.png" alt="인터뷰 프로토콜"
+                style="width:100%; height:auto; border-radius:var(--radius-sm); margin-bottom:10px;">
+              <p class="img-caption">인터뷰 프로토콜</p>
+            </div>
+            <div>
+              <img src="Temi_Image/interview_memo.png" alt="인터뷰 질문지 & 진행 시 메모"
+                style="width:100%; height:auto; border-radius:var(--radius-sm); margin-bottom:10px;">
+              <p class="img-caption">인터뷰 질문지 &amp; 진행 시 메모</p>
+            </div>
+            <div>
+              <img src="Temi_Image/interview_color.png" alt="인터뷰 컬러 분석"
+                style="width:100%; height:auto; border-radius:var(--radius-sm); margin-bottom:10px;">
+              <p class="img-caption">인터뷰 컬러 코딩</p>
+            </div>
           </div>
-          <p class="img-caption">인터뷰 프로토콜</p>
-        </div>
-        <div>
-          <div class="img-placeholder" style="width:100%; height:220px; margin-bottom:10px;">
-            <span class="img-placeholder__label">인터뷰 질문지 & 진행 시 메모</span>
-          </div>
-          <p class="img-caption">인터뷰 질문지 &amp; 진행 시 메모</p>
-        </div>
+        </details>
       </div>
-
-      <div class="designer-note">
-        <div class="designer-note__header">
-          <div class="designer-note__icon">🗒️</div>
-          <span class="designer-note__title">Designer's Note</span>
-        </div>
-        <div class="designer-note__body">
-          <p>기술을 그대로 쓰기보다, 보호자의 부담을 줄이는 방향으로 문제를 다시 정의해보자.</p>
-        </div>
-      </div>
-    </div>
   </section>
 
   <!-- ==================== DEFINE 페이즈 ==================== -->
-  <div class="phase-divider">
-    <div class="phase-badge">
-      <span class="phase-badge__num">2</span>
-      Define
-    </div>
+  <div class="double-diamond-title">
+    ➋ DEFINE
   </div>
 
   <!-- 퍼소나 -->
   <section class="section">
     <div class="container">
       <span class="label label--gray">Persona</span>
-      <h2 class="section-title" style="margin-top:16px;">떨어져 있을 때도 환자가 신경쓰이는 보호자</h2>
-      <p class="section-desc" style="margin-bottom:48px;">
+      <h2 class="section-title">떨어져 있을 때도 환자가 신경쓰이는 보호자</h2>
+      <p class="section-desc">
         우리는 앞선 서베이와 인터뷰에서 드러난 환자 모니터링의 어려움에 주목해 퍼소나를 설정했습니다.
         이 과정에서 환자와 떨어져 있기에 긴급 상황에 적절히 대응하기 어려운 점과 환자를 달래는
         과정에서 생기는 보호자의 정서적 피로를 핵심 문제로 보고 보호자의 행동과 생각을 정리했습니다.
       </p>
 
-      <div class="grid-2">
-        <div>
-          <div class="img-placeholder" style="width:100%; height:320px; margin-bottom:10px;">
-            <span class="img-placeholder__label">퍼소나 프로필</span>
-          </div>
-          <p class="img-caption">퍼소나 프로필</p>
-        </div>
-        <div>
-          <div class="img-placeholder" style="width:100%; height:320px; margin-bottom:10px;">
-            <span class="img-placeholder__label">인터뷰 질문지 & 진행 시 메모</span>
-          </div>
-          <p class="img-caption">인터뷰 질문지 &amp; 진행 시 메모</p>
-        </div>
+      <div>
+        <img src="Temi_Image/persona.png" alt="퍼소나 프로필"
+          style="width: 100%; height: auto; border-radius: var(--radius-sm);">
+        <p class="img-caption">퍼소나 프로필</p>
       </div>
     </div>
   </section>
 
   <!-- HMW -->
-  <div class="hmw-section">
+  <div class="section hmw-section">
     <div class="container">
       <span class="label" style="text-align:center; display:block; margin-bottom:20px;">How Might We?</span>
-      <p class="hmw-quote">어떻게 하면 보호자가 떨어져 있을 때도 환자가 안전할 수 있을까?</p>
+      <p class="hmw-quote">어떻게 하면 원격으로 환자의 증상을 완화시킬 수 있을까?</p>
     </div>
   </div>
+  <div style="margin: 0 0 80px 0;"></div>
+
 
   <!-- ==================== DEVELOP 페이즈 ==================== -->
-  <div class="phase-divider">
-    <div class="phase-badge">
-      <span class="phase-badge__num">3</span>
-      Develop
-    </div>
+  <div class="double-diamond-title">
+    ➌ DEVELOP
   </div>
 
   <!-- 기술 리서치 -->
   <section class="section">
     <div class="container">
       <span class="label label--gray">Technical Research &amp; Brainstorming</span>
-      <h2 class="section-title" style="margin-top:16px;">프로젝션 기반 홈 IoT 허브, Temi 설계</h2>
-      <p class="section-desc" style="margin-bottom:48px;">
+      <h2 class="section-title">프로젝션 기반 홈 IoT 허브, Temi 설계</h2>
+      <p class="section-desc">
         우리는 HMW에 답하기 위해 Matter와 Thread 기반 홈 IoT 기술과 시니어 케어 로봇을 조사했습니다.
         이를 바탕으로 환자의 시선이 닿는 곳에 화면을 두어 긴급 상황에 대응할 수 있는 프로젝션 방식 홈 IoT 허브,
         Temi를 설계하고, 심박수, 혈압, 체온, 수면 패턴 등 다양한 생체 신호를 감지하는 센서를 포함했습니다.
       </p>
 
-      <div class="img-placeholder" style="width:100%; height:340px; margin-bottom:12px;">
-        <span class="img-placeholder__label">Temi 기기 개념도 (주요 이미지)</span>
-      </div>
-      <p class="img-caption">인터뷰 프로토콜</p>
+      <img src="Temi_Image/Temi_iot.png" alt="Temi 기기 개념도">
+      <p class="img-caption">Temi 아이디어 스케치 & 기기 개념도</p>
 
-      <div class="grid-3" style="margin-top:24px;">
+      <div class="grid-2" style="margin-top:40px;">
         <div>
-          <div class="img-placeholder" style="width:100%; height:200px; margin-bottom:10px;">
-            <span class="img-placeholder__label">레퍼런스 1</span>
+          <div class="img-frame img-frame--200">
+            <img src="Temi_Image/iot_refer.png" alt="홈 IoT 기기 레퍼런스" class="img-fill">
           </div>
-          <p class="img-caption">인터뷰 프로토콜</p>
+          <p class="img-caption">홈 IoT 기기 레퍼런스</p>
         </div>
         <div>
-          <div class="img-placeholder" style="width:100%; height:200px; margin-bottom:10px;">
-            <span class="img-placeholder__label">레퍼런스 2</span>
+          <div class="img-frame img-frame--200">
+            <img src="Temi_Image/IA_refer.png" alt="레퍼런스 화면 분석" class="img-fill">
           </div>
-          <p class="img-caption">인터뷰 프로토콜</p>
-        </div>
-        <div>
-          <div class="img-placeholder" style="width:100%; height:200px; margin-bottom:10px;">
-            <span class="img-placeholder__label">레퍼런스 3</span>
-          </div>
-          <p class="img-caption">인터뷰 프로토콜</p>
+          <p class="img-caption">레퍼런스 화면 분석</p>
         </div>
       </div>
     </div>
@@ -1258,24 +480,20 @@
   <section class="section section--gray">
     <div class="container">
       <span class="label label--gray">Feasibility</span>
-      <h2 class="section-title" style="margin-top:16px;">MVP 핵심 기능 선정과 흐름 설계</h2>
-      <p class="section-desc" style="margin-bottom:48px;">
+      <h2 class="section-title">MVP 핵심 기능 선정과 흐름 설계</h2>
+      <p class="section-desc">
         우리는 앞서 확인한 기술과 일몰증후군 대응법을 바탕으로 기능을 아이데이션했습니다.
         그 후 'AI 보이스', '자동 대응', '루틴화', '전환적 대응', '환경 조성', '모니터링 및 알림'
         6개 카테고리로 나누었습니다.
       </p>
 
-      <div class="img-placeholder" style="width:100%; height:320px; margin-bottom:12px;">
-        <span class="img-placeholder__label">전체 기능 아이데이션 맵</span>
-      </div>
-      <p class="img-caption">전체 서베이 분석 정리</p>
+      <img src="Temi_Image/feature.png" alt="기능 아이데이션">
+      <p class="img-caption">기능 아이데이션</p>
 
-      <hr class="divider" />
-
-      <h3 class="section-title" style="font-size:22px;">
+      <h3 class="section-title" style="font-size:22px; margin-top:40px;">
         ✦ 두번의 Impact &amp; Effort Matrix
       </h3>
-      <p class="section-desc" style="margin-bottom:40px;">
+      <p class="section-desc">
         핵심기능을 정하기 위해 두번의 2X2 매트릭스로 기능을 줄여나갔습니다. 최종적으로
         Do now에 남은 기능을 분석하여 "보호자가 밖에서도 환자의 일몰증후군 증상에 대응할 수
         있도록 돕는다"라는 MVP를 뽑아냈으며, 마지막으로 MVP 흐름을 정리하여 알림 설정 →
@@ -1284,21 +502,15 @@
 
       <div class="grid-3">
         <div>
-          <div class="img-placeholder" style="width:100%; height:220px; margin-bottom:10px;">
-            <span class="img-placeholder__label">1차 2x2 매트릭스</span>
-          </div>
+          <img src="Temi_Image/1st_matrix.png" alt="1차 2x2 매트릭스">
           <p class="img-caption">인터뷰 프로토콜</p>
         </div>
         <div>
-          <div class="img-placeholder" style="width:100%; height:220px; margin-bottom:10px;">
-            <span class="img-placeholder__label">2차 2x2 매트릭스</span>
-          </div>
+          <img src="Temi_Image/2nd_matrix.png" alt="2차 2x2 매트릭스">
           <p class="img-caption">인터뷰 질문지 &amp; 진행 시 메모</p>
         </div>
         <div>
-          <div class="img-placeholder" style="width:100%; height:220px; margin-bottom:10px;">
-            <span class="img-placeholder__label">MVP 흐름 정리</span>
-          </div>
+          <img src="Temi_Image/mvp_flow.png" alt="MVP 흐름 정리">
           <p class="img-caption">인터뷰 질문지 &amp; 진행 시 메모</p>
         </div>
       </div>
@@ -1309,8 +521,8 @@
   <section class="section">
     <div class="container">
       <span class="label label--gray">Crazy 8s</span>
-      <h2 class="section-title" style="margin-top:16px;">협업을 통해 효율적으로 화면을 발전시키기</h2>
-      <p class="section-desc" style="margin-bottom:48px;">
+      <h2 class="section-title">협업을 통해 효율적으로 화면을 발전시키기</h2>
+      <p class="section-desc">
         효율적으로 화면을 구성하기 위해 팀원과 함께 Crazy 8s를 진행했습니다. 스케치 이후
         화면 별로 각자 2~3개 안에 투표하고, 화면당 약 5분간 논의를 거쳐 화면 설계의 기준을
         정리했습니다. 이 과정에서 핵심 플로우에 집중하기 위해 온보딩 등 초기 진입 화면은
@@ -1318,16 +530,34 @@
         '자동 대응'과 '직접 대응'으로 나누어 체계화했습니다.
       </p>
 
-      <div class="img-placeholder" style="width:100%; height:360px; margin-bottom:12px;">
-        <span class="img-placeholder__label">Crazy 8s 스케치 전체 이미지</span>
+      <div class="grid-2" style="max-width:680px; margin:0 auto 40px;">
+        <div>
+          <div style="overflow:hidden; border-radius:var(--radius-sm); height:240px;">
+            <video src="Temi_Image/crazy8s.MOV" autoplay muted loop playsinline id="crazy8-video"
+              style="width:100%; height:100%; object-fit:cover; object-position:top; transform:scale(1.1); display:block;"></video>
+          </div>
+          <p class="img-caption">Crazy 8s 스케치 전체 이미지</p>
+        </div>
+        <div>
+          <img src="Temi_Image/meeting.png" alt="회의 사진"
+            style="width:100%; height:240px; object-fit:cover; border-radius:var(--radius-sm);">
+          <p class="img-caption">Crazy 8s 결과</p>
+        </div>
       </div>
-      <p class="img-caption">전체 서베이 분석 정리</p>
+      <div class="grid-2">
+        <div>
+          <img src="Temi_Image/crazy8s.png" alt="Crazy 8s 스케치">
+          <p class="img-caption">Crazy 8s 스케치</p>
+        </div>
+        <div>
+          <img src="Temi_Image/selectionsketch.png" alt="셀렉션 스케치">
+          <p class="img-caption">셀렉션 스케치</p>
+        </div>
+      </div>
+
 
       <div class="designer-note">
-        <div class="designer-note__header">
-          <div class="designer-note__icon">🗒️</div>
-          <span class="designer-note__title">Designer's Note</span>
-        </div>
+        <div class="designer-note__title">🗒️ Designer's Note</div>
         <div class="designer-note__body">
           <p>다양한 기능을 성격에 따라 효율적으로 분류하면서도, 기능 간의 이동이 자유롭고 단순해서 빠른 대처가 가능할 것.</p>
         </div>
@@ -1335,37 +565,30 @@
     </div>
   </section>
 
-  <!-- IA -->
+  <!-- Flowchart -->
   <section class="section section--gray">
     <div class="container">
-      <span class="label label--gray">IA</span>
-      <h2 class="section-title" style="margin-top:16px;">길을 잃지 않고 빠르게 대응할 수 있는 설계</h2>
-      <p class="section-desc" style="margin-bottom:48px;">
-        MVP 달성을 위한 주 기능인 '긴급 대응'에 대한 구조를 설계하였습니다. 치매 환자의 돌발
-        상황은 1초가 급한 골든타임입니다. 우리 팀은 복잡한 계층 구조 대신, 중앙(허브)과 해결
-        방법(스포크) 사이를 자유롭게 넘나드는 '유기적 허브 앤 스포크' 구조를 선택하였습니다.
+      <span class="label label--gray">Flowchart</span>
+      <h2 class="section-title">긴급 상황에서 빠르게 선택하고 이동할 수 있도록 설계</h2>
+      <p class="section-desc">
+        긴급한 상황에서도 빠르게 선택할 수 있도록 메뉴를 최소화하고, 기능의 진입 지점을 명확하게 구분해 헷갈리지 않게 했습니다.
+        사용자가 고민하지 않고 바로 행동할 수 있는 구조로 화면을 설계했습니다.
       </p>
 
-      <div style="display:grid; grid-template-columns:1.8fr 1fr; gap:24px; margin-bottom:40px;">
+      <div class="grid-2">
         <div>
-          <div class="img-placeholder" style="width:100%; height:360px; margin-bottom:10px;">
-            <span class="img-placeholder__label">IA 다이어그램 (메인)</span>
+          <div style="aspect-ratio:3020/3031; overflow:hidden; border-radius:var(--radius-sm);">
+            <img src="Temi_Image/Alert.png" alt="플로우차트"
+              style="width:100%; height:100%; object-fit:cover; object-position:top; object-position:top; border-radius:0;">
           </div>
-          <p class="img-caption">인터뷰 프로토콜</p>
+          <p class="img-caption">긴급 대응 플로우</p>
         </div>
-        <div style="display:flex; flex-direction:column; gap:24px;">
-          <div>
-            <div class="img-placeholder" style="width:100%; height:164px; margin-bottom:10px;">
-              <span class="img-placeholder__label">IA 세부 1</span>
-            </div>
-            <p class="img-caption">인터뷰 프로토콜</p>
+        <div>
+          <div style="aspect-ratio:3020/3031; overflow:hidden; border-radius:var(--radius-sm);">
+            <img src="Temi_Image/alert2.png" alt="플로우차트"
+              style="width:100%; height:100%; object-fit:cover; object-position:top; object-position:top; border-radius:0;">
           </div>
-          <div>
-            <div class="img-placeholder" style="width:100%; height:164px; margin-bottom:10px;">
-              <span class="img-placeholder__label">IA 세부 2</span>
-            </div>
-            <p class="img-caption">인터뷰 프로토콜</p>
-          </div>
+          <p class="img-caption">자동 대응 플로우</p>
         </div>
       </div>
     </div>
@@ -1375,212 +598,183 @@
   <section class="section">
     <div class="container">
       <span class="label label--gray">Wireframe</span>
-      <h2 class="section-title" style="margin-top:16px;">주 기능에 대한 와이어프레임 기능정의서</h2>
-      <p class="section-desc" style="margin-bottom:48px;">
-        와이어프레임과 화면설계서를 함께 작성하여 기능을 명확히 정의했으며,
-        UI 요소별 동작 방식, 예외 처리 등을 사전에 정리하였습니다.
+      <h2 class="section-title">긴급 대응을 중심으로 핵심 화면 설계</h2>
+      <p class="section-desc">
+        각 화면에서 필요한 정보와 기능을 명확히 구분해 배치했습니다.
+        사용자의 행동에 따라 화면이 어떻게 반응하는지 실제 구현을 고려해 정의했습니다.
       </p>
 
-      <div class="img-placeholder" style="width:100%; height:420px; margin-bottom:12px;">
-        <span class="img-placeholder__label">와이어프레임 & 기능정의서 전체 이미지</span>
-      </div>
-      <p class="img-caption">전체 서베이 분석 정리</p>
+      <img src="Temi_Image/wireframe.png" alt="와이어프레임">
+      <p class="img-caption">와이어프레임</p>
     </div>
   </section>
 
   <!-- ==================== DELIVER 페이즈 ==================== -->
-  <div class="phase-divider">
-    <div class="phase-badge">
-      <span class="phase-badge__num">4</span>
-      Deliver
-    </div>
+  <div class="double-diamond-title">
+    ➍ DELIVER
   </div>
 
   <!-- 디자인 시스템 -->
   <section class="section">
     <div class="container">
       <span class="label label--gray">Design System</span>
-      <h2 class="section-title" style="margin-top:16px;">일관성 있는 디자인 시스템 구축과 토큰 관리</h2>
-      <p class="section-desc" style="margin-bottom:36px;">
-        와이어프레임과 화면설계서를 함께 작성하여 기능을 명확히 정의했으며,
-        UI 요소별 동작 방식, 예외 처리 등을 사전에 정리하였습니다.
+      <h2 class="section-title">주 보호자인 50대의 접근성을 고려한 디자인 시스템 구축</h2>
+      <p class="section-desc">
+        가독성을 고려해 본문의 최소 폰트 사이즈를 16px이상으로 설정했습니다. 또한, 중장년 사용자가 정보를 더 명확하게
+        인지할 수 있도록 주요 버튼은 모두 44x44px 이상의 충분한 크기로 설계하고, 컬러 시스템에서 명도 대비를 고려했습니다.
       </p>
-      <a href="#" class="btn-outline" style="margin-bottom:48px; display:inline-flex;">디자인 시스템 fig 파일 →</a>
+      <a href="#" class="btn-primary" style="margin-bottom:40px; display:inline-flex;"><span>디자인 시스템 fig 파일 →</span></a>
 
-      <div class="img-placeholder" style="width:100%; height:420px; margin-bottom:12px;">
-        <span class="img-placeholder__label">디자인 시스템 Figma 전체 이미지</span>
-      </div>
-      <p class="img-caption">전체 서베이 분석 정리</p>
+      <img src="Temi_Image/designsystem.png" alt="디자인 시스템">
+      <p class="img-caption">디자인 시스템</p>
     </div>
   </section>
 
   <!-- 최종 화면 -->
-  <section class="section section--gray">
+  <section style="margin-bottom:16px; padding:16px 0;">
     <div class="container">
       <span class="label label--gray">High Fidelity</span>
-      <h2 class="section-title" style="margin-top:16px;">최종화면</h2>
-      <p class="section-desc" style="margin-bottom:64px;">MVP 달성을 위한 핵심 화면들입니다.</p>
+      <h2 class="section-title">최종화면</h2>
+      <p class="section-desc">MVP 달성을 위한 핵심 화면들입니다.</p>
+    </div>
 
-      <!-- 화면 1: 일몰증후군 증상 확인 -->
-      <div class="hifi-row">
-        <div>
-          <div class="phone-mockup">
-            <div class="img-placeholder" style="width:100%; height:100%; border-radius:30px;">
-              <span class="img-placeholder__label">앱 화면 1</span>
+    <div id="hifi-scroll-wrap">
+      <div id="hifi-sticky">
+
+        <!-- 슬라이드 1 -->
+        <div class="hifi-slide" style="z-index:1">
+          <div class="container">
+            <div class="hifi-row">
+              <div>
+                <div class="phone-mockup">
+                  <div class="img-placeholder" style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                    <span class="img-placeholder__label">앱 화면 1</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hifi-content">
+                <div class="hifi-content__label">자동 대응 · 상태 모니터링</div>
+                <h3 class="hifi-content__title">환자의 일몰증후군 증상 확인</h3>
+                <p class="hifi-content__desc">
+                  보호자는 환자의 증상이 나타난 클립 영상과 시간별 AI 상태 요약을 통해
+                  증상 발생 시점부터의 증상에 대응하는 현재까지의 실시간 환자의 상태를 확인할 수 있습니다.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="hifi-content">
-          <div class="hifi-content__label">자동 대응 · 상태 모니터링</div>
-          <h3 class="hifi-content__title">환자의 일몰증후군 증상 확인</h3>
-          <p class="hifi-content__desc">
-            보호자는 환자의 증상이 나타난 클립 영상과 시간별 AI 상태 요약을 통해
-            증상 발생 시점부터의 증상에 대응하는 현재까지의 실시간 환자의 상태를 확인할 수 있습니다.
-          </p>
-        </div>
-      </div>
 
-      <!-- 화면 2: 자동 대응 옵션 -->
-      <div class="hifi-row hifi-row--reverse">
-        <div>
-          <div class="phone-mockup">
-            <div class="img-placeholder" style="width:100%; height:100%; border-radius:30px;">
-              <span class="img-placeholder__label">앱 화면 2</span>
+        <!-- 슬라이드 2 -->
+        <div class="hifi-slide" style="z-index:2">
+          <div class="container">
+            <div class="hifi-row hifi-row--reverse">
+              <div>
+                <div class="phone-mockup">
+                  <div class="img-placeholder" style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                    <span class="img-placeholder__label">앱 화면 2</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hifi-content">
+                <div class="hifi-content__label">자동 대응</div>
+                <h3 class="hifi-content__title">자동 대응 옵션과 커스터마이징</h3>
+                <p class="hifi-content__desc">
+                  Temi는 기존에 등록된 환자 정보와 AI가 추가적으로 학습한 환자에 대한 정보를 바탕으로
+                  환자의 일몰증후군 증상 완화를 위한 최적의 옵션을 제시합니다. 옵션에는 일몰증후군 대처법에
+                  알맞는 '전환적 대화 기술'을 활용한 대처와 환자의 인지적 편안함을 위하며 '보호자의 음성을 딴
+                  AI보이스'가 있습니다.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="hifi-content">
-          <div class="hifi-content__label">자동 대응</div>
-          <h3 class="hifi-content__title">자동 대응 옵션과 커스터마이징</h3>
-          <p class="hifi-content__desc">
-            Temi는 기존에 등록된 환자 정보와 AI가 추가적으로 학습한 환자에 대한 정보를 바탕으로
-            환자의 일몰증후군 증상 완화를 위한 최적의 옵션을 제시합니다. 옵션에는 일몰증후군 대처법에
-            알맞는 '전환적 대화 기술'을 활용한 대처와 환자의 인지적 편안함을 위하며 '보호자의 음성을 딴
-            AI보이스'가 있습니다.
-          </p>
-        </div>
-      </div>
 
-      <!-- 화면 3: 자동대응 추가 지원 -->
-      <div class="hifi-row">
-        <div>
-          <div class="phone-mockup">
-            <div class="img-placeholder" style="width:100%; height:100%; border-radius:30px;">
-              <span class="img-placeholder__label">앱 화면 3</span>
+        <!-- 슬라이드 3 -->
+        <div class="hifi-slide" style="z-index:3">
+          <div class="container">
+            <div class="hifi-row">
+              <div>
+                <div class="phone-mockup">
+                  <div class="img-placeholder" style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                    <span class="img-placeholder__label">앱 화면 3</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hifi-content">
+                <div class="hifi-content__label">자동대응 : 추가 지원</div>
+                <h3 class="hifi-content__title">자동대응 : 환자 맞춤형 추가 지원</h3>
+                <p class="hifi-content__desc">
+                  자동 대응을 진행하며 실시간 환자에 대한 상태와 정보, 상황 요약 정보를 확인할 수 있습니다.
+                  환자 개인에 알맞는 추가 지원 전환 전략을 통해 환자의 안정을 돕습니다.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="hifi-content">
-          <div class="hifi-content__label">자동대응 : 추가 지원</div>
-          <h3 class="hifi-content__title">자동대응 : 환자 맞춤형 추가 지원</h3>
-          <p class="hifi-content__desc">
-            자동 대응을 진행하며 실시간 환자에 대한 상태와 정보, 상황 요약 정보를 확인할 수 있습니다.
-            환자 개인에 알맞는 추가 지원 전환 전략을 통해 환자의 안정을 돕습니다.
-          </p>
-        </div>
-      </div>
 
-      <!-- 화면 4: 직접 대응 - 소통 -->
-      <div class="hifi-row hifi-row--reverse">
-        <div>
-          <div class="phone-mockup">
-            <div class="img-placeholder" style="width:100%; height:100%; border-radius:30px;">
-              <span class="img-placeholder__label">앱 화면 4</span>
+        <!-- 슬라이드 4 -->
+        <div class="hifi-slide" style="z-index:4">
+          <div class="container">
+            <div class="hifi-row hifi-row--reverse">
+              <div>
+                <div class="phone-mockup">
+                  <div class="img-placeholder" style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                    <span class="img-placeholder__label">앱 화면 4</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hifi-content">
+                <div class="hifi-content__label">직접 대응</div>
+                <h3 class="hifi-content__title">직접 대응 : 환자와 소통하기</h3>
+                <p class="hifi-content__desc">
+                  보호자가 환자와 직접 소통하는 대응 방법입니다. 실제 음성 화상통화와 AI 보이스를 통한
+                  텍스트 소통 모두 가능하며, 환자와의 대화 과정에서 Temi가 보호자와 환자의 충돌을 완화하기
+                  위한 조언 메시지를 제공합니다.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="hifi-content">
-          <div class="hifi-content__label">직접 대응</div>
-          <h3 class="hifi-content__title">직접 대응 : 환자와 소통하기</h3>
-          <p class="hifi-content__desc">
-            보호자가 환자와 직접 소통하는 대응 방법입니다. 실제 음성 화상통화와 AI 보이스를 통한
-            텍스트 소통 모두 가능하며, 환자와의 대화 과정에서 Temi가 보호자와 환자의 충돌을 완화하기
-            위한 조언 메시지를 제공합니다.
-          </p>
-        </div>
-      </div>
 
-      <!-- 화면 5: 직접 대응 - 지시 -->
-      <div class="hifi-row">
-        <div>
-          <div class="phone-mockup">
-            <div class="img-placeholder" style="width:100%; height:100%; border-radius:30px;">
-              <span class="img-placeholder__label">앱 화면 5</span>
-            </div>
-          </div>
-        </div>
-        <div class="hifi-content">
-          <div class="hifi-content__label">직접 대응</div>
-          <h3 class="hifi-content__title">직접 대응 : Temi에게 지시하기</h3>
-          <p class="hifi-content__desc">
-            직접 대응 중 Temi에게 환자 케어에 필요한 지시를 할 수 있습니다.
-            Temi 또한 실시간으로 환자의 상태를 파악하여 보호자에게 필요한 조치를 알려줍니다.
-          </p>
-        </div>
-      </div>
-
-      <!-- 화면 6: 사후 리포트 -->
-      <div class="hifi-row hifi-row--reverse">
-        <div>
-          <div class="phone-mockup">
-            <div class="img-placeholder" style="width:100%; height:100%; border-radius:30px;">
-              <span class="img-placeholder__label">앱 화면 6</span>
-            </div>
-          </div>
-        </div>
-        <div class="hifi-content">
-          <div class="hifi-content__label">사후 리포트</div>
-          <h3 class="hifi-content__title">사후 리포트 제공</h3>
-          <p class="hifi-content__desc">
-            Temi는 환자의 생체신호와 행동패턴을 감지하여 환자에게 일몰증후군 발생 시 보호자에게
-            알림을 보내고, 보호자는 홈 화면의 버튼을 통해 긴급 대응 페이지로 접속할 수 있습니다.
-          </p>
-        </div>
       </div>
     </div>
   </section>
 
   <!-- 프로토타입 CTA -->
-  <div class="prototype-cta">
-    <a href="#" class="btn-primary">프로토타입 보기 →</a>
+  <div style="display:flex; justify-content:center; margin-bottom:80px;">
+    <a href="https://www.figma.com/proto/bJdPb3ZPGRcatDsFiU6MCD/40%EA%B8%B0_%EB%B0%95%EC%9C%A0%EB%B9%88-%EC%8B%A0%EC%98%88%EB%A6%BC_3rd-project-Temi_Design-system%F0%9F%8C%99?node-id=1804-19698&viewport=-28701%2C-22395%2C0.38&t=muBw9dYM6fFmQikI-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1804%3A19698&show-proto-sidebar=1&page-id=993%3A28292"
+      class="btn-primary" target="_blank" rel="noopener noreferrer">프로토타입 보기 →</a>
   </div>
 
   <!-- ==================== 사용성 테스트 ==================== -->
   <section class="section section--gray">
     <div class="container">
       <span class="label label--gray">Usability Test</span>
-      <h2 class="section-title" style="margin-top:16px;">AI 신뢰 관련 개선 과제 도출</h2>
-      <p class="section-desc" style="margin-bottom:48px;">
-        기존 인터뷰 참여자 4명과 치매 가족이 있는 추가 참여자 1명, 총 5명을 대상으로 유저빌리티 테스트를
-        진행했습니다. SUS와 Task Completion 정량 평가, 인터뷰 기반 Thematic Analysis를 병행한 결과,
-        SUS 77.5점으로 전반적 사용성은 확보되었으나, Measured Experience 관점에서 핵심 기능의 AI 신뢰
-        부족과 환자 상태에 대한 실시간·사후 확인 요구가 주요 개선 과제로 도출되었습니다.
+      <h2 class="section-title">AI 신뢰 관련 개선 과제 도출</h2>
+      <p class="section-desc">
+        사용성 테스트를 진행하여 SUS와 Task Completion으로 정량 평가, 인터뷰 기반 Thematic Analysis를 병행했습니다.
+        SUS 77.5점으로 전반적 사용성은 확보되었으나, Measured Experience에서 핵심 기능의 AI 신뢰 부족과 환자 상태에 대한 실시간과 사후 확인이라는 개선 과제를 도출했습니다.
       </p>
 
       <div class="ut-metrics">
         <div class="ut-metric-card">
           <div class="ut-metric-card__value">77.5<span class="ut-metric-card__unit">점</span></div>
-          <div class="ut-metric-card__label">SUS 점수<br>(Good 등급)</div>
+          <div class="ut-metric-card__label">SUS 점수<br>(Acceptable 등급)</div>
         </div>
         <div class="ut-metric-card">
           <div class="ut-metric-card__value">2.71<span class="ut-metric-card__unit">/3</span></div>
           <div class="ut-metric-card__label">Task Completion<br>평균 점수</div>
         </div>
-        <div class="ut-metric-card">
-          <div class="ut-metric-card__value">±0.32</div>
-          <div class="ut-metric-card__label">Task Completion<br>표준편차</div>
-        </div>
       </div>
-
-      <div class="img-placeholder" style="width:100%; height:320px; margin-bottom:12px;">
-        <span class="img-placeholder__label">사용성 테스트 전체 분석 자료</span>
-      </div>
-      <p class="img-caption">전체 서베이 분석 정리</p>
+      <img src="Temi_Image/Measured Experience.png" alter="Measured Experience">
+      <p class="img-caption">Measured Experience</p>
+      <img src="Temi_Image/Thematic Analysis.png" alter="Thematic Analysis" style="margin-top:40px;">
+      <p class="img-caption">AI에 대한 평가 (Thematic Analysis 발췌)</p>
     </div>
   </section>
 
   <!-- ==================== 키 테이크어웨이 ==================== -->
-  <section class="takeaway-section">
+  <section class="section takeaway-section">
     <div class="container">
       <span class="label" style="display:block; margin-bottom:12px;">Key Takeaways &amp; Future Approach</span>
       <h2 class="section-title">신뢰 중심 AI UX와 Co-design 확장 가능성</h2>
@@ -1628,114 +822,21 @@
   </section>
 
   <!-- ==================== 푸터 ==================== -->
-  <footer style="padding:48px 0; text-align:center; border-top:1px solid var(--color-border);">
+  <footer class="site-footer">
     <div class="container">
-      <div style="font-family:var(--font-en); font-size:16px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--color-text); margin-bottom:16px;">Yerim Shin</div>
-      <div style="font-size:13px; color:var(--color-text-light);">UX/Product Designer · yerimsh.design@gmail.com</div>
+      <div class="site-footer__name">Yerim Shin</div>
+      <div class="site-footer__info">UX/UI · Product Designer · <a href="mailto:yerimsh.design@gmail.com" style="color:inherit; text-decoration:none;">yerimsh.design@gmail.com</a> · ⓒ 2026. Yerim Shin All rights reserved.</div>
     </div>
   </footer>
 
-  <!-- ==================== JS ==================== -->
-  <script>
-    // ─── 네비게이션 스크롤 효과 ───
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
+  <!-- ==================== 라이트박스 ==================== -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" aria-label="닫기">✕</button>
+    <img class="lightbox__img" src="" alt="">
+  </div>
 
-    // ─── 모바일 메뉴 토글 ───
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-
-    hamburger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-      const spans = hamburger.querySelectorAll('span');
-      if (mobileMenu.classList.contains('open')) {
-        spans[0].style.transform = 'translateY(7px) rotate(45deg)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
-      } else {
-        spans[0].style.transform = '';
-        spans[1].style.opacity = '';
-        spans[2].style.transform = '';
-      }
-    });
-
-    // 메뉴 외부 클릭 시 닫기
-    document.addEventListener('click', (e) => {
-      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-        mobileMenu.classList.remove('open');
-        const spans = hamburger.querySelectorAll('span');
-        spans[0].style.transform = '';
-        spans[1].style.opacity = '';
-        spans[2].style.transform = '';
-      }
-    });
-
-    // 키보드 접근성
-    hamburger.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        hamburger.click();
-      }
-    });
-
-    // ─── 스크롤 애니메이션 (Intersection Observer) ───
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -60px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    // 애니메이션 대상 요소 설정
-    const animTargets = document.querySelectorAll(
-      '.section-title, .section-desc, .concept-grid, .research-card, ' +
-      '.insight-card, .designer-note, .hifi-row, .ut-metric-card, ' +
-      '.takeaway-card, .img-placeholder, .phase-divider'
-    );
-
-    animTargets.forEach((el, i) => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(28px)';
-      el.style.transition = `opacity 0.55s ease ${(i % 5) * 0.08}s, transform 0.55s ease ${(i % 5) * 0.08}s`;
-      observer.observe(el);
-    });
-
-    // ─── 스무스 스크롤 (내부 링크) ───
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-
-    // ─── 히어로 패럴랙스 (가벼운 효과) ───
-    const hero = document.getElementById('hero');
-    const heroText = hero.querySelector('.hero__text');
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      if (scrollY < window.innerHeight) {
-        heroText.style.transform = `translateY(${scrollY * 0.12}px)`;
-        heroText.style.opacity = 1 - scrollY / (window.innerHeight * 0.7);
-      }
-    }, { passive: true });
-  </script>
+  <script src="yr.js" defer></script>
 
 </body>
+
 </html>

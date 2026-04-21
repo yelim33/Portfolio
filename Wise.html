@@ -4,9 +4,44 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wise — Fee Transparency UX</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
+  @font-face {
+    font-family: 'SpoqaHanSansNeo';
+    src: url('Font/SpoqaHanSansNeo-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'SpoqaHanSansNeo';
+    src: url('Font/SpoqaHanSansNeo-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'SpoqaHanSansNeo';
+    src: url('Font/SpoqaHanSansNeo-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'SpoqaHanSansNeo';
+    src: url('Font/SpoqaHanSansNeo-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'SpoqaHanSansNeo';
+    src: url('Font/SpoqaHanSansNeo-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root { 
     --bg: #141414;
     --surface: #1e1e1e;
     --card: #252525;
@@ -26,7 +61,7 @@
   body {
     background: var(--bg);
     color: var(--white);
-    font-family: 'spoqa-han-sans-neo', sans-serif;
+    font-family: 'SpoqaHanSansNeo', sans-serif;
     overflow-x: hidden;
   }
 
@@ -63,7 +98,7 @@
   }
 
   .nav-logo {
-    font-family: 'SpoqaHanSansNeo-light', sans-serif;
+    font-family: 'SpoqaHanSansNeo', sans-serif;
     font-weight: 600;
     font-size: 18px;
     letter-spacing: -0.5px;
@@ -95,7 +130,7 @@
     font-weight: 700;
     padding: 5px 12px;
     border-radius: 20px;
-    font-family: 'DM Mono', monospace;
+    font-family: 'SpoqaHanSansNeo', sans-serif;
   }
 
   /* ===== Sections ===== */
