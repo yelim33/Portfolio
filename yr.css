@@ -1371,14 +1371,8 @@ a {
 }
 
 @media (max-width: 768px) {
-  .hero {
-    height: 100vh;
-    overflow: hidden;
-  }
-
   .hero__mockup {
-    flex: 1;
-    min-height: 0;
+    height: 52vh;
     overflow: hidden;
   }
 
@@ -1393,8 +1387,6 @@ a {
   .hero__inner {
     flex-shrink: 0;
     padding: 20px 20px 24px;
-    transform: none;
-    margin-bottom: 0;
   }
 
   .br-mobile {
