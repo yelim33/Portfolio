@@ -152,7 +152,7 @@ img {
   max-width: 100%;
   display: block;
   cursor: zoom-in;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
 }
 
 a {
@@ -1459,12 +1459,20 @@ a {
     gap: 0;
   }
 
+  .container {
+    padding: 0 24px;
+  }
+
   .crazy8-wrapper video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: top;
     margin: 0;
+  }
+
+  .intro-skills {
+    margin-top: 40px !important;
   }
 
   .spacer-80 {
