@@ -1387,6 +1387,7 @@ a {
   .hero__inner {
     flex-shrink: 0;
     padding: 20px 20px 24px;
+    margin-top: -120px;
   }
 
   .br-mobile {
