@@ -1381,7 +1381,8 @@ a {
   }
 
   .hero__inner {
-    padding: 60px 20px 40px;
+    padding: 60px 20px 0;
+    margin-bottom: -40px;
   }
 
   .hero__title {
