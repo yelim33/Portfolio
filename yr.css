@@ -164,7 +164,9 @@ a {
   display: none;
 }
 
-.br-mobile { display: none; }
+.br-mobile {
+  display: none;
+}
 
 .research-desktop {
   display: block;
@@ -886,7 +888,7 @@ a {
   font-weight: 700;
   color: var(--color-text-muted);
   margin-bottom: 10px;
-  line-height: 1.45;
+  line-height: 1.6;
   letter-spacing: -0.02em;
 }
 
@@ -1374,7 +1376,9 @@ a {
     margin-left: calc(-40% - 20px);
   }
 
-  .br-mobile { display: block; }
+  .br-mobile {
+    display: block;
+  }
 
   .section {
     padding: 40px 0 20px 0;
