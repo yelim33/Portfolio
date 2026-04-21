@@ -919,6 +919,7 @@ a {
   line-height: 1.45;
   letter-spacing: -0.02em;
   text-align: center;
+  letter-spacing: 0.12em;
 }
 
 .double-diamond-num {
@@ -941,8 +942,7 @@ a {
 }
 
 .phase-badge,
-.research-card__title,
-.designer-note__title {
+.research-card__title {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -950,6 +950,20 @@ a {
   border-radius: var(--radius-pill);
   background: var(--color-primary);
   color: #fff;
+  font-family: var(--font-en);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  align-items: center;
+}
+
+.designer-note__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 12px;
+  color: var(--color-primary);
   font-family: var(--font-en);
   font-size: 14px;
   font-weight: 700;
@@ -991,7 +1005,7 @@ a {
 }
 
 .designer-note__title {
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   text-align: center;
 }
 
