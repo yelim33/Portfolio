@@ -1371,9 +1371,30 @@ a {
 }
 
 @media (max-width: 768px) {
+  .hero {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .hero__mockup {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
   .hero__mockup-img {
     width: 180%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
     margin-left: calc(-40% - 20px);
+  }
+
+  .hero__inner {
+    flex-shrink: 0;
+    padding: 20px 20px 24px;
+    transform: none;
+    margin-bottom: 0;
   }
 
   .br-mobile {
@@ -1426,12 +1447,6 @@ a {
 
   .navbar__hamburger {
     display: flex;
-  }
-
-  .hero__inner {
-    padding: 0 20px 0;
-    transform: translateY(-80px);
-    margin-bottom: -80px;
   }
 
   .hero__title {
