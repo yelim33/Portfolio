@@ -1381,8 +1381,7 @@ a {
   }
 
   .hero__inner {
-    padding: 60px 20px 0;
-    margin-bottom: -40px;
+    padding: 20px 20px 0;
   }
 
   .hero__title {
@@ -1493,10 +1492,15 @@ a {
   }
 }
 
-.rotating-gap { display: none; }
+.rotating-gap {
+  display: none;
+}
 
 @media (max-width: 768px) {
-  .rotating-gap { display: block; height: 4px; }
+  .rotating-gap {
+    display: block;
+    height: 12px;
+  }
 }
 
 @media (max-width: 480px) {
