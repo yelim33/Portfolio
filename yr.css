@@ -1440,7 +1440,7 @@ a {
   }
 
   .cite-grid {
-    gap: 12px;
+    gap: 0;
   }
 
   .spacer-80 {
@@ -1574,10 +1574,6 @@ a {
 
   .takeaway-grid {
     grid-template-columns: 1fr;
-    padding: 0;
-  }
-
-  .takeaway-card {
     padding: 0;
   }
 }
