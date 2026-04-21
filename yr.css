@@ -1524,10 +1524,10 @@ a {
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     gap: 2px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 400;
     color: var(--color-text-light);
     list-style: none;
     padding: 10px 0;
