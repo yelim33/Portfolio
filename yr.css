@@ -1363,6 +1363,11 @@ a {
 }
 
 @media (max-width: 768px) {
+  .hero__mockup-img {
+    width: 180%;
+    margin-left: calc(-40% - 20px);
+  }
+
   .section {
     padding: 70px 0;
   }
