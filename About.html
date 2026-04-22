@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="portfolio">
+
+<head>
+    <link rel="stylesheet" href="yr.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/Portfolio/Temi_Image/logo.png" type="image/png">
+    <title>Yerim Shin — Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            font-family: var(--font-ko);
+            -webkit-font-smoothing: antialiased;
+            overflow: hidden;
+        }
+
+        .layout {
+            position: fixed;
+            top: 48px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tube-section {
+            flex: 0 0 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        #tubeCanvas {
+            display: block;
+            width: 340px;
+            height: 260px;
+            align-items: center;
+
+        }
+
+        .gallery-section {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1400px;
+            perspective-origin: 50% 50%;
+            overflow: hidden;
+            cursor: grab;
+            padding-bottom: 24px;
+        }
+
+        .rig {
+            transform-style: preserve-3d;
+            width: 0;
+            height: 0;
+            position: relative;
+            scale: clamp(0.65, calc(100vw / 1231px), 2.6);
+        }
+
+        .card {
+            position: absolute;
+            width: 330px;
+            height: 210px;
+            margin-left: -165px;
+            margin-top: -105px;
+            overflow: hidden;
+            border-radius: var(--radius-sm);
+            outline: 1px solid rgba(0, 0, 0, 0.1);
+            outline-offset: -1px;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            z-index: 100;
+            pointer-events: none;
+            border-radius: var(--radius-sm);
+        }
+
+        .card.back-facing::after {
+            opacity: 1;
+        }
+
+        .card.back-facing .card-face {
+            opacity: 0.6;
+            transform: scaleX(-1);
+            transition: opacity 0.25s ease, transform 0s;
+        }
+
+        /* 호버 시 뒷면이라도 원본 색상 복원 */
+        .card:hover::after {
+            opacity: 0 !important;
+        }
+
+        .card:hover .card-face {
+            opacity: 1 !important;
+        }
+
+        .card.back-facing:hover .card-face {
+            transform: scaleX(-1);
+        }
+
+        .card-face {
+            display: block;
+            position: absolute;
+            inset: 0;
+            border-radius: 3px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #arrowLeft {
+            position: absolute;
+            left: 24px;
+            top: calc(50% - 12px);
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        #arrowRight {
+            position: absolute;
+            right: 24px;
+            top: calc(50% - 12px);
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .gallery-arrow {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            opacity: 0.7;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.18s;
+            user-select: none;
+        }
+
+        .gallery-arrow:hover {
+            background: #e0e0e0;
+        }
+
+        .gallery-arrow:active {
+            background: #d0d0d0;
+        }
+
+        .gallery-arrow svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* yr.css img { cursor: zoom-in } 덮어쓰기 — 카드 갤러리 */
+        .card img {
+            cursor: inherit;
+        }
+
+        /* === Card image fill & overlay === */
+        .card-img-fill {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .card-gradient-bg-temi {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgb(246, 239, 255, 1) 0%, rgb(255, 236, 208, 0.2) 100%);
+            border-radius: 3px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card-gradient-bg-wise {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgb(245, 253, 244, 0.8) 40%, rgb(136, 235, 124, 0.4) 70%, rgb(245, 253, 244, 0.8) 90%);
+            border-radius: 3px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card-gradient-bg-persoAI {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(89, 125, 255, 0.3) 0%, rgba(158, 140, 243, 0.3) 20%, rgba(161, 167, 255, 0.1) 80%);
+            border-radius: 3px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card-text-block {
+            position: absolute;
+            align-items: flex-start;
+            justify-content: flex-end;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            padding: 10px 14px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .card-text-block h1 {
+            color: var(--color-text-primary);
+            line-height: 1.15;
+            font-family: SpoqaHanSansNeo, sans-serif;
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .card-text-block p {
+            color: var(--color-text-primary);
+            font-size: 8px;
+            font-weight: 500;
+            margin: 0;
+            font-family: SpoqaHanSansNeo, sans-serif;
+        }
+
+        /* === Custom "See" cursor === */
+        .card-see-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: rgba(10, 10, 10, 0.82);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+
+        .card-see-cursor.active {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .card-bubble {
+            position: absolute;
+            bottom: calc(100% + 14px);
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            background: rgba(10, 10, 10, 0.82);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            padding: 6px 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.18s ease, transform 0.18s ease;
+        }
+
+        .card-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: rgba(10, 10, 10, 0.82);
+        }
+
+        .card-see-cursor.active .card-bubble {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* === Card hover selection response === */
+        .card {
+            transition: filter 0.22s ease;
+        }
+
+        .card-face {
+            transition: opacity 0.22s ease;
+        }
+
+        .card-face:hover {
+            cursor: none !important;
+        }
+
+        /* === 뷰 토글 버튼 === */
+        .view-toggle {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2px;
+            background: rgba(240, 240, 240, 0.9);
+            border-radius: 20px;
+            padding: 3px;
+            z-index: 20;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .view-toggle-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            border: none;
+            background: transparent;
+            color: #999;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .view-toggle-btn.active {
+            background: #fff;
+            color: #222;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .view-toggle-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* === 그리드 뷰 === */
+        .grid-view {
+            display: none;
+            flex-direction: row;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0 40px;
+            box-sizing: border-box;
+        }
+
+        .grid-view.active {
+            display: flex;
+        }
+
+        .grid-card {
+            flex: 1;
+            aspect-ratio: 330 / 210;
+            border-radius: var(--radius-sm);
+            outline: 1px solid rgba(0, 0, 0, 0.1);
+            outline-offset: -1px;
+            overflow: hidden;
+            position: relative;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+            transition: filter 0.22s ease;
+        }
+
+        /* 다른 카드 흑백 처리 */
+        .gallery-section:has(.card-face:hover) .card:not(:hover) {
+            filter: grayscale(1) brightness(0.9) contrast(0.1) blur(1px) opacity(20%);
+        }
+
+        .grid-view:has(.grid-card:hover) .grid-card:not(:hover) {
+            filter: grayscale(1) brightness(0.9) contrast(0.1) blur(1px) opacity(20%);
+        }
+
+        /* === 인트로 블록 === */
+        .intro-block {
+            flex: 0 0 150px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .intro-block__text {
+            text-align: left;
+        }
+
+        /* 모바일 카드 그리드 (기본 숨김) */
+        .mobile-cards {
+            display: none;
+        }
+
+        #site-footer {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+
+            html,
+            body {
+                overflow: auto;
+            }
+
+            .intro-block {
+                flex-direction: column;
+                gap: 24px;
+                padding: 12px 0;
+            }
+
+            .intro-block__text {
+                text-align: center;
+            }
+
+            #arrowLeft,
+            #arrowRight {
+                display: none;
+            }
+
+            #site-footer {
+                display: block;
+            }
+
+            .layout {
+                position: static;
+                height: auto;
+                padding-top: 80px;
+            }
+
+            .gallery-section {
+                display: none;
+            }
+
+            .rotating-edu {
+                align-items: center;
+            }
+
+            .mobile-cards {
+                display: flex;
+                flex-direction: column;
+                gap: 32px;
+                padding: 56px 24px 48px;
+            }
+
+            .mobile-card {
+                display: block;
+                flex: 1;
+                aspect-ratio: 330 / 210;
+                border-radius: 3px;
+                text-decoration: none;
+                overflow: hidden;
+                border-radius: var(--radius-sm);
+
+            }
+
+            .mobile-card>div {
+                overflow: hidden;
+            }
+        }
+    </style>
+</head>
+<!-- ==================== 네비게이션 ==================== -->
+<nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+        <a href="index.html" class="navbar__logo"><img src="Temi_Image/logo.png"
+                style="width: 20px; height: 20px;">Yerim Shin</a>
+        <ul class="navbar__links">
+            <li style="display:none;"><a href="#">English</a></li>
+            <li class="navbar__dropdown">
+                <a href="#">Projects</a>
+                <div class="navbar__dropdown-menu">
+                    <a href="Temi.html">Temi</a>
+                    <a href="Wise.html">Wise</a>
+                    <a href="PersoAI.html">Perso.AI</a>
+                </div>
+            </li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Index_Image/resume.pdf" target="_blank">Resume</a></li>
+        </ul>
+        <div class="navbar__hamburger" id="hamburger" aria-label="메뉴 열기" role="button" tabindex="0">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div class="navbar__mobile-menu" id="mobileMenu">
+        <a href="#" style="display:none;">English</a>
+        <div class="mobile-projects-row" id="mobileProjectsRow">
+            Projects <span class="mobile-projects-arrow">+</span>
+        </div>
+        <div class="mobile-projects-submenu" id="mobileProjectsSubmenu">
+            <a href="Temi.html">Temi</a>
+            <a href="Wise.html">Wise</a>
+            <a href="PersoAI.html">Perso.AI</a>
+        </div>
+        <a href="About.html">About</a>
+        <a href="Index_Image/resume.pdf" target="_blank">Resume</a>
+    </div>
+</nav>

@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="perso">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perso.AI — AI 아바타 영상 제작 에이전트 | Yerim Shin</title>
+    <link rel="icon" href="Temi_Image/logo.png" type="image/png">
+    <link rel="stylesheet" href="yr.css">
+</head>
+
+<body>
+
+    <!-- ==================== 네비게이션 ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar__inner">
+            <a href="index.html" class="navbar__logo"><img src="Temi_Image/logo.png"
+                    style="width: 20px; height: 20px;">Yerim
+                Shin</a>
+            <ul class="navbar__links">
+                <li style="display:none;"><a href="#">English</a></li>
+                <li class="navbar__dropdown">
+                    <a href="#">Projects</a>
+                    <div class="navbar__dropdown-menu">
+                        <a href="Temi.html">Temi</a>
+                        <a href="Wise.html">Wise</a>
+                        <a href="PersoAI.html">Perso.AI</a>
+                    </div>
+                </li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="Index_Image/resume.pdf" target="_blank">Resume</a></li>
+            </ul>
+            <div class="navbar__hamburger" id="hamburger" aria-label="메뉴 열기" role="button" tabindex="0">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="navbar__mobile-menu" id="mobileMenu">
+            <a href="#" style="display:none;">English</a>
+            <div class="mobile-projects-row" id="mobileProjectsRow">
+                Projects <span class="mobile-projects-arrow">+</span>
+            </div>
+            <div class="mobile-projects-submenu" id="mobileProjectsSubmenu">
+                <a href="Temi.html">Temi</a>
+                <a href="Wise.html">Wise</a>
+                <a href="PersoAI.html">Perso.AI</a>
+            </div>
+            <a href="About.html">About</a>
+            <a href="Index_Image/resume.pdf" target="_blank">Resume</a>
+        </div>
+    </nav>
+
+    <!-- ==================== 히어로 ==================== -->
+    <section class="hero" data-theme="perso" id="hero">
+        <!-- 전체 배경 이미지 -->
+        <div class="hero__mockup">
+            <img src="PersoAI_Image/Perso_hero.png" alt="Perso.AI App Mockup" class="hero__mockup-img"
+                style="scale: 1.35;">
+        </div>
+        <div class="hero__inner">
+            <!-- 텍스트 -->
+            <div class="hero__text">
+                <span class="hero__eyebrow">Case Study</span>
+                <h1 class="hero__title">Perso.AI</h1>
+                <p class="hero__subtitle">AI 아바타 영상 제작 에이전트</p>
+                <p class="hero__desc">
+                    커스텀 아바타 제작 기능을 설계하여 개인화된 <br>영상 제작을 위한 AI 에이전트를 설계했습니다.
+                </p>
+                <div class="hero__tags">
+                    <span class="tag">App</span>
+                    <span class="tag">SaaS</span>
+                    <span class="tag">AI agent</span>
+                    <span class="tag">Voice AI</span>
+                </div>
+                <a href="https://www.figma.com/proto/2CYQGFYAhGlGaDKF1by90Q/Temi_Prototype?node-id=1804-19698&viewport=-26290%2C-20553%2C0.35&t=Z4gdeO0sPFUJzBOe-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1804%3A19698&show-proto-sidebar=1&page-id=993%3A28292"
+                    class="btn-primary" target="_blank" rel="noopener noreferrer">디자인 파일 보기 →</a>
+            </div>
+        </div>
+        <!-- 스크롤 다운 표시 -->
+        <div class="scroll-indicator"
+            onclick="document.getElementById('project-info').scrollIntoView({behavior:'smooth'})">
+            <span class="scroll-indicator__text">Scroll Down</span>
+            <div class="scroll-indicator__line"></div>
+        </div>
+    </section>
+
+    <!-- ==================== 프로젝트 정보 ==================== -->
+    <div id="project-info">
+        <div class="project-info container">
+            <div class="project-info__grid">
+                <div class="info-item">
+                    <div class="info-item__label">Platform</div>
+                    <div class="info-item__value">App</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item__label">Project Type</div>
+                    <div class="info-item__value">Team project<span>2 Designers</span></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item__label">My Role</div>
+                    <div class="info-item__value">
+                        Research<span>User Interview</span>
+                        <span>Design System</span>
+                        <span>Prototyping</span>
+                        <span>Visual Design</span>
+                        <span>Usability Testing</span>
+                    </div>
+                </div>
+                <div class="info-item-group">
+                    <div class="info-item">
+                        <div class="info-item__label">Duration</div>
+                        <div class="info-item__value">8 weeks</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item__label">Tools</div>
+                        <div class="info-item__value">
+                            Figma<span>Figjam</span><span>Google form</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 프로젝트 컨셉 ==================== -->
+    <section class="section project-concept">
+        <div class="container">
+            <span class="label label--gray" style="display:block; text-align:center;">Project Concept</span>
+            <div class="concept-grid" style="margin-top: 16px;">
+                <div class="concept-box">
+                    <div class="label">Keyword</div>
+                    <div class="concept-box__row">
+                        <span class="concept-text"><strong>AI 추천 · 자동화</strong></span>
+                    </div>
+                    <div class="concept-box__row">
+                        <span class="concept-text"><strong>AI 기반 홈 IoT 원격 제어</strong></span>
+                    </div>
+                </div>
+                <div class="concept-box">
+                    <div class="label">Main Feature</div>
+                    <div class="concept-box__row">
+                        <span class="concept-text">환자 상태를 인식하여 IoT로 케어 추천</span>
+                    </div>
+                    <div class="concept-box__row">
+                        <span class="concept-text">원격으로 환자 케어용 IoT 실행</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 프로젝트 레이셔널 ==================== -->
+    <div class="rationale__avatar"><img src="persoAI_Image/perso_logo.png" alt="avatar"></div>
+    <section class="project-rationale">
+        <div class="container">
+            <div class="rationale__inner">
+                <span class="label" style="margin-bottom:4px; color:var(--color-primary)">Project Rationale</span>
+            </div>
+            <div style="text-align: center;">
+                <h2 class="rationale__question">개인화된 AI 아바타를 제작하고 활용하는 통합 스튜디오</h2>
+                <p class="rationale__desc">
+                    AI 아바타와 AI 더빙 기능은 기업과 개인 창작자가 효율적이고 일관성 있는 영상을 생성할 수 있도록 돕지만, 제한적인 표현과 세부 설정은 제품의 활용성을 낮춥니다. 특히 해외
+                    가입자 비중이 높은 글로벌 서비스임에도, 개인 창작자를 위한 개인화된 기능은 B2B에 한정되어 있어 실제 수요를 충족하지 못하고 있습니다. 개인화된 아바타 설정이 가능하다면 더욱
+                    자연스럽고 활용성 높은 작업이 가능할 것이라 생각했습니다.
+                </p>
+            </div>
+        </div>
+        <div class="rationale-spacer" style="margin: 0 0 80px 0;"></div>
+    </section>
+
+    <!-- ==================== DISCOVER 페이즈 ==================== -->
+    <div class="double-diamond-title">
+        DISCOVER
+    </div>
+
+    <!-- 논문 리서치 -->
+    <section class="section">
+        <div class="container">
+            <span class="label label--gray">Literature Review</span>
+            <h2 class="section-title">AI 에이전트로서 기업의 방향성과 기술력 조사</h2>
+            <p class="section-desc">
+                이스트소프트의 「2025 기술분석보고서」와 Perso.AI를 분석해
+                기업의 방향성과 포지션, 핵심 기술 영역, 현재 기술 수준을 정리했습니다.
+            </p>
+
+            <div class="grid-3">
+                <div class="research-card">
+                    <div class="label">
+                        <span>2025 기술분석보고서</span>
+                    </div>
+                    <p style="font-weight: 700; margin-bottom: 10px;">글로벌 시장 진출 본격화</p>
+                    <div class="research-card__body">
+                        2025년 기준 Perso.AI의 해외 가입자 비중이 70%에 달하며, 동사는 향후 AI 서비스의 유료화를 통해 수익성을 개선할 계획이었습니다. </div>
+                    <div class="research-card__cite">Huang et al.(2023)</div>
+                </div>
+                <div class="research-card">
+                    <div class="label">
+                        <span>2025 기술분석보고서</span>
+                    </div>
+                    <p style="font-weight: 700; margin-bottom: 10px;">홈IoT의 가능성</p>
+                    <div class="research-card__body">
+                        홈IoT 센서²를 활용한 스마트 홈이 치매 환자가 오랫동안 집에서 안전하게
+                        생활하게 도움
+                    </div>
+                    <div class="research-card__cite">Tiersen et al.(2021)</div>
+                </div>
+                <div class="research-card">
+                    <div class="label">
+                        <span>2025 기술분석보고서</span>
+                    </div>
+                    <p style="font-weight: 700; margin-bottom: 10px;">기기와의 상호작용</p>
+                    <div class="research-card__body">
+                        더 나은 AI 노인 돌봄 서비스를 위해 기기와의 상호작용과 데이터에 대한 충분한 설명 필요
+                    </div>
+                    <div class="research-card__cite">임정원 et al.(2023)</div>
+                </div>
+            </div>
+            <div class="grid-3 cite-grid">
+                <div class="research-card__cite"
+                    style="font-style:normal; font-size:12px; color:var(--color-text-tertiary);padding:0px 16px; padding-left:28px; text-indent:-10px;">
+                    ¹ 치매 환자가 혼란스러워할 때 논리적으로 대응하지 않고 부드럽게 화제를 바꾸는 소통 기법
+                </div>
+                <div class="research-card__cite"
+                    style="font-style:normal; font-size:12px; color:var(--color-text-tertiary);padding:0px 16px; padding-left:28px; text-indent:-10px;">
+                    ² 인지적, 행동적, 생체적 지표 활용
+                </div>
+            </div>
+
+            <!-- 논문 분석 이미지 -->
+            <img src="Temi_Image/Literature Review.png" alt="논문 분석 정리본"
+                style="width:100%; height:auto; margin-bottom:12px;margin-top:20px;">
+            <p class="img-caption">6개 논문 분석 정리본</p>
+            <div class="designer-note">
+                <div><span class="label">🗒️ &nbsp;Designer's Note</span></div>
+                <div class="designer-note__body">
+                    <p>Q. 앞서 확인한 돌봄 모델과 기술 활용가능성이 일반적인 국내 치매 가족에게도 적용될 수 있을까?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 서베이 -->
+    <section class="section section--gray">
+        <div class="container">
+            <span class="label label--gray">Survey</span>
+            <h2 class="section-title">서베이를 통해 국내 치매 <br class="br-mobile">돌봄의 문제점 도출</h2>
+            <p class="section-desc">
+                우리는 국내의 치매 돌봄에 대해 알아보고자 주 보호자 16명을 대상으로 설문조사를 진행했습니다.
+                치매 돌봄이 대체로 가정 내에서 가족 구성원끼리만 이루어지며, 이러한 <span>가정에 집중된 돌봄 구조가 치매 모니터링에 사각지대를 만든다는 것을 알려주었습니다.</span>
+            </p>
+            <div style="display: none;">
+                <div class="grid-2" style="margin-bottom:24px;">
+                    <div>
+                        <img src="Temi_Image/survey1.png" alt="돌봄 공간 그래프"
+                            style="width:100%; height:auto;border: 1px solid var(--color-border);">
+                        <p class="img-caption">돌봄 공간 그래프</p>
+                    </div>
+                    <div>
+                        <img src="Temi_Image/survey2.png" alt="환자와 보내는 시간 그래프"
+                            style="width:100%; height;border: 1px solid var(--color-border);">
+                        <p class="img-caption">환자와 보내는 시간 그래프</p>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-bottom:40px; gap:16px;">
+                    <div class="insight-card">
+                        <div class="insight-card__icon">💡</div>
+                        <div class="insight-card__content">
+                            <div class="insight-card__title">치매 환자 돌봄이 주로 가정 내에서만 이루어졌습니다.</div>
+                            <div class="insight-card__text">공동 보호자가 있는 경우도 대부분 가족 구성원이었습니다.</div>
+                        </div>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-card__icon">💡</div>
+                        <div class="insight-card__content">
+                            <div class="insight-card__title">환자와 보내는 시간이 적은 주 보호자가 환자의 상태 변화를 계속 살피기에 어려움이 있었습니다.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-3">
+                <div class="research-card">
+                    <div class="label">
+                        <span>Insight 1</span>
+                    </div>
+                    <p style="font: size 18px; font-weight: 700; margin-bottom: 10px;">중증도에 따른 발생</p>
+                    <div class="research-card__body">
+                        치매의 중증도가 올라갈수록(중등도 이상 치매 약 80%)
+                        일몰증후군 증상이 나타나는 경향을 보입니다. </div>
+                </div>
+                <div class="research-card">
+                    <div class="label">
+                        <span>Insight 2</span>
+                    </div>
+                    <p style="font: size 18px; font-weight: 700; margin-bottom: 10px;">모니터링 시간 부족</p>
+                    <div class="research-card__body">
+                        보호자의 75%가 수면시간을 포함해 12시간 이하를 환자와 보내기에 충분한 모니터링이 어려운 시간대가 존재합니다.
+                    </div>
+                </div>
+                <div class="research-card">
+                    <div class="label">
+                        <span>Insight 3</span>
+                    </div>
+                    <p style="font: size 18px; font-weight: 700; margin-bottom: 10px;">가정 내 돌봄의 어려움</p>
+                    <div class="research-card__body">
+                        치매 환자 돌봄이 주로 가정 내에서만 이루어졌으며, 보호자는 환자를 달래는 과정과 독박 돌봄에 스트레스를 받습니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="research-card" style="text-align: center; margin: clamp(20px, 2.6vw, 40px) 0;">
+                <div class="label" style="text-align: center;">
+                    <span>hypothesis</span>
+                </div>
+                <p style="font: size 18px; font-weight: 700; margin-bottom: 10px; padding-top:10px;">“ 홈IoT 기술을 활용하면
+                    일몰증후군에 <br class="br-mobile">대한
+                    원격
+                    모니터링과 돌봄이 가능할 것이며, 돌봄 부담을 줄일 수 있을 것이다 ”</p>
+            </div>
+
+            <!-- 서베이 전체 이미지 -->
+            <img src="Temi_Image/survey_whole.png" alt="전체 서베이 분석 정리" style="width:100%; height:auto;">
+            <p class="img-caption">전체 서베이 분석 정리</p>
+
+            <div class="designer-note">
+                <div><span class="label">🗒️ &nbsp;Designer's Note</span></div>
+                <div class="designer-note__body">
+                    <p>환자와 보내는 시간이 부족한 보호자를 원격 지원 기술이 도와줄 수 있을 거라 가설을 세우고 질적 연구를 이어가자.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 심층 인터뷰 -->
+    <section class="section">
+        <div class="container">
+            <span class="label label--gray">2-1 In-Depth User Interview</span>
+            <div class="interview-header"
+                style="display:grid; grid-template-columns:1fr auto; gap:20px; align-items:start; margin-top:16px;">
+                <div>
+                    <h2 class="section-title">심층 인터뷰로 드러난<br class="br-mobile"> 보호자 부담과 기술 회의</h2>
+                    <p class="section-desc" style="margin-bottom: clamp(24px, calc(6.594vw - 26.73px), 100px);">
+                        우리는 서베이 응답자 중 5명을 대상으로, 반구조화 2대1 심층 인터뷰를 진행했습니다.
+                        주요 질문과 보조 질문을 나누어 구성한 유연한 진행으로 보호자가 겪는 어려움과
+                        IoT 기술에 대해 보다 솔직한 생각을 듣고자 했습니다. <span>보호자들은 돌봄을 도와줄 기술을 원하면서도 기술이 충분히 효과적일지에 대해서는 회의적인 태도를
+                            보였습니다.</span>
+                    </p>
+                </div>
+                <div class="interview-photo"
+                    style="width:280px; height:182px; margin-left:auto; display:flex; justify-content:flex-end;">
+                    <img src="Temi_Image/interview_yerim.png" alt="인터뷰 현장 사진"
+                        style="width:80%; height:80%; object-fit:cover; object-position:top; border-radius:var(--radius-sm);">
+                </div>
+            </div>
+
+            <!-- 데스크톱: 그리드 레이아웃 -->
+            <div class="research-desktop">
+                <h3 class="section-title matrix-title"
+                    style="font-size: 18px; text-align: center; color: var(--color-text-secondary);font-weight: 500; margin-bottom: 24px;font-style: italic;">
+                    다음과 같은 순서로 인터뷰를 진행했습니다.</h3>
+                <div class="grid-3">
+                    <div>
+                        <div
+                            style="width:100%; aspect-ratio:4/3; overflow:hidden; border-radius:var(--radius-md); margin-bottom:10px; outline:1px solid var(--color-border);">
+                            <img src="Temi_Image/interview_protocol.png" alt="인터뷰 프로토콜"
+                                style="width:100%; height:100%; object-fit:cover; object-position:top; scale:1.1;">
+                        </div>
+                        <p class="img-caption">1. 인터뷰 프로토콜</p>
+                    </div>
+                    <div>
+                        <div style="width:100%; aspect-ratio:4/3; overflow:hidden; margin-bottom:10px;">
+                            <img src="Temi_Image/interview_memo.png" alt="인터뷰 질문지 & 진행 시 메모"
+                                style="width:100%; height:100%; object-fit:cover; object-position:top;border: 1px solid var(--color-border);">
+                        </div>
+                        <p class="img-caption">2. 인터뷰 질문지 &amp; 진행 시 메모</p>
+                    </div>
+                    <div>
+                        <div style="width:100%; aspect-ratio:4/3; overflow:hidden;margin-bottom:10px;">
+                            <img src="Temi_Image/interview_color.png" alt="인터뷰 컬러 분석"
+                                style="width:100%; height:100%; object-fit:cover; object-position:top;border: 1px solid var(--color-border);">
+                        </div>
+                        <p class="img-caption">3. 인터뷰 컬러 코딩</p>
+                    </div>
+                </div>
+                <h3 class="section-title matrix-title"
+                    style="font-size: 18px; margin-top: 100px; text-align: center; color: var(--color-text-secondary);font-weight: 500; margin-bottom: 24px;font-style: italic;">
+                    인터뷰를 정성 분석하고 인사이트를 도출했습니다.</h3>
+                <div class="research-card" style="text-align: center; margin: 0 0 clamp(20px, 2.6vw, 40px) 0;">
+                    <div class="label" style="text-align: center;">
+                        <span>insight - why</span>
+                    </div>
+                    <p style="font: size 18px; font-weight: 700; margin-bottom: 10px; padding-top:10px;">기존 IoT 기술은 단순히
+                        기술만 제공하고
+                        정서적인 보살핌과 <br class="br-desktop"> 환자 개인에 맞춘 돌봄이 없었기에 보호자에게 믿음을 주지 못했습니다.
+                    </p>
+                </div>
+                <div style="display:flex; flex-direction:column; align-items:center; margin-bottom:10px;">
+                    <img src="Temi_Image/interview_ qualitative.png" alt="인터뷰 정성 분석"
+                        style="display:block; width:60%; object-fit:cover; object-position:top;margin-bottom:10px;">
+                    <p class="img-caption" style="width:60%;">인터뷰 정성 분석</p>
+                </div>
+
+                <div class="designer-note">
+                    <div><span class="label">🗒️ &nbsp;Designer's Note</span></div>
+                    <div class="designer-note__body">
+                        <p>기술을 그대로 쓰기보다, 보호자의 부담을 줄이는 방향으로 문제를 다시 정의해보자.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 모바일: 정성분석 먼저, 나머지는 토글 -->
+            <div class="research-card research-mobile"
+                style="text-align: center; margin: 0 0 clamp(20px, 2.6vw, 40px) 0; margin-top: 28px;">
+                <div class="label" style="text-align: center;">
+                    <span>insight - why</span>
+                </div>
+                <p style="font: size 18px; font-weight: 700; margin-bottom: 10px; padding-top:10px;">기존 IoT 기술은 단순히 기술만
+                    제공하고
+                    정서적인 보살핌과 환자 개인에 맞춘 돌봄이 없었기에 보호자에게 믿음을 주지 못했습니다.
+                </p>
+            </div>
+            <div class="research-mobile">
+                <div style="margin-top:40px;">
+                    <img src="Temi_Image/interview_ qualitative.png" alt="인터뷰 정성 분석"
+                        style="width:100%; height:auto; border-radius:var(--radius-sm); margin-bottom:10px;">
+                    <p class="img-caption">인터뷰 정성 분석</p>
+                </div>
+                <details class="research-docs" style="margin-top:0px;">
+                    <summary class="research-docs__summary">Research Documentation 보기</summary>
+                    <div class="research-docs__content">
+                        <div>
+                            <img src="Temi_Image/interview_protocol.png" alt="인터뷰 프로토콜"
+                                style="width:100%; height:auto; margin-bottom:10px;">
+                            <p class="img-caption">인터뷰 프로토콜</p>
+                        </div>
+                        <div>
+                            <img src="Temi_Image/interview_memo.png" alt="인터뷰 질문지 & 진행 시 메모"
+                                style="width:100%; height:auto; margin-bottom:10px;">
+                            <p class="img-caption">인터뷰 질문지 &amp; 진행 시 메모</p>
+                        </div>
+                        <div>
+                            <img src="Temi_Image/interview_color.png" alt="인터뷰 컬러 분석"
+                                style="width:100%; height:auto; margin-bottom:10px;">
+                            <p class="img-caption">인터뷰 컬러 코딩</p>
+                        </div>
+                    </div>
+                </details>
+                <div class="designer-note">
+                    <div><span class="label">🗒️ &nbsp;Designer's Note</span></div>
+                    <div class="designer-note__body">
+                        <p>기술을 그대로 쓰기보다, 보호자의 부담을 줄이는 방향으로 문제를 다시 정의해보자.</p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- ==================== DEFINE 페이즈 ==================== -->
+    <div class="double-diamond-title">
+        DEFINE
+    </div>
+
+    <!-- 퍼소나 -->
+    <section class="section">
+        <div class="container">
+            <span class="label label--gray">Persona</span>
+            <h2 class="section-title">치매 부모님를 가정 돌봄하는 <br class="br-mobile">50대 직장인 보호자</h2>
+            <p class="section-desc">
+                우리는 앞선 서베이와 인터뷰에서 드러난 환자 모니터링의 어려움에 주목해 퍼소나를 설정했습니다.
+                이 과정에서 <span>환자와 떨어져 있기에 긴급 상황에 적절히 대응하기 어려운 점</span>과 환자를 달래는
+                과정에서 생기는 보호자의 정서적 스트레스를 핵심 문제로 보고 보호자의 행동과 생각을 정리했습니다.
+            </p>
+
+            <div>
+                <img src="Temi_Image/persona.png" alt="퍼소나 프로필"
+                    style="width: 100%; height: auto; border-radius: var(--radius-md);">
+                <p class="img-caption">퍼소나 프로필</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HMW -->
+    <div class="section hmw-section">
+        <section>
+            <div class="container">
+                <span class="label">HMW & Scenario</span>
+                <h2 class="section-title">핵심 HMW를 정하고 <br class="br-mobile">문제상황과 솔루션 방식을 설정</h2>
+                <div style="display: flex; justify-content:center;">
+                    <p class="section-desc" style="text-align: center; justify-content:center;">
+                        유저저니맵에서 파악한 유저의 페인포인트를 해결하기 위한 최선의 질문을 찾기 위해 다양한 아이디어를 떠올렸습니다.
+                        팀원과의 논의를 통해 “어떻게 하면 원격으로 환자의 증상을 완화시킬 수 있을까?”를 최종 질문으로 선정하였습니다. 그후, <span>보호자가 생계로 인해
+                            부재한 상황에서 치매 환자의 일몰증후군 증상을 원격 대응하여 해결하는 시나리오</span>를 작성했습니다.
+                    </p>
+                </div>
+                <div class=" container">
+                    <span class="label"
+                        style="text-align:center; justify-contnet:center; display:block; margin-bottom:20px;">How
+                        Might We?</span>
+                    <p class="hmw-quote">&nbsp;&nbsp;어떻게 하면 원격으로 환자의 증상을 <br class="br-mobile">완화시킬 수 있을까?&nbsp;&nbsp;
+                    </p>
+                </div>
+                <div style="height: 40px;"></div>
+                <img src="Temi_Image/Scenario.png" alt="시나리오" style="width: 100%; height: auto;">
+                <p class="img-caption">시나리오</p>
+
+            </div>
+        </section>
+    </div>
+    <div class="spacer-80" style="margin: 0 0 80px 0;"></div>
+
+
+
+
+
+    <!-- ==================== DEVELOP 페이즈 ==================== -->
+    <div class="double-diamond-title">
+        DEVELOP
+    </div>
+
+
+    <!-- Feasibility / MVP -->
+    <section class="section section--gray">
+        <div class="container">
+            <span class="label label--gray">Technical Research &amp; Feasibility</span>
+            <h2 class="section-title">홈IoT 기술을 조사하고<br class="br-mobile"> 프로덕트의 기능 아이데이션</h2>
+            <p class="section-desc">
+                치매 증상을 원격으로 대응하기 위해 기존 홈IoT 프로덕트인 스마트싱스, 알렉사, 구글 홈 등의 UI를 분석하고, 기술과 작동 시스템을 조사했습니다. 팀원과 함께 기능에 대한 아이디어를
+                도출한 후,
+                종류에 따라 <span>AI 보이스, 자동대응, 루틴화, 전환적 대응, 모니터링 및 알림</span>의 총 6개의 카테고리로 분류했습니다.
+            </p>
+            <div class="grid-2" style="margin-bottom:40px;">
+                <div>
+                    <div class="img-frame img-frame--200">
+                        <img src="Temi_Image/iot_refer.png" alt="홈 IoT 기기 레퍼런스" class="img-fill"
+                            style="border: 1px solid var(--color-border);">
+                    </div>
+                    <p class="img-caption">홈 IoT 기기 레퍼런스</p>
+                </div>
+                <div>
+                    <div class="img-frame img-frame--200">
+                        <img src="Temi_Image/IA_refer.png" alt="레퍼런스 화면 분석" class="img-fill"
+                            style="border: 1px solid var(--color-border);">
+                    </div>
+                    <p class="img-caption">레퍼런스 화면 분석</p>
+                </div>
+            </div>
+            <img src="Temi_Image/feature.png" alt="기능 아이데이션">
+            <p class="img-caption">기능 아이데이션</p>
+            <div class="spacer-mobile"></div>
+
+            <h3 class="section-title matrix-title" style="font-size:22px; margin-top:120px;">
+                Impact &amp; Effort Matrix와 MVP 선정
+            </h3>
+            <p class="section-desc">
+                핵심기능을 정하기 위해 두번의 2X2 매트릭스로 기능을 줄여나갔습니다. 최종적으로
+                Do now에 남은 기능을 분석하여 MVP를 선정한 후 <span>알림 설정 →
+                    증상 감지 → 긴급 대응 → 결과 기록</span> 순으로 기능을 배치했습니다.이 과정에서 mvp 흐름을 자연스럽게 완성하기 위해, Do now가 아니더라도 일부 기능을 제외하거나
+                추가로
+                포함했습니다.
+            </p>
+            <div class="research-card" style="text-align: center; margin: 0 0 clamp(20px, 2.6vw, 40px) 0;">
+                <div class="label" style="text-align: center;">
+                    <span>MVP</span>
+                </div>
+                <p style="font: size 18px; font-weight: 700; margin-bottom: 10px; padding-top:10px;">홈 IoT가 환자의 일몰증후군
+                    증상을 감지하고
+                    보호자에게 알리면,<br class="br-desktop"> 보호자는 원격으로 대응을 실행하고 상황 종료 후 리포트를 확인한다.
+                </p>
+            </div>
+            <div class="spacer-mobile-4"></div>
+            <div class="grid-3">
+                <div>
+                    <img src="Temi_Image/1st_matrix.png" alt="1차 2x2 매트릭스">
+                    <p class="img-caption">인터뷰 프로토콜</p>
+                </div>
+                <div>
+                    <img src="Temi_Image/2nd_matrix.png" alt="2차 2x2 매트릭스">
+                    <p class="img-caption">인터뷰 질문지 &amp; 진행 시 메모</p>
+                </div>
+                <div>
+                    <img src="Temi_Image/mvp_flow.png" alt="MVP 흐름 정리">
+                    <p class="img-caption">인터뷰 질문지 &amp; 진행 시 메모</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 기술 리서치 -->
+    <section class="section">
+        <div class="container">
+            <span class="label label--gray">Brainstorming</span>
+            <h2 class="section-title">Temi: 일몰증후군 원격 대응 프로덕트 & 이동형 홈IoT 허브</h2>
+            <p class="section-desc">
+                우리는 효과적인 원격대응 방법을 찾기 위해 Matter와 Thread 기반 홈 IoT 기술과 시니어 케어 로봇을 조사했습니다.
+                이를 바탕으로 <span>환자의 시선이 닿는 곳에 화면을 두어 긴급 상황에 대응</span>할 수 있도록 프로젝션을 장착한 이동형 홈 IoT 허브 "Temi"를 설계하고, 심박수, 혈압,
+                체온, 수면
+                패턴 등 다양한 <span>생체 신호를 감지하는 센서를 포함</span>했습니다.
+            </p>
+
+            <img src="Temi_Image/Temi_iot.png" alt="Temi 기기 개념도" style="border: 1px solid var(--color-border);">
+            <p class="img-caption">Temi 아이디어 스케치 & 기기 개념도</p>
+        </div>
+    </section>
+
+    <!-- Crazy 8s -->
+    <section class="section">
+        <div class="container">
+            <span class="label label--gray">Crazy 8s</span>
+            <h2 class="section-title">협업을 통해 효율적으로<br class="br-mobile"> 화면을 발전시키기</h2>
+            <p class="section-desc">
+                빠르게 초기 화면 아이디어를 내기 위해 팀원과 함께 Crazy 8s를 진행했습니다. 스케치 이후
+                화면 별로 각자 2~3개 안에 투표하고, 화면당 약 5분간 논의를 거쳐 <span>화면 설계의 기준을
+                    정리</span>했습니다. <br class="br-desktop">이 과정에서 핵심 플로우에 집중하기 위해 온보딩 등 초기 진입 화면은
+                설계 범위에서 제외하고, <br class="br-desktop"><span>주 기능을 '긴급 대응'으로 정의해 대응 방식의 성격에 따라
+                    '자동 대응'과 '직접 대응'으로 나누어 체계화했습니다.</span>
+            </p>
+
+            <div class="grid-2 crazy8-video-grid" style="max-width:680px; margin:0 auto 40px;">
+                <div>
+                    <div class="crazy8-wrapper" style="overflow:hidden; height:240px;border-radius: var(--radius-md);">
+                        <video src="Temi_Image/crazy8s.mp4" autoplay muted loop playsinline id="crazy8-video"
+                            style="width:100%; height:100%; scale:1.5; object-fit:cover; object-position:bottom; display:block;"></video>
+                    </div>
+                    <p class="img-caption">Crazy 8s 스케치 전체 이미지</p>
+                </div>
+                <div>
+                    <img src="Temi_Image/meeting.png" alt="회의 사진" style="width:100%; height:240px; object-fit:cover;">
+                    <p class="img-caption">Crazy 8s 결과</p>
+                </div>
+            </div>
+            <div class="grid-2 research-desktop" style="align-items:stretch;">
+                <div style="display:flex; flex-direction:column;">
+                    <div
+                        style="overflow:hidden; border-radius: var(--radius-md); border: 1px solid var(--color-border); flex:1;">
+                        <img src="Temi_Image/crazy8s.png" alt="Crazy 8s 스케치"
+                            style="width:100%; height:100%; object-fit:cover; display:block;">
+                    </div>
+                    <p class="img-caption">Crazy 8s 스케치</p>
+                </div>
+                <div style="display:flex; flex-direction:column;">
+                    <div
+                        style="overflow:hidden; border-radius: var(--radius-md); border: 1px solid var(--color-border); flex:1;">
+                        <img src="Temi_Image/selectionsketch.png" alt="셀렉션 스케치"
+                            style="width:100%; height:100%; object-fit:cover; display:block;">
+                    </div>
+                    <p class="img-caption">셀렉션 스케치</p>
+                </div>
+            </div>
+            <details class="research-docs research-mobile">
+                <summary class="research-docs__summary">Crazy 8s 스케치 보기</summary>
+                <div class="research-docs__content">
+                    <div>
+                        <img src="Temi_Image/crazy8s.png" alt="Crazy 8s 스케치"
+                            style="border: 1px solid var(--color-border);">
+                        <p class="img-caption">Crazy 8s 스케치</p>
+                    </div>
+                    <div>
+                        <img src="Temi_Image/selectionsketch.png" alt="셀렉션 스케치"
+                            style="border: 1px solid var(--color-border);">
+                        <p class="img-caption">셀렉션 스케치</p>
+                    </div>
+                </div>
+            </details>
+
+
+            <div class="designer-note">
+                <div><span class="label">🗒️ &nbsp;Designer's Note</span></div>
+                <div class="designer-note__body">
+                    <p>다양한 기능을 성격에 따라 효율적으로 분류하면서도, 기능 간의 이동이 자유롭고 단순해서 빠른 대처가 가능할 것.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flowchart -->
+    <section class="section section--gray">
+        <div class="container">
+            <span class="label label--gray">Flowchart</span>
+            <h2 class="section-title">긴급 상황에서 빠르게 선택하고<br class="br-mobile"> 이동할 수 있도록 설계</h2>
+            <p class="section-desc">
+                긴급한 상황에서도 빠르게 선택할 수 있도록 메뉴를 최소화하고, 기능의 진입 지점을 명확하게 구분해 헷갈리지 않게 했습니다.
+                <span>사용자가 고민하지 않고 바로 행동할 수 있는 구조</span>로 화면을 설계했습니다.
+            </p>
+
+            <div class="grid-2">
+                <div>
+                    <h3 class="section-title matrix-title"
+                        style="font-size: 16px; text-align: center; color: var(--color-text-primary); font-weight: 700; margin-bottom: 20px;">
+                        긴급 대응 <div style="margin-bottom: 8px;"></div>
+                        <p style="font-size: 14px; color: var(--color-text-secondary);font-weight: 500;">Temi가 증상을 감지해
+                            알림을 전송,<br class="br-mobile">
+                            보호자는 긴급 대응 방식 선택</p>
+                    </h3>
+                    <div
+                        style="aspect-ratio:3020/3031; overflow:hidden; border-radius:var(--radius-md); border: 1px solid var(--color-border);">
+                        <img src="Temi_Image/Alert.png" alt="플로우차트"
+                            style="w<idth:100%; height:100%; object-fit:cover; object-position:top; border-radius:0;">
+                    </div>
+                    <p class="img-caption">긴급 대응 플로우</p>
+                </div>
+                <div>
+                    <h3 class="section-title matrix-title"
+                        style="font-size: 16px; text-align: center; color: var(--color-text-primary);font-weight: 700; margin-bottom: 20px;">
+                        자동 대응<div style="margin-bottom: 8px;"></div>
+                        <p style="font-size: 14px;color: var(--color-text-secondary);font-weight: 500;">자동 대응 옵션을 선택
+                            후,<br class="br-mobile"> 자동 진행,
+                            추가 지원, 대응 완료 과정</p>
+                    </h3>
+                    <div
+                        style="aspect-ratio:3020/3031; overflow:hidden; border-radius:var(--radius-md); border: 1px solid var(--color-border);">
+                        <img src="Temi_Image/alert2.png" alt="플로우차트"
+                            style="width:100%; height:100%; object-fit:cover; object-position:top; border-radius:0;">
+                    </div>
+                    <p class="img-caption">자동 대응 플로우</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 와이어프레임 -->
+    <section class="section">
+        <div class="container">
+            <span class="label label--gray">Wireframe</span>
+            <h2 class="section-title">긴급 대응을 중심으로 <br class="br-mobile">핵심 화면 설계</h2>
+            <p class="section-desc">
+                각 화면에서 필요한 정보와 기능을 명확히 구분해 배치했습니다.<br class="br-desktop">
+                <span>사용자의 행동에 따라 화면이 어떻게 반응하는지 실제 구현을 고려</span>해 정의했습니다.
+            </p>
+
+            <img src="Temi_Image/wireframe.png" alt="와이어프레임">
+            <p class="img-caption">와이어프레임</p>
+        </div>
+    </section>
+
+    <!-- ==================== DELIVER 페이즈 ==================== -->
+    <div class="double-diamond-title">
+        DELIVER
+    </div>
+
+    <!-- 디자인 시스템 -->
+    <section class="section">
+        <div class="container">
+            <span class="label label--gray">Design System</span>
+            <h2 class="section-title">주 보호자인 50대의 접근성을 <br class="br-mobile">고려한 디자인 시스템 구축</h2>
+            <p class="section-desc">
+                가독성을 고려해 본문의 최소 폰트 사이즈를 16px이상으로 설정했습니다. 또한, <span>중장년 사용자가 정보를 더 명확하게
+                    인지할 수 있도록</span> 주요 버튼은 모두 44 x 44px 이상의 충분한 크기로 설계하고, 컬러 시스템에서 명도 대비를 고려했습니다.
+            </p>
+            <a href="#" class="btn-primary" style="margin-bottom:40px; display:inline-flex; display: none;"><span>디자인
+                    시스템 fig
+                    파일 →</span></a>
+
+            <img src="Temi_Image/designsystem.png" alt="디자인 시스템">
+            <p class="img-caption">디자인 시스템</p>
+        </div>
+    </section>
+
+    <!-- 최종 화면 -->
+    <section style="margin-bottom:16px; padding:16px 0;">
+        <div class="container">
+            <span class="label label--gray">High Fidelity</span>
+            <h2 class="section-title">최종화면</h2>
+            <p class="section-desc">MVP 달성을 위한 핵심 화면들입니다.</p>
+        </div>
+
+        <div id="hifi-scroll-wrap">
+            <div id="hifi-sticky">
+
+                <!-- 슬라이드 1 -->
+                <div class="hifi-slide" style="z-index:1">
+                    <div class="container">
+                        <div class="hifi-row">
+                            <div>
+                                <div class="phone-mockup">
+                                    <div class="img-placeholder"
+                                        style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                                        <span class="img-placeholder__label">앱 화면 1</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hifi-content">
+                                <div class="hifi-content__label">자동 대응 · 상태 모니터링</div>
+                                <h3 class="hifi-content__title">환자의 일몰증후군 증상 확인</h3>
+                                <p class="hifi-content__desc">
+                                    보호자는 환자의 증상이 나타난 클립 영상과 시간별 AI 상태 요약을 통해
+                                    증상 발생 시점부터의 증상에 대응하는 현재까지의 실시간 환자의 상태를 확인할 수 있습니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 슬라이드 2 -->
+                <div class="hifi-slide" style="z-index:2">
+                    <div class="container">
+                        <div class="hifi-row hifi-row--reverse">
+                            <div>
+                                <div class="phone-mockup">
+                                    <div class="img-placeholder"
+                                        style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                                        <span class="img-placeholder__label">앱 화면 2</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hifi-content">
+                                <div class="hifi-content__label">자동 대응</div>
+                                <h3 class="hifi-content__title">자동 대응 옵션과 커스터마이징</h3>
+                                <p class="hifi-content__desc">
+                                    Temi는 기존에 등록된 환자 정보와 AI가 추가적으로 학습한 환자에 대한 정보를 바탕으로
+                                    환자의 일몰증후군 증상 완화를 위한 최적의 옵션을 제시합니다. 옵션에는 일몰증후군 대처법에
+                                    알맞는 '전환적 대화 기술'을 활용한 대처와 환자의 인지적 편안함을 위하며 '보호자의 음성을 딴
+                                    AI보이스'가 있습니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 슬라이드 3 -->
+                <div class="hifi-slide" style="z-index:3">
+                    <div class="container">
+                        <div class="hifi-row">
+                            <div>
+                                <div class="phone-mockup">
+                                    <div class="img-placeholder"
+                                        style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                                        <span class="img-placeholder__label">앱 화면 3</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hifi-content">
+                                <div class="hifi-content__label">자동대응 : 추가 지원</div>
+                                <h3 class="hifi-content__title">자동대응 : 환자 맞춤형 추가 지원</h3>
+                                <p class="hifi-content__desc">
+                                    자동 대응을 진행하며 실시간 환자에 대한 상태와 정보, 상황 요약 정보를 확인할 수 있습니다.
+                                    환자 개인에 알맞는 추가 지원 전환 전략을 통해 환자의 안정을 돕습니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 슬라이드 4 -->
+                <div class="hifi-slide" style="z-index:4">
+                    <div class="container">
+                        <div class="hifi-row hifi-row--reverse">
+                            <div>
+                                <div class="phone-mockup">
+                                    <div class="img-placeholder"
+                                        style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                                        <span class="img-placeholder__label">앱 화면 4</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hifi-content">
+                                <div class="hifi-content__label">직접 대응</div>
+                                <h3 class="hifi-content__title">직접 대응 : 환자와 소통하기</h3>
+                                <p class="hifi-content__desc">
+                                    보호자가 환자와 직접 소통하는 대응 방법입니다. 실제 음성 화상통화와 AI 보이스를 통한
+                                    텍스트 소통 모두 가능하며, 환자와의 대화 과정에서 Temi가 보호자와 환자의 충돌을 완화하기
+                                    위한 조언 메시지를 제공합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 프로토타입 CTA -->
+    <div class="proto-cta" style="display:flex; justify-content:center; margin-bottom:120px;">
+        <a href="https://www.figma.com/proto/2CYQGFYAhGlGaDKF1by90Q/Temi_Prototype?node-id=1804-19698&viewport=-26290%2C-20553%2C0.35&t=Z4gdeO0sPFUJzBOe-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1804%3A19698&show-proto-sidebar=1&page-id=993%3A28292"
+            class="btn-primary" target="_blank" rel="noopener noreferrer">프로토타입 보기 →</a>
+    </div>
+
+    <!-- ==================== 사용성 테스트 ==================== -->
+    <section class="section section--gray">
+        <div class="container">
+            <span class="label label--gray">Usability Test</span>
+            <h2 class="section-title">AI 신뢰 관련 개선 과제 도출</h2>
+            <p class="section-desc">
+                사용성 테스트를 진행하여 SUS와 Task Completion으로 정량 평가, 인터뷰 기반 Thematic Analysis를 병행했습니다.
+                SUS 77.5점으로 전반적 사용성은 확보되었으나, Measured Experience에서 핵심 기능의 AI 신뢰성과 환자 상태에 대한 실시간과 사후 확인의 보완이 필요했습니다.
+                <span>AI 추천의 근거를 함께 제시하고 환자 상태에 대한 사전, 사후 피드백을 강화할 필요성</span> 확인했습니다.
+            </p>
+
+            <div class="ut-metrics">
+                <div class="ut-metric-card">
+                    <div class="ut-metric-card__value">77.5<span class="ut-metric-card__unit">점</span></div>
+                    <div class="ut-metric-card__label">SUS 점수<br>(Acceptable 등급)</div>
+                </div>
+                <div class="ut-metric-card">
+                    <div class="ut-metric-card__value">2.71<span class="ut-metric-card__unit">/3</span></div>
+                    <div class="ut-metric-card__label">Task Completion<br>평균 점수</div>
+                </div>
+            </div>
+            <img src="Temi_Image/Measured Experience.png" alter="Measured Experience"
+                style="border:1px solid var(--color-border);">
+            <p class="img-caption">Measured Experience</p>
+            <img src="Temi_Image/Thematic Analysis.png" alter="Thematic Analysis" class="thematic-img"
+                style="margin-top:40px;">
+            <p class="img-caption">AI에 대한 평가 (Thematic Analysis 발췌)</p>
+        </div>
+    </section>
+
+    <!-- ==================== 키 테이크어웨이 ==================== -->
+    <section class="section takeaway-section">
+        <div class="container">
+            <span class="label" style="display:block; margin-bottom:12px;">Key Takeaways</span>
+            <h2 class="section-title">신뢰 중심 AI UX와 <br class="br-mobile">Co-design 확장 가능성</h2>
+            <p class="section-desc">
+                AI 기능, 특히 시니어 케어 프로덕트에서는 <span>AI에 대한 신뢰와 안심할 수 있는 경험이 사용성 판단의
+                    중요한 기준</span>이 됨을 확인했습니다.이번 프로젝트는 보호자 중심으로 진행되었으나, 리소스와 전문적 기회가 확보된다면 보호자와 환자가 함께 참여하는 Co-design 방식을
+                적용해, 실제
+                사용
+                맥락을 더
+                정밀하게 반영한 설계를 시도해보고싶습니다.
+            </p>
+
+            <div class="takeaway-grid">
+                <div class="takeaway-card">
+                    <div class="takeaway-card__icon">🔍</div>
+                    <div class="takeaway-card__title">AI 추천 근거 제시 필요</div>
+                    <div class="takeaway-card__desc">
+                        AI 신뢰 부족 문제를 해결하기 위해 추천 이유와 근거를
+                        명확하게 제시해 사용자의 안심을 높여야 합니다.
+                    </div>
+                </div>
+                <div class="takeaway-card">
+                    <div class="takeaway-card__icon">💬</div>
+                    <div class="takeaway-card__title">사전·사후 피드백 강화</div>
+                    <div class="takeaway-card__desc">
+                        환자 상태에 대한 실시간·사후 확인 요구에 응답하는
+                        사전·사후 피드백 시스템 강화가 필요합니다.
+                    </div>
+                </div>
+                <div class="takeaway-card">
+                    <div class="takeaway-card__icon">🤝</div>
+                    <div class="takeaway-card__title">Co-design 확장 가능성</div>
+                    <div class="takeaway-card__desc">
+                        이번 프로젝트는 보호자 중심으로 진행되었으나, 보호자와
+                        환자가 함께 참여하는 Co-design 방식을 적용해 더 정밀한
+                        설계를 시도하고 싶습니다.
+                    </div>
+                </div>
+                <div class="takeaway-card">
+                    <div class="takeaway-card__icon">📊</div>
+                    <div class="takeaway-card__title">데이터 신뢰 설계</div>
+                    <div class="takeaway-card__desc">
+                        Measured Experience 관점에서 생체 데이터가 사용자를
+                        불안하게 하지 않도록 정보 제공 방식을 정교하게 설계해야 합니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 푸터 ==================== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="site-footer__name">Yerim Shin</div>
+            <div class="site-footer__info">UX/UI · Product Designer · <a href="mailto:yerimsh.design@gmail.com"
+                    style="color:inherit; text-decoration:none;">yerimsh.design@gmail.com</a> · ⓒ 2026. Yerim Shin All
+                rights
+                reserved.</div>
+        </div>
+    </footer>
+
+    <!-- ==================== 라이트박스 ==================== -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox__close" aria-label="닫기">✕</button>
+        <img class="lightbox__img" src="" alt="">
+    </div>
+
+    <script src="yr.js" defer></script>
+
+</body>
+
+</html>
