@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="temi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Temi — Home IoT for Dementia Sundowning | Yerim Shin</title>
+  <link rel="icon" href="Temi_Image/logo.png" type="image/png">
+  <link rel="stylesheet" href="yr.css">
+</head>
+
+<body>
+
+  <!-- ==================== NAV ==================== -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo"><img src="Temi_Image/logo.png" style="width: 20px; height: 20px;">Yerim
+        Shin</a>
+      <ul class="navbar__links">
+        <li><a href="Temi.html">한국어</a></li>
+        <li class="navbar__dropdown">
+          <a href="#">Projects</a>
+          <div class="navbar__dropdown-menu">
+            <a href="Temi_En.html">Temi</a>
+            <a href="Wise.html">Wise</a>
+            <a href="PersoAI.html">Perso.AI</a>
+          </div>
+        </li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="Index_Image/resume.pdf" target="_blank">Resume</a></li>
+      </ul>
+      <div class="navbar__hamburger" id="hamburger" aria-label="Open Menu" role="button" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="navbar__mobile-menu" id="mobileMenu">
+      <a href="Temi.html">한국어</a>
+      <div class="mobile-projects-row" id="mobileProjectsRow">
+        Projects <span class="mobile-projects-arrow">+</span>
+      </div>
+      <div class="mobile-projects-submenu" id="mobileProjectsSubmenu">
+        <a href="Temi_En.html">Temi</a>
+        <a href="Wise.html">Wise</a>
+        <a href="PersoAI.html">Perso.AI</a>
+      </div>
+      <a href="About.html">About</a>
+      <a href="Index_Image/resume.pdf" target="_blank">Resume</a>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="hero">
+    <div class="hero__mockup">
+      <img src="Temi_Image/Temi_hero.png" alt="Temi App Mockup" class="hero__mockup-img">
+    </div>
+    <div class="hero__inner">
+      <div class="hero__text">
+        <span class="hero__eyebrow">Case Study</span>
+        <h1 class="hero__title">Temi</h1>
+        <p class="hero__subtitle">Home IoT for Dementia Sundowning</p>
+        <p class="hero__desc">
+          As dementia progresses, 'sundowning syndrome' causes anxiety in patients
+          during afternoon and nighttime hours, placing an even greater burden on caregivers.
+          We designed a home IoT service that enables monitoring patients and remotely responding to symptoms.
+        </p>
+        <div class="hero__tags">
+          <span class="tag">App</span>
+          <span class="tag">AI agent</span>
+          <span class="tag">HomeIoT</span>
+          <span class="tag">Senior Care</span>
+        </div>
+        <a href="https://www.figma.com/proto/2CYQGFYAhGlGaDKF1by90Q/Temi_Prototype?node-id=1804-19698&viewport=-26290%2C-20553%2C0.35&t=Z4gdeO0sPFUJzBOe-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1804%3A19698&show-proto-sidebar=1&page-id=993%3A28292"
+          class="btn-primary" target="_blank" rel="noopener noreferrer">View Prototype →</a>
+      </div>
+    </div>
+    <div class="scroll-indicator" onclick="document.getElementById('project-info').scrollIntoView({behavior:'smooth'})">
+      <span class="scroll-indicator__text">Scroll Down</span>
+      <div class="scroll-indicator__line"></div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJECT INFO ==================== -->
+  <div id="project-info">
+    <div class="project-info container">
+      <div class="project-info__grid">
+        <div class="info-item">
+          <div class="info-item__label">Platform</div>
+          <div class="info-item__value">App</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item__label">Project Type</div>
+          <div class="info-item__value">Team project<span>2 Designers</span></div>
+        </div>
+        <div class="info-item">
+          <div class="info-item__label">My Role</div>
+          <div class="info-item__value">
+            Research<span>User Interview</span>
+            <span>Design System</span>
+            <span>Prototyping</span>
+            <span>Visual Design</span>
+            <span>Usability Testing</span>
+          </div>
+        </div>
+        <div class="info-item-group">
+          <div class="info-item">
+            <div class="info-item__label">Duration</div>
+            <div class="info-item__value">8 weeks</div>
+          </div>
+          <div class="info-item">
+            <div class="info-item__label">Tools</div>
+            <div class="info-item__value">
+              Figma<span>Figjam</span><span>Google form</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PROJECT CONCEPT ==================== -->
+  <section class="section project-concept">
+    <div class="container">
+      <span class="label label--gray" style="display:block; text-align:center;">Project Concept</span>
+      <div class="concept-grid" style="margin-top: 16px;">
+        <div class="concept-box">
+          <div class="concept-box__title">Keyword</div>
+          <div class="concept-box__row">
+            <span class="concept-text"><strong>AI Recommendations &amp; Automation</strong></span>
+          </div>
+          <div class="concept-box__row">
+            <span class="concept-text"><strong>AI-based Home IoT Remote Control</strong></span>
+          </div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-box__title">Main Feature</div>
+          <div class="concept-box__row">
+            <span class="concept-text">Recognizes patient condition and recommends IoT care</span>
+          </div>
+          <div class="concept-box__row">
+            <span class="concept-text">Remotely activates IoT devices for patient care</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJECT RATIONALE ==================== -->
+  <div class="rationale__avatar"><img src="Temi_Image/icon_yerim.png" alt="avatar"></div>
+  <section class="project-rationale">
+    <div class="container">
+      <div class="rationale__inner">
+        <div class="label--gray" style="margin-bottom:6px;">Project Rationale</div>
+        <h2 class="rationale__question">Is there a product that can<br class="br-mobile"> help families caring for dementia patients?</h2>
+        <p class="rationale__desc">
+          As technology advances, aging continues and people still fall ill. Through my grandmother who has dementia,
+          I came to understand that age-related illnesses affect not only the patient but all family members —
+          especially the primary caregiver. The Temi project grew from curiosity about how AI technology,
+          without a physical presence, could be used in dementia symptom care where a caregiver's presence matters so much.
+        </p>
+      </div>
+    </div>
+    <div class="rationale-spacer" style="margin: 0 0 80px 0;"></div>
+  </section>
+
+  <!-- ==================== BACKGROUND INFO ==================== -->
+  <section class="section background-info">
+    <div class="container">
+      <span class="label label--gray">Background Information</span>
+      <div class="background-info__text">
+        <div>
+          <h2 class="section-title">Sundowning: The Afternoon Phenomenon<br class="br-mobile"> That Causes Anxiety in Dementia Patients</h2>
+        </div>
+        <div>
+          <p class="section-desc">
+            Sundowning refers to a condition in which dementia patients lose their ability to accurately
+            perceive time, space, and people during the afternoon to evening hours. Patients experience
+            anxiety and confusion, with problem behaviors such as delusions, aggression, and wandering.
+          </p>
+        </div>
+      </div>
+
+      <img src="Temi_Image/Reddit.png" alt="Reddit dementia community — sundowning case screenshots">
+      <p class="img-caption">Real sundowning cases found in Reddit's dementia community</p>
+    </div>
+  </section>
+
+  <!-- ==================== DISCOVER ==================== -->
+  <div class="double-diamond-title">
+    DISCOVER
+  </div>
+
+  <!-- Literature Review -->
+  <section class="section">
+    <div class="container">
+      <span class="label label--gray">Literature Review</span>
+      <h2 class="section-title">Understanding Existing Research on Sundowning through Academic Papers</h2>
+      <p class="section-desc">
+        We reviewed 6 academic papers on dementia sundowning, focusing on the possibilities and limitations
+        of person-centered care models and smart home design. This confirmed the need for both emotional
+        coping strategies and technological interventions to alleviate dementia sundowning.
+      </p>
+
+      <div class="grid-3">
+        <div class="research-card">
+          <div class="research-card__title span">
+            ⚪️<span style="word-spacing:4px">Person-Centered Care (PCC)</span>
+          </div>
+          <div class="research-card__body">
+            Calm and gentle responses using 'redirection, non-confrontation, and pacification¹' are crucial for sundowning patients
+          </div>
+          <div class="research-card__cite">Huang et al. (2023)</div>
+        </div>
+        <div class="research-card">
+          <div class="research-card__title span">
+            ⚪️<span style="word-spacing:4px">Potential of Home IoT</span>
+          </div>
+          <div class="research-card__body">
+            Smart homes using Home IoT sensors² help dementia patients live safely at home for longer periods
+          </div>
+          <div class="research-card__cite">Tiersen et al. (2021)</div>
+        </div>
+        <div class="research-card">
+          <div class="research-card__title span">
+            ⚪️<span style="word-spacing:4px">Challenges with Technology</span>
+          </div>
+          <div class="research-card__body">
+            Elderly people's inherent resistance to technology and the risk that data may cause user anxiety exist
+          </div>
+          <div class="research-card__cite">Lim et al. (2023)</div>
+        </div>
+      </div>
+      <div class="grid-3 cite-grid">
+        <div class="research-card__cite"
+          style="font-style:normal; font-size:12px; color:var(--color-text-tertiary);padding:0px 16px;">
+          ¹ A communication technique that gently redirects the conversation without logical confrontation when a dementia patient is confused
+        </div>
+        <div class="research-card__cite"
+          style="font-style:normal; font-size:12px; color:var(--color-text-tertiary);padding:0px 16px;">
+          ² Utilizes cognitive, behavioral, and biometric indicators
+        </div>
+        <div></div>
+      </div>
+
+      <img src="Temi_Image/Literature Review.png" alt="Literature review summary"
+        style="width:100%; height:auto; margin-bottom:12px;margin-top:20px;">
+      <p class="img-caption">Summary of 6 paper analyses</p>
+      <div class="designer-note">
+        <div class="designer-note__title">🗒️ Designer's Note</div>
+        <div class="designer-note__body">
+          <p>Q. What are the unique characteristics and major challenges of dementia caregiving in Korea?</p>
+          <p>Q. Can the care models and technological possibilities identified above also apply to typical Korean dementia families?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Survey -->
+  <section class="section section--gray">
+    <div class="container">
+      <span class="label label--gray">Survey</span>
+      <h2 class="section-title">Identifying Trends in Dementia Caregiving<br class="br-mobile"> through a Survey</h2>
+      <p class="section-desc">
+        We conducted a survey of 16 primary caregivers to learn about dementia caregiving in Korea.
+        We confirmed that dementia care generally takes place within the home among family members,
+        which can place a significant burden on primary caregivers.
+      </p>
+
+      <div class="grid-2" style="margin-bottom:24px;">
+        <div>
+          <img src="Temi_Image/survey1.png" alt="Caregiving environment graph"
+            style="width:100%; height:auto;border: 1px solid var(--color-border);">
+          <p class="img-caption">Caregiving environment graph</p>
+        </div>
+        <div>
+          <img src="Temi_Image/survey2.png" alt="Time spent with patient graph"
+            style="width:100%; height;border: 1px solid var(--color-border);">
+          <p class="img-caption">Time spent with patient graph</p>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:40px; gap:16px;">
+        <div class="insight-card">
+          <div class="insight-card__icon">💡</div>
+          <div class="insight-card__content">
+            <div class="insight-card__title">Dementia caregiving primarily took place within the home.</div>
+            <div class="insight-card__text">When co-caregivers were present, they were mostly family members.</div>
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-card__icon">💡</div>
+          <div class="insight-card__content">
+            <div class="insight-card__title">Primary caregivers who spent limited time with patients struggled to continuously monitor changes in the patient's condition.</div>
+          </div>
+        </div>
+      </div>
+
+      <img src="Temi_Image/survey_whole.png" alt="Full survey analysis summary" style="width:100%; height:auto;">
+      <p class="img-caption">Full survey analysis summary</p>
+
+      <div class="designer-note">
+        <div class="designer-note__title">🗒️ Designer's Note</div>
+        <div class="designer-note__body">
+          <p>Hypothesis: remote support technology can help caregivers who don't have enough time with their patients. Let's continue with qualitative research.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- In-Depth Interview -->
+  <section class="section">
+    <div class="container">
+      <span class="label label--gray">2-1 In-Depth User Interview</span>
+      <div class="interview-header"
+        style="display:grid; grid-template-columns:1fr auto; gap:20px; align-items:start; margin-top:16px;">
+        <div>
+          <h2 class="section-title">Caregiver Burden and Doubt<br class="br-mobile"> Revealed through In-Depth Interviews</h2>
+          <p class="section-desc">
+            We conducted semi-structured 2:1 in-depth interviews with 5 survey respondents.
+            With flexible execution divided into main and sub-questions, we aimed to hear
+            more candid thoughts about the difficulties caregivers face and their views on IoT technology.
+          </p>
+        </div>
+        <div class="interview-photo"
+          style="width:280px; height:182px; margin-left:auto; display:flex; justify-content:flex-end;">
+          <img src="Temi_Image/interview_yerim.png" alt="Interview session photo"
+            style="width:80%; height:80%; object-fit:cover; object-position:top; border-radius:var(--radius-sm);">
+        </div>
+      </div>
+
+      <!-- Desktop: grid layout -->
+      <div class="research-desktop">
+        <div class="grid-3">
+          <div>
+            <div
+              style="width:100%; aspect-ratio:4/3; overflow:hidden; border-radius:var(--radius-sm); margin-bottom:10px; outline:1px solid var(--color-border);">
+              <img src="Temi_Image/interview_protocol.png" alt="Interview protocol"
+                style="width:100%; height:100%; object-fit:cover; object-position:top;">
+            </div>
+            <p class="img-caption">Interview protocol</p>
+          </div>
+          <div>
+            <div
+              style="width:100%; aspect-ratio:4/3; overflow:hidden; border-radius:var(--radius-sm); margin-bottom:10px;">
+              <img src="Temi_Image/interview_memo.png" alt="Interview questionnaire & session notes"
+                style="width:100%; height:100%; object-fit:cover; object-position:top;border: 1px solid var(--color-border);">
+            </div>
+            <p class="img-caption">Interview questionnaire &amp; session notes</p>
+          </div>
+          <div>
+            <div
+              style="width:100%; aspect-ratio:4/3; overflow:hidden; border-radius:var(--radius-sm); margin-bottom:10px;">
+              <img src="Temi_Image/interview_color.png" alt="Interview color coding"
+                style="width:100%; height:100%; object-fit:cover; object-position:top;border: 1px solid var(--color-border);">
+            </div>
+            <p class="img-caption">Interview color coding</p>
+          </div>
+        </div>
+        <div style="padding-top:40px; margin-bottom:10px;">
+          <img src="Temi_Image/interview_ qualitative.png" alt="Interview qualitative analysis"
+            style="display:block; width:60%; object-fit:cover; object-position:top; border-radius:var(--radius-sm); margin-bottom:10px;">
+          <p class="img-caption" style="width:60%;">Interview qualitative analysis</p>
+        </div>
+
+        <div class="designer-note">
+          <div class="designer-note__title">🗒️ Designer's Note</div>
+          <div class="designer-note__body">
+            <p>Rather than using technology as-is, let's redefine the problem in a direction that reduces the burden on caregivers.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile: qualitative first, rest in toggle -->
+      <div class="research-mobile">
+        <div style="margin-top:40px;">
+          <img src="Temi_Image/interview_ qualitative.png" alt="Interview qualitative analysis"
+            style="width:100%; height:auto; border-radius:var(--radius-sm); margin-bottom:10px;">
+          <p class="img-caption">Interview qualitative analysis</p>
+        </div>
+        <details class="research-docs" style="margin-top:0px;">
+          <summary class="research-docs__summary">View Research Documentation</summary>
+          <div class="research-docs__content">
+            <div>
+              <img src="Temi_Image/interview_protocol.png" alt="Interview protocol"
+                style="width:100%; height:auto; border-radius:var(--radius-sm); margin-bottom:10px;">
+              <p class="img-caption">Interview protocol</p>
+            </div>
+            <div>
+              <img src="Temi_Image/interview_memo.png" alt="Interview questionnaire & session notes"
+                style="width:100%; height:auto; border-radius:var(--radius-sm); margin-bottom:10px;">
+              <p class="img-caption">Interview questionnaire &amp; session notes</p>
+            </div>
+            <div>
+              <img src="Temi_Image/interview_color.png" alt="Interview color coding"
+                style="width:100%; height:auto; border-radius:var(--radius-sm); margin-bottom:10px;">
+              <p class="img-caption">Interview color coding</p>
+            </div>
+          </div>
+        </details>
+      </div>
+  </section>
+
+  <!-- ==================== DEFINE ==================== -->
+  <div class="double-diamond-title">
+    DEFINE
+  </div>
+
+  <!-- Persona -->
+  <section class="section">
+    <div class="container">
+      <span class="label label--gray">Persona</span>
+      <h2 class="section-title">A Caregiver Who Worries About<br class="br-mobile"> Their Patient Even When Apart</h2>
+      <p class="section-desc">
+        We established our persona by focusing on the difficulty of monitoring patients revealed in the survey
+        and interviews. In this process, we identified the difficulty of properly responding to emergencies
+        when physically separated from the patient, and the emotional fatigue caregivers experience while
+        calming patients, as core problems — and mapped out the caregiver's behaviors and thoughts.
+      </p>
+
+      <div>
+        <img src="Temi_Image/persona.png" alt="Persona profile"
+          style="width: 100%; height: auto; border-radius: 0px; padding: 20px;">
+        <p class="img-caption">Persona profile</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HMW -->
+  <div class="section hmw-section">
+    <div class="container">
+      <span class="label" style="text-align:center; display:block; margin-bottom:20px;">How Might We?</span>
+      <p class="hmw-quote">How might we alleviate a patient's<br class="br-mobile"> sundowning symptoms remotely?</p>
+    </div>
+  </div>
+  <div class="spacer-80" style="margin: 0 0 80px 0;"></div>
+
+
+  <!-- ==================== DEVELOP ==================== -->
+  <div class="double-diamond-title">
+    DEVELOP
+  </div>
+
+  <!-- Technical Research -->
+  <section class="section">
+    <div class="container">
+      <span class="label label--gray">Technical Research &amp; Brainstorming</span>
+      <h2 class="section-title">Designing Temi:<br class="br-mobile"> A Projection-Based Home IoT Hub</h2>
+      <p class="section-desc">
+        To answer the HMW, we researched Matter and Thread-based home IoT technologies and senior care robots.
+        Based on this, we designed Temi — a projection-style home IoT hub placed within the patient's line
+        of sight for emergency response — and included sensors to detect various biometric signals such as
+        heart rate, blood pressure, body temperature, and sleep patterns.
+      </p>
+
+      <img src="Temi_Image/Temi_iot.png" alt="Temi device concept" style="border: 1px solid var(--color-border);">
+      <p class="img-caption">Temi idea sketch &amp; device concept</p>
+
+      <div class="grid-2" style="margin-top:40px;">
+        <div>
+          <div class="img-frame img-frame--200">
+            <img src="Temi_Image/iot_refer.png" alt="Home IoT device references" class="img-fill"
+              style="border: 1px solid var(--color-border);">
+          </div>
+          <p class="img-caption">Home IoT device references</p>
+        </div>
+        <div>
+          <div class="img-frame img-frame--200">
+            <img src="Temi_Image/IA_refer.png" alt="Reference screen analysis" class="img-fill"
+              style="border: 1px solid var(--color-border);">
+          </div>
+          <p class="img-caption">Reference screen analysis</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feasibility / MVP -->
+  <section class="section section--gray">
+    <div class="container">
+      <span class="label label--gray">Feasibility</span>
+      <h2 class="section-title">MVP Core Feature Selection and Flow Design</h2>
+      <p class="section-desc">
+        We ideated features based on the technologies and sundowning response methods identified earlier,
+        then organized them into 6 categories: 'AI Voice', 'Automated Response', 'Routine',
+        'Transitional Response', 'Environment Setting', and 'Monitoring &amp; Alerts'.
+      </p>
+
+      <img src="Temi_Image/feature.png" alt="Feature ideation">
+      <p class="img-caption">Feature ideation</p>
+
+      <h3 class="section-title matrix-title" style="font-size:22px; margin-top:120px;">
+        ✴ Two Rounds of Impact &amp; Effort Matrix
+      </h3>
+      <p class="section-desc">
+        To determine core features, we narrowed down options through two rounds of 2×2 matrices.
+        After analyzing the features remaining in 'Do Now', we derived the MVP of "helping caregivers
+        respond to sundowning symptoms even when away from the patient." Finally, we organized the MVP
+        flow in the order: notification settings → symptom detection → emergency response → result recording.
+      </p>
+
+      <div class="grid-3">
+        <div>
+          <img src="Temi_Image/1st_matrix.png" alt="1st 2x2 matrix">
+          <p class="img-caption">1st 2×2 Matrix</p>
+        </div>
+        <div>
+          <img src="Temi_Image/2nd_matrix.png" alt="2nd 2x2 matrix">
+          <p class="img-caption">2nd 2×2 Matrix</p>
+        </div>
+        <div>
+          <img src="Temi_Image/mvp_flow.png" alt="MVP flow">
+          <p class="img-caption">MVP Flow</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Crazy 8s -->
+  <section class="section">
+    <div class="container">
+      <span class="label label--gray">Crazy 8s</span>
+      <h2 class="section-title">Efficiently Advancing Screens<br class="br-mobile"> through Collaboration</h2>
+      <p class="section-desc">
+        We conducted Crazy 8s with teammates to efficiently structure the screens. After sketching,
+        we each voted for 2–3 options per screen and held about 5 minutes of discussion per screen
+        to clarify design criteria. In this process, to focus on the core flow, we excluded onboarding
+        and initial entry screens from scope, defined the main feature as 'emergency response', and
+        systematized it into 'automated response' and 'direct response' based on each response type.
+      </p>
+
+      <div class="grid-2 crazy8-video-grid" style="max-width:680px; margin:0 auto 40px;">
+        <div>
+          <div class="crazy8-wrapper" style="overflow:hidden; height:240px;border-radius: var(--radius-md);">
+            <video src="Temi_Image/crazy8s.mp4" autoplay muted loop playsinline id="crazy8-video"
+              style="width:100%; height:100%; scale:1.5; object-fit:cover; object-position:bottom; display:block;"></video>
+          </div>
+          <p class="img-caption">Crazy 8s sketch overview</p>
+        </div>
+        <div>
+          <img src="Temi_Image/meeting.png" alt="Session photo" style="width:100%; height:240px; object-fit:cover;">
+          <p class="img-caption">Crazy 8s session</p>
+        </div>
+      </div>
+      <div class="grid-2 research-desktop">
+        <div>
+          <img src="Temi_Image/crazy8s.png" alt="Crazy 8s sketches" style="border: 1px solid var(--color-border);">
+          <p class="img-caption">Crazy 8s sketches</p>
+        </div>
+        <div>
+          <img src="Temi_Image/selectionsketch.png" alt="Selection sketches" style="border: 1px solid var(--color-border);">
+          <p class="img-caption">Selection sketches</p>
+        </div>
+      </div>
+      <details class="research-docs research-mobile">
+        <summary class="research-docs__summary">View Crazy 8s Sketches</summary>
+        <div class="research-docs__content">
+          <div>
+            <img src="Temi_Image/crazy8s.png" alt="Crazy 8s sketches" style="border: 1px solid var(--color-border);">
+            <p class="img-caption">Crazy 8s sketches</p>
+          </div>
+          <div>
+            <img src="Temi_Image/selectionsketch.png" alt="Selection sketches" style="border: 1px solid var(--color-border);">
+            <p class="img-caption">Selection sketches</p>
+          </div>
+        </div>
+      </details>
+
+      <div class="designer-note">
+        <div class="designer-note__title">🗒️ Designer's Note</div>
+        <div class="designer-note__body">
+          <p>While efficiently categorizing features by nature, navigation between them should be free and simple enough to enable quick action.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flowchart -->
+  <section class="section section--gray">
+    <div class="container">
+      <span class="label label--gray">Flowchart</span>
+      <h2 class="section-title">Designed for Quick Selection and<br class="br-mobile"> Navigation in Emergencies</h2>
+      <p class="section-desc">
+        To enable quick decision-making even in urgent situations, we minimized menus and clearly
+        separated feature entry points to prevent confusion. We designed the screen structure so
+        users can act immediately without hesitation.
+      </p>
+
+      <div class="grid-2">
+        <div>
+          <div
+            style="aspect-ratio:3020/3031; overflow:hidden; border-radius:var(--radius-md); border: 1px solid var(--color-border);">
+            <img src="Temi_Image/Alert.png" alt="Flowchart"
+              style="width:100%; height:100%; object-fit:cover; object-position:top; border-radius:0;">
+          </div>
+          <p class="img-caption">Emergency response flow</p>
+        </div>
+        <div>
+          <div
+            style="aspect-ratio:3020/3031; overflow:hidden; border-radius:var(--radius-md); border: 1px solid var(--color-border);">
+            <img src="Temi_Image/alert2.png" alt="Flowchart"
+              style="width:100%; height:100%; object-fit:cover; object-position:top; border-radius:0;">
+          </div>
+          <p class="img-caption">Automated response flow</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wireframe -->
+  <section class="section">
+    <div class="container">
+      <span class="label label--gray">Wireframe</span>
+      <h2 class="section-title">Designing Core Screens Centered on Emergency Response</h2>
+      <p class="section-desc">
+        We clearly arranged the necessary information and features for each screen.
+        We defined how each screen responds to user actions with actual implementation in mind.
+      </p>
+
+      <img src="Temi_Image/wireframe.png" alt="Wireframe">
+      <p class="img-caption">Wireframe</p>
+    </div>
+  </section>
+
+  <!-- ==================== DELIVER ==================== -->
+  <div class="double-diamond-title">
+    DELIVER
+  </div>
+
+  <!-- Design System -->
+  <section class="section">
+    <div class="container">
+      <span class="label label--gray">Design System</span>
+      <h2 class="section-title">Building a Design System with Accessibility<br class="br-mobile"> in Mind for Caregivers in Their 50s</h2>
+      <p class="section-desc">
+        We set the minimum font size for body text at 16px or above for readability. In addition,
+        to help middle-aged users perceive information more clearly, all primary buttons were designed
+        to be at least 44×44px, and we considered luminance contrast in the color system.
+      </p>
+      <a href="#" class="btn-primary" style="margin-bottom:40px; display:inline-flex;"><span>Design System Figma File →</span></a>
+
+      <img src="Temi_Image/designsystem.png" alt="Design system">
+      <p class="img-caption">Design system</p>
+    </div>
+  </section>
+
+  <!-- High Fidelity -->
+  <section style="margin-bottom:16px; padding:16px 0;">
+    <div class="container">
+      <span class="label label--gray">High Fidelity</span>
+      <h2 class="section-title">Final Screens</h2>
+      <p class="section-desc">Key screens for achieving the MVP.</p>
+    </div>
+
+    <div id="hifi-scroll-wrap">
+      <div id="hifi-sticky">
+
+        <!-- Slide 1 -->
+        <div class="hifi-slide" style="z-index:1">
+          <div class="container">
+            <div class="hifi-row">
+              <div>
+                <div class="phone-mockup">
+                  <div class="img-placeholder" style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                    <span class="img-placeholder__label">App Screen 1</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hifi-content">
+                <div class="hifi-content__label">Automated Response · Status Monitoring</div>
+                <h3 class="hifi-content__title">Checking the Patient's Sundowning Symptoms</h3>
+                <p class="hifi-content__desc">
+                  Caregivers can check the patient's real-time status — from the moment symptoms appeared
+                  to the current moment — through clip videos of symptom onset and hourly AI status summaries.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="hifi-slide" style="z-index:2">
+          <div class="container">
+            <div class="hifi-row hifi-row--reverse">
+              <div>
+                <div class="phone-mockup">
+                  <div class="img-placeholder" style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                    <span class="img-placeholder__label">App Screen 2</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hifi-content">
+                <div class="hifi-content__label">Automated Response</div>
+                <h3 class="hifi-content__title">Automated Response Options and Customization</h3>
+                <p class="hifi-content__desc">
+                  Based on pre-registered patient information and what the AI has additionally learned,
+                  Temi presents optimal options to alleviate the patient's sundowning symptoms. Options include
+                  'transitional conversation techniques' tailored to sundowning management, and an
+                  'AI voice modeled after the caregiver's voice' for the patient's cognitive comfort.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="hifi-slide" style="z-index:3">
+          <div class="container">
+            <div class="hifi-row">
+              <div>
+                <div class="phone-mockup">
+                  <div class="img-placeholder" style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                    <span class="img-placeholder__label">App Screen 3</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hifi-content">
+                <div class="hifi-content__label">Automated Response: Additional Support</div>
+                <h3 class="hifi-content__title">Automated Response: Personalized Additional Support</h3>
+                <p class="hifi-content__desc">
+                  While automated response is in progress, you can check real-time patient status,
+                  information, and situational summaries. Patient-specific transitional support
+                  strategies help stabilize the patient.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="hifi-slide" style="z-index:4">
+          <div class="container">
+            <div class="hifi-row hifi-row--reverse">
+              <div>
+                <div class="phone-mockup">
+                  <div class="img-placeholder" style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                    <span class="img-placeholder__label">App Screen 4</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hifi-content">
+                <div class="hifi-content__label">Direct Response</div>
+                <h3 class="hifi-content__title">Direct Response: Communicating with the Patient</h3>
+                <p class="hifi-content__desc">
+                  This is a response method where the caregiver communicates directly with the patient.
+                  Both real voice/video calls and text communication via AI voice are available.
+                  During the conversation, Temi provides advisory messages to help minimize conflict
+                  between the caregiver and patient.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Prototype CTA -->
+  <div class="proto-cta" style="display:flex; justify-content:center; margin-bottom:120px;">
+    <a href="https://www.figma.com/proto/2CYQGFYAhGlGaDKF1by90Q/Temi_Prototype?node-id=1804-19698&viewport=-26290%2C-20553%2C0.35&t=Z4gdeO0sPFUJzBOe-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1804%3A19698&show-proto-sidebar=1&page-id=993%3A28292"
+      class="btn-primary" target="_blank" rel="noopener noreferrer">View Prototype →</a>
+  </div>
+
+  <!-- ==================== USABILITY TEST ==================== -->
+  <section class="section section--gray">
+    <div class="container">
+      <span class="label label--gray">Usability Test</span>
+      <h2 class="section-title">Identifying AI Trust-Related Improvement Challenges</h2>
+      <p class="section-desc">
+        We conducted a usability test with quantitative evaluation using SUS and Task Completion,
+        alongside interview-based Thematic Analysis. With a SUS score of 77.5 (Acceptable grade),
+        overall usability was confirmed. However, Measured Experience revealed challenges around
+        insufficient AI trust in core features and the need for both real-time and post-event
+        patient status confirmation.
+      </p>
+
+      <div class="ut-metrics">
+        <div class="ut-metric-card">
+          <div class="ut-metric-card__value">77.5<span class="ut-metric-card__unit">pts</span></div>
+          <div class="ut-metric-card__label">SUS Score<br>(Acceptable Grade)</div>
+        </div>
+        <div class="ut-metric-card">
+          <div class="ut-metric-card__value">2.71<span class="ut-metric-card__unit">/3</span></div>
+          <div class="ut-metric-card__label">Task Completion<br>Average Score</div>
+        </div>
+      </div>
+      <img src="Temi_Image/Measured Experience.png" alt="Measured Experience">
+      <p class="img-caption">Measured Experience</p>
+      <img src="Temi_Image/Thematic Analysis.png" alt="Thematic Analysis" class="thematic-img"
+        style="margin-top:40px;">
+      <p class="img-caption">AI Evaluation (Thematic Analysis Excerpt)</p>
+    </div>
+  </section>
+
+  <!-- ==================== KEY TAKEAWAYS ==================== -->
+  <section class="section takeaway-section">
+    <div class="container">
+      <span class="label" style="display:block; margin-bottom:12px;">Key Takeaways</span>
+      <h2 class="section-title">Trust-Centered AI UX and<br class="br-mobile"> Co-design Expansion Potential</h2>
+      <p class="section-desc">
+        We confirmed that in AI-driven products — especially senior care products — trust and peace of mind
+        are the key decision factors, even more than operational convenience.
+      </p>
+
+      <div class="takeaway-grid">
+        <div class="takeaway-card">
+          <div class="takeaway-card__icon">🔍</div>
+          <div class="takeaway-card__title">Need to Present AI Recommendation Rationale</div>
+          <div class="takeaway-card__desc">
+            To address the lack of AI trust, we need to clearly present the reasons and basis
+            for recommendations to enhance user confidence.
+          </div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-card__icon">💬</div>
+          <div class="takeaway-card__title">Strengthening Pre/Post Feedback</div>
+          <div class="takeaway-card__desc">
+            Strengthening the pre/post feedback system that responds to users' needs for
+            real-time and post-event patient status confirmation is necessary.
+          </div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-card__icon">🤝</div>
+          <div class="takeaway-card__title">Co-design Expansion Potential</div>
+          <div class="takeaway-card__desc">
+            This project was caregiver-focused, but I'd like to apply a Co-design approach
+            where both caregivers and patients participate together for more precise design.
+          </div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-card__icon">📊</div>
+          <div class="takeaway-card__title">Designing for Data Trust</div>
+          <div class="takeaway-card__desc">
+            From a Measured Experience perspective, the method of presenting biometric data
+            needs to be carefully designed so it doesn't cause unnecessary anxiety in users.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__name">Yerim Shin</div>
+      <div class="site-footer__info">UX/UI · Product Designer · <a href="mailto:yerimsh.design@gmail.com"
+          style="color:inherit; text-decoration:none;">yerimsh.design@gmail.com</a> · ⓒ 2026. Yerim Shin All rights
+        reserved.</div>
+    </div>
+  </footer>
+
+  <!-- ==================== LIGHTBOX ==================== -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" aria-label="Close">✕</button>
+    <img class="lightbox__img" src="" alt="">
+  </div>
+
+  <script src="yr.js" defer></script>
+
+</body>
+
+</html>
