@@ -97,7 +97,7 @@
 
 /* Perso_color */
 [data-theme="perso"] {
-  --color-primary: #E8623A;
+  --color-primary: #E631A4;
   --color-primary-mid: #F08A68;
   --color-primary-light: #FDEEE8;
   --color-primary-bg: #FEF5F2;
@@ -520,9 +520,18 @@ a {
 }
 
 /* ===================== 히어로 ===================== */
-.hero {
+.hero[data-theme="temi"] {
   min-height: 100vh;
   background: linear-gradient(to bottom, rgba(240, 228, 244, 90) 0%, rgba(255, 236, 208, 0.1) 60%, rgba(255, 255, 255, 0) 70%);
+  padding-top: var(--nav-h);
+  position: relative;
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+.hero[data-theme="perso"] {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, rgba(89, 125, 255, 0.3) 0%, rgba(158, 140, 243, 0.3) 20%, rgba(161, 167, 255, 0.1) 80%);
   padding-top: var(--nav-h);
   position: relative;
   overflow-x: clip;
@@ -565,7 +574,7 @@ a {
   font-size: 14px;
   font-weight: 500;
   background: rgb(73, 63, 75, 0.6);
-  color: var(--color-bg);
+  color: var(--color-white);
 }
 
 .tag span {

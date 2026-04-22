@@ -17,7 +17,7 @@
       <a href="index.html" class="navbar__logo"><img src="Temi_Image/logo.png" style="width: 20px; height: 20px;">Yerim
         Shin</a>
       <ul class="navbar__links">
-        <li><a href="#">English</a></li>
+        <li style="display:none;"><a href="#">English</a></li>
         <li class="navbar__dropdown">
           <a href="#">Projects</a>
           <div class="navbar__dropdown-menu">
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="navbar__mobile-menu" id="mobileMenu">
-      <a href="#">English</a>
+      <a href="#" style="display:none;">English</a>
       <div class="mobile-projects-row" id="mobileProjectsRow">
         Projects <span class="mobile-projects-arrow">+</span>
       </div>
@@ -51,7 +51,7 @@
   </nav>
 
   <!-- ==================== 히어로 ==================== -->
-  <section class="hero" id="hero">
+  <section class="hero" data-theme="temi" id="hero">
     <!-- 전체 배경 이미지 -->
     <div class="hero__mockup">
       <img src="Temi_Image/Temi_hero.png" alt="Temi App Mockup" class="hero__mockup-img">
@@ -493,7 +493,7 @@
 
       <div>
         <img src="Temi_Image/persona.png" alt="퍼소나 프로필"
-          style="width: 100%; height: auto; border-radius: 0px; padding: 20px;">
+          style="width: 100%; height: auto; border-radius: var(--radius-md);">
         <p class="img-caption">퍼소나 프로필</p>
       </div>
     </div>
@@ -642,13 +642,19 @@
           <p class="img-caption">Crazy 8s 결과</p>
         </div>
       </div>
-      <div class="grid-2 research-desktop">
-        <div>
-          <img src="Temi_Image/crazy8s.png" alt="Crazy 8s 스케치" style="border: 1px solid var(--color-border);">
+      <div class="grid-2 research-desktop" style="align-items:stretch;">
+        <div style="display:flex; flex-direction:column;">
+          <div style="overflow:hidden; border-radius: var(--radius-md); border: 1px solid var(--color-border); flex:1;">
+            <img src="Temi_Image/crazy8s.png" alt="Crazy 8s 스케치"
+              style="width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
           <p class="img-caption">Crazy 8s 스케치</p>
         </div>
-        <div>
-          <img src="Temi_Image/selectionsketch.png" alt="셀렉션 스케치" style="border: 1px solid var(--color-border);">
+        <div style="display:flex; flex-direction:column;">
+          <div style="overflow:hidden; border-radius: var(--radius-md); border: 1px solid var(--color-border); flex:1;">
+            <img src="Temi_Image/selectionsketch.png" alt="셀렉션 스케치"
+              style="width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
           <p class="img-caption">셀렉션 스케치</p>
         </div>
       </div>
@@ -689,9 +695,10 @@
       <div class="grid-2">
         <div>
           <h3 class="section-title matrix-title"
-            style="font-size: 24px; text-align: center; color: var(--color-primary); font-weight: 500; margin-bottom: 24px; font-style: italic;">
-            긴급 대응 플로우
-            <p style="font-size: 15px; color: var(--color-text-secondary);">Temi가 증상을 감지해 알림을 전송,<br class="br-mobile">
+            style="font-size: 16px; text-align: center; color: var(--color-text-primary); font-weight: 700; margin-bottom: 20px;">
+            긴급 대응 <div style="margin-bottom: 8px;"></div>
+            <p style="font-size: 14px; color: var(--color-text-secondary);font-weight: 500;">Temi가 증상을 감지해 알림을 전송,<br
+                class="br-mobile">
               보호자는 긴급 대응 방식 선택</p>
           </h3>
           <div
@@ -703,9 +710,10 @@
         </div>
         <div>
           <h3 class="section-title matrix-title"
-            style="font-size: 24px; text-align: center; color: var(--color-primary);font-weight: 500; margin-bottom: 24px;font-style: italic;">
-            자동 대응 플로우
-            <p style="font-size: 15px;color: var(--color-text-secondary);">자동 대응 옵션을 선택 후,<br class="br-mobile"> 자동 진행,
+            style="font-size: 16px; text-align: center; color: var(--color-text-primary);font-weight: 700; margin-bottom: 20px;">
+            자동 대응<div style="margin-bottom: 8px;"></div>
+            <p style="font-size: 14px;color: var(--color-text-secondary);font-weight: 500;">자동 대응 옵션을 선택 후,<br
+                class="br-mobile"> 자동 진행,
               추가 지원, 대응 완료 과정</p>
           </h3>
           <div
