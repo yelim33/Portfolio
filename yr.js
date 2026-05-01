@@ -166,6 +166,7 @@ function updateTrackerState(activeIdx) {
 
   if (activeIdx === 0) {
     hifiTrackerNodes[0]?.classList.add('is-active');
+    updateSubLabel(hifiTrackerNodes[1], null);
   } else if (activeIdx === 1) {
     hifiTrackerNodes[0]?.classList.add('is-done');
     hifiTrackerNodes[1]?.classList.add('is-active');
@@ -178,6 +179,7 @@ function updateTrackerState(activeIdx) {
     hifiTrackerNodes[0]?.classList.add('is-done');
     hifiTrackerNodes[1]?.classList.add('is-done');
     hifiTrackerNodes[2]?.classList.add('is-active');
+    updateSubLabel(hifiTrackerNodes[1], null);
   }
 
   // VL 색상: vl[0] = 노드0→1 사이 / vl[1] = 노드1→2 사이
@@ -274,8 +276,34 @@ function onHifiWheel(e) {
   snapToSlide(hifiCurrentSlide + dir);
 }
 
+let hifiTouchStartY = 0;
+
+function onHifiTouchStart(e) {
+  hifiTouchStartY = e.touches[0].clientY;
+}
+
+function onHifiTouchEnd(e) {
+  if (!hifiWrap) return;
+  const rect = hifiWrap.getBoundingClientRect();
+  if (rect.top > 1 || rect.bottom < window.innerHeight - 1) return;
+
+  const deltaY = hifiTouchStartY - e.changedTouches[0].clientY;
+  if (Math.abs(deltaY) < 24) return;
+
+  const dir = deltaY > 0 ? 1 : -1;
+  if (dir > 0 && hifiCurrentSlide >= hifiSlides.length - 1) return;
+  if (dir < 0 && hifiCurrentSlide <= 0) return;
+
+  const now = Date.now();
+  if (now - snapLastTime < SNAP_COOLDOWN) return;
+  snapLastTime = now;
+  snapToSlide(hifiCurrentSlide + dir);
+}
+
 if (hifiWrap) {
   hifiWrap.addEventListener('wheel', onHifiWheel, { passive: false });
+  hifiWrap.addEventListener('touchstart', onHifiTouchStart, { passive: true });
+  hifiWrap.addEventListener('touchend', onHifiTouchEnd, { passive: true });
 }
 
 // ─── 스무스 스크롤 (내부 링크) ───
