@@ -112,49 +112,89 @@ document.querySelectorAll(animSelector).forEach(el => {
   observer.observe(el);
 });
 
-// ─── hifi 스크롤 드리븐 슬라이드업 (lerp + RAF) ───
-const hifiWrap = document.getElementById('hifi-scroll-wrap');
-const hifiSlides = document.querySelectorAll('.hifi-slide');
+// ─── hifi 스크롤 드리븐 (크로스페이드 + 트래커 Y 이동) ───
+const hifiWrap         = document.getElementById('hifi-scroll-wrap');
+const hifiSlides       = document.querySelectorAll('.hifi-slide');
+const hifiTracker      = document.getElementById('hifi-tracker');
+const hifiTrackerNodes = hifiTracker ? [...hifiTracker.querySelectorAll('.hifi-tracker__node')] : [];
+const hifiTrackerDots  = hifiTracker ? [...hifiTracker.querySelectorAll('.hifi-tracker__dot')]  : [];
 
-let hifiTarget = 0;
-let hifiCurrent = 0;
+let hifiTarget = 0, hifiCurrent = 0;
+let hifiTrackerYTarget = 0, hifiTrackerYCurrent = 0;
 let hifiRafId = null;
 let isTouch = false;
 window.addEventListener('touchstart', () => { isTouch = true; }, { once: true, passive: true });
 
 function lerp(a, b, t) { return a + (b - a) * t; }
 
-function applyHifi(progress) {
-  const count = hifiSlides.length;
-  const segments = count - 1;
-  const dead = 0.18;
-
-  hifiSlides.forEach((slide, i) => {
-    if (i === 0) { slide.style.transform = 'translateY(0)'; return; }
-    const seg = progress * segments - (i - 1);
-    const clamped = Math.max(0, Math.min(1, seg));
-
-    let mapped;
-    if (clamped <= dead) {
-      mapped = 0;
-    } else if (clamped >= 1 - dead) {
-      mapped = 1;
-    } else {
-      const t = (clamped - dead) / (1 - 2 * dead);
-      mapped = t * t * (3 - 2 * t);
-    }
-
-    slide.style.transform = `translateY(${(1 - mapped) * 100}%)`;
+// 트래커 각 dot의 Y 위치(트래커 기준) 사전 계산
+let dotYsInTracker = [];
+function recalcDotPositions() {
+  if (!hifiTracker || !hifiTrackerDots.length) return;
+  const saved = hifiTracker.style.transform;
+  hifiTracker.style.transform = 'none';
+  const tr = hifiTracker.getBoundingClientRect();
+  dotYsInTracker = hifiTrackerDots.map(d => {
+    const r = d.getBoundingClientRect();
+    return r.top - tr.top + r.height / 2;
   });
+  hifiTracker.style.transform = saved || '';
+  // 초기 위치 즉시 적용
+  const activeIdx = Math.round(hifiTarget * Math.max(0, hifiSlides.length - 1));
+  hifiTrackerYTarget  = getTrackerYTarget(activeIdx);
+  hifiTrackerYCurrent = hifiTrackerYTarget;
+  if (hifiTracker) hifiTracker.style.transform = `translateY(${hifiTrackerYTarget}px)`;
+}
+window.addEventListener('load',   recalcDotPositions);
+window.addEventListener('resize', () => { recalcDotPositions(); onHifiScroll(); });
+
+function getTrackerYTarget(activeIdx) {
+  if (!dotYsInTracker.length) return 0;
+  const y = dotYsInTracker[Math.min(activeIdx, dotYsInTracker.length - 1)];
+  return window.innerHeight / 2 - y;
+}
+
+// 슬라이드 인덱스 → 트래커 상태 업데이트
+function updateTrackerState(activeIdx) {
+  if (!hifiTracker) return;
+  hifiTrackerNodes.forEach((node, i) => {
+    node.classList.remove('is-active', 'is-done');
+    if      (i === 0) { activeIdx === 0 ? node.classList.add('is-active') : node.classList.add('is-done'); }
+    else if (i === 1) { if (activeIdx === 1) node.classList.add('is-active'); else if (activeIdx === 3) node.classList.add('is-done'); }
+    else if (i === 2) { if (activeIdx === 2) node.classList.add('is-active'); else if (activeIdx === 3) node.classList.add('is-done'); }
+    else if (i === 3) { if (activeIdx === 3) node.classList.add('is-active'); }
+  });
+  const vl   = hifiTracker.querySelector('.hifi-tracker__vl');
+  const fork = hifiTracker.querySelector('.hifi-tracker__fork');
+  if (vl)   vl.classList.toggle('is-done',   activeIdx >= 1);
+  if (fork) fork.classList.toggle('is-done', activeIdx === 3);
+}
+
+function applyHifi(progress) {
+  const segments = hifiSlides.length - 1;
+  // 슬라이드 크로스페이드
+  hifiSlides.forEach((slide, i) => {
+    const dist = Math.abs(progress * segments - i);
+    slide.style.opacity = String(Math.max(0, 1 - dist));
+    slide.style.zIndex  = dist < 0.5 ? '2' : '1';
+  });
+  // 트래커 Y 이동
+  if (hifiTracker) hifiTracker.style.transform = `translateY(${hifiTrackerYCurrent}px)`;
+  updateTrackerState(Math.round(progress * segments));
 }
 
 function hifiTick() {
   const factor = isTouch ? 0.28 : 0.09;
-  hifiCurrent = lerp(hifiCurrent, hifiTarget, factor);
+  hifiCurrent         = lerp(hifiCurrent,         hifiTarget,         factor);
+  hifiTrackerYCurrent = lerp(hifiTrackerYCurrent,  hifiTrackerYTarget, 0.07);
   applyHifi(hifiCurrent);
-  if (Math.abs(hifiCurrent - hifiTarget) > 0.0002) {
+  const slideDone   = Math.abs(hifiCurrent - hifiTarget) < 0.0002;
+  const trackerDone = Math.abs(hifiTrackerYCurrent - hifiTrackerYTarget) < 0.2;
+  if (!slideDone || !trackerDone) {
     hifiRafId = requestAnimationFrame(hifiTick);
   } else {
+    hifiCurrent = hifiTarget;
+    hifiTrackerYCurrent = hifiTrackerYTarget;
     applyHifi(hifiTarget);
     hifiRafId = null;
   }
@@ -162,10 +202,11 @@ function hifiTick() {
 
 function onHifiScroll() {
   if (!hifiWrap) return;
-  const rect = hifiWrap.getBoundingClientRect();
+  const rect     = hifiWrap.getBoundingClientRect();
   const scrolled = -rect.top;
-  const total = rect.height - window.innerHeight;
-  hifiTarget = Math.max(0, Math.min(1, scrolled / total));
+  const total    = rect.height - window.innerHeight;
+  hifiTarget     = Math.max(0, Math.min(1, scrolled / total));
+  hifiTrackerYTarget = getTrackerYTarget(Math.round(hifiTarget * (hifiSlides.length - 1)));
   if (!hifiRafId) hifiRafId = requestAnimationFrame(hifiTick);
 }
 

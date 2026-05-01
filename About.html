@@ -522,3 +522,83 @@
         <a href="Index_Image/resume.pdf" target="_blank">Resume</a>
     </div>
 </nav>
+<script>
+    /* ─── 네비게이션 ─── */
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+        mobileMenu.classList.toggle('open');
+        const spans = hamburger.querySelectorAll('span');
+        if (mobileMenu.classList.contains('open')) {
+            spans[0].style.transform = 'translateY(7px) rotate(45deg)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+        } else {
+            spans[0].style.transform = '';
+            spans[1].style.opacity = '';
+            spans[2].style.transform = '';
+        }
+    });
+
+    document.addEventListener('click', e => {
+        if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+            mobileMenu.classList.remove('open');
+            const spans = hamburger.querySelectorAll('span');
+            spans[0].style.transform = '';
+            spans[1].style.opacity = '';
+            spans[2].style.transform = '';
+        }
+    });
+
+    hamburger.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); hamburger.click(); }
+    });
+
+    // 모바일 Projects 서브메뉴 토글
+    const mobileProjectsRow = document.getElementById('mobileProjectsRow');
+    const mobileProjectsSubmenu = document.getElementById('mobileProjectsSubmenu');
+    if (mobileProjectsRow && mobileProjectsSubmenu) {
+        mobileProjectsRow.addEventListener('click', () => {
+            const isOpen = mobileProjectsSubmenu.classList.toggle('open');
+            mobileProjectsRow.classList.toggle('open', isOpen);
+            mobileProjectsRow.querySelector('.mobile-projects-arrow').textContent = isOpen ? '−' : '+';
+        });
+    }
+
+    // 뷰 토글 (갤러리 ↔ 그리드)
+    const viewBtnGallery = document.getElementById('viewBtnGallery');
+    const viewBtnGrid = document.getElementById('viewBtnGrid');
+    const gridView = document.getElementById('gridView');
+    const rigEl = document.getElementById('rig');
+    const arrowLeftEl = document.getElementById('arrowLeft');
+    const arrowRightEl = document.getElementById('arrowRight');
+
+    function setView(mode) {
+        const isGrid = mode === 'grid';
+        rigEl.style.display = isGrid ? 'none' : '';
+        gridView.classList.toggle('active', isGrid);
+        arrowLeftEl.style.display = isGrid ? 'none' : '';
+        arrowRightEl.style.display = isGrid ? 'none' : '';
+        viewBtnGallery.classList.toggle('active', !isGrid);
+        viewBtnGrid.classList.toggle('active', isGrid);
+    }
+
+    viewBtnGallery.addEventListener('click', () => setView('gallery'));
+    viewBtnGrid.addEventListener('click', () => setView('grid'));
+</script>
+
+</body>
+
+<section
+    style="display:flex; flex-direction:row; gap:120px; padding: 10rem; align-items: center; justify-content: center;">
+    <img src="About_Image/profile.jpg" style="width:30%;height:auto;border: #e0e0e0 1px solid;" />
+    <div>
+        <h1 class="section-title" style="color:var(--color-secondary);">안녕하세요, 신예림입니다!</h1>
+        <div style="width: 580px;">
+            <p class="section-desc">영상 디자인 전공과 마케팅에 대한 경험을 바탕으로 사용자와 소통하는 법에 대해 지속적으로 고민해왔습니다. UX로 분야를 넓히며,
+                역시 화려한 디자인보다는 사용자 경험이 쉽고 불편함이 없게 하는 것에 가치를 두고 있습니다. 쉬운 사용자 경험이라는 것은 B2C로 고객으로뿐만 아니라 실제 디자인이 이루어지는 현장에서도
+                이어진다고 생각합니다. AI 기술이 발전함에 발맞춰 최신 기술과 AI 툴을 유연하게 활용하여 실제 현장에서 더 빠르면서도 높은 품질을 유지할 수 있도록 노력하는 주니어 디자이너입니다.
+            </p>
+        </div>
+    </div>

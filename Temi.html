@@ -7,6 +7,13 @@
   <title>Temi — 치매 일몰증후군 대응 홈IoT | Yerim Shin</title>
   <link rel="icon" href="Temi_Image/logo.png" type="image/png">
   <link rel="stylesheet" href="yr.css">
+  <style>
+    @media (max-width: 1024px) {
+      .hifi-panel { padding-left: 24px; flex-wrap: wrap; }
+      .hifi-panel__images { height: auto; }
+      .hifi-panel__img-group { height: 40vh; }
+    }
+  </style>
 </head>
 
 <body>
@@ -775,73 +782,128 @@
     <div id="hifi-scroll-wrap">
       <div id="hifi-sticky">
 
+        <!-- 좌측 고정 트래커 (단일 요소, JS로 Y 이동) -->
+        <nav id="hifi-tracker" class="hifi-tracker" aria-label="섹션 진행도">
+          <div class="hifi-tracker__node">
+            <div class="hifi-tracker__bcol">
+              <div class="hifi-tracker__dot"></div>
+              <div class="hifi-tracker__vl"></div>
+            </div>
+            <p class="hifi-tracker__lbl">증상 발생 시<br>알림을 받아요</p>
+          </div>
+          <div class="hifi-tracker__fork">
+            <div class="hifi-tracker__spine"></div>
+            <div class="hifi-tracker__branches">
+              <div class="hifi-tracker__node">
+                <div class="hifi-tracker__bcol"><div class="hifi-tracker__dot"></div></div>
+                <p class="hifi-tracker__lbl">긴급 대응해요<small>자동 대응 선택 시</small></p>
+              </div>
+              <div class="hifi-tracker__node">
+                <div class="hifi-tracker__bcol"><div class="hifi-tracker__dot"></div></div>
+                <p class="hifi-tracker__lbl">긴급 대응해요<small>직접 대응 선택 시</small></p>
+              </div>
+            </div>
+          </div>
+          <div class="hifi-tracker__node">
+            <div class="hifi-tracker__bcol"><div class="hifi-tracker__dot"></div></div>
+            <p class="hifi-tracker__lbl">사후 리포트를<br>확인해요</p>
+          </div>
+        </nav>
+
         <!-- 슬라이드 1 -->
-        <div class="hifi-slide" style="z-index:1">
-          <div class="container">
-            <div class="hifi-row">
-              <div>
+        <div class="hifi-slide">
+          <div class="hifi-panel">
+            <div class="hifi-panel__images">
+              <div class="hifi-panel__img-group">
+                <p class="hifi-panel__img-label">What Temi do</p>
                 <div class="phone-mockup">
-                  <div class="img-placeholder" style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                  <div class="img-placeholder" style="width:100%;height:100%;border-radius:var(--radius-sm);">
                     <span class="img-placeholder__label">앱 화면 1</span>
                   </div>
                 </div>
               </div>
-              <div class="hifi-content">
-                <div class="hifi-content__label">자동 대응 · 상태 모니터링</div>
-                <h3 class="hifi-content__title">환자의 일몰증후군 증상 확인</h3>
-                <p class="hifi-content__desc">
-                  보호자는 환자의 증상이 나타난 클립 영상과 시간별 AI 상태 요약을 통해
-                  증상 발생 시점부터의 증상에 대응하는 현재까지의 실시간 환자의 상태를 확인할 수 있습니다.
-                </p>
+              <div class="hifi-panel__img-group">
+                <p class="hifi-panel__img-label">User's view</p>
+                <div class="phone-mockup">
+                  <div class="img-placeholder" style="width:100%;height:100%;border-radius:var(--radius-sm);">
+                    <span class="img-placeholder__label">유저 화면 1</span>
+                  </div>
+                </div>
               </div>
+            </div>
+            <div class="hifi-content">
+              <div class="hifi-content__label">자동 대응 · 상태 모니터링</div>
+              <h3 class="hifi-content__title">환자의 일몰증후군 증상 확인</h3>
+              <p class="hifi-content__desc">
+                보호자는 환자의 증상이 나타난 클립 영상과 시간별 AI 상태 요약을 통해
+                증상 발생 시점부터의 증상에 대응하는 현재까지의 실시간 환자의 상태를 확인할 수 있습니다.
+              </p>
             </div>
           </div>
         </div>
 
         <!-- 슬라이드 2 -->
-        <div class="hifi-slide" style="z-index:2">
-          <div class="container">
-            <div class="hifi-row hifi-row--reverse">
-              <div>
+        <div class="hifi-slide">
+          <div class="hifi-panel">
+            <div class="hifi-panel__images">
+              <div class="hifi-panel__img-group">
+                <p class="hifi-panel__img-label">What Temi do</p>
                 <div class="phone-mockup">
-                  <div class="img-placeholder" style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                  <div class="img-placeholder" style="width:100%;height:100%;border-radius:var(--radius-sm);">
                     <span class="img-placeholder__label">앱 화면 2</span>
                   </div>
                 </div>
               </div>
-              <div class="hifi-content">
-                <div class="hifi-content__label">자동 대응</div>
-                <h3 class="hifi-content__title">자동 대응 옵션과 커스터마이징</h3>
-                <p class="hifi-content__desc">
-                  Temi는 기존에 등록된 환자 정보와 AI가 추가적으로 학습한 환자에 대한 정보를 바탕으로
-                  환자의 일몰증후군 증상 완화를 위한 최적의 옵션을 제시합니다. 옵션에는 일몰증후군 대처법에
-                  알맞는 '전환적 대화 기술'을 활용한 대처와 환자의 인지적 편안함을 위하며 '보호자의 음성을 딴
-                  AI보이스'가 있습니다.
-                </p>
+              <div class="hifi-panel__img-group">
+                <p class="hifi-panel__img-label">User's view</p>
+                <div class="phone-mockup">
+                  <div class="img-placeholder" style="width:100%;height:100%;border-radius:var(--radius-sm);">
+                    <span class="img-placeholder__label">유저 화면 2</span>
+                  </div>
+                </div>
               </div>
+            </div>
+            <div class="hifi-content">
+              <div class="hifi-content__label">자동 대응</div>
+              <h3 class="hifi-content__title">자동 대응 옵션과 커스터마이징</h3>
+              <p class="hifi-content__desc">
+                Temi는 기존에 등록된 환자 정보와 AI가 추가적으로 학습한 환자에 대한 정보를 바탕으로
+                환자의 일몰증후군 증상 완화를 위한 최적의 옵션을 제시합니다. 옵션에는 일몰증후군 대처법에
+                알맞는 '전환적 대화 기술'을 활용한 대처와 환자의 인지적 편안함을 위하며 '보호자의 음성을 딴
+                AI보이스'가 있습니다.
+              </p>
             </div>
           </div>
         </div>
 
         <!-- 슬라이드 3 -->
-        <div class="hifi-slide" style="z-index:3">
-          <div class="container">
-            <div class="hifi-row">
-              <div>
+        <div class="hifi-slide">
+          <div class="hifi-panel">
+            <div class="hifi-panel__images">
+              <div class="hifi-panel__img-group">
+                <p class="hifi-panel__img-label">What Temi do</p>
                 <div class="phone-mockup">
-                  <div class="img-placeholder" style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                  <div class="img-placeholder" style="width:100%;height:100%;border-radius:var(--radius-sm);">
                     <span class="img-placeholder__label">앱 화면 3</span>
                   </div>
                 </div>
               </div>
-              <div class="hifi-content">
-                <div class="hifi-content__label">자동대응 : 추가 지원</div>
-                <h3 class="hifi-content__title">자동대응 : 환자 맞춤형 추가 지원</h3>
-                <p class="hifi-content__desc">
-                  자동 대응을 진행하며 실시간 환자에 대한 상태와 정보, 상황 요약 정보를 확인할 수 있습니다.
-                  환자 개인에 알맞는 추가 지원 전환 전략을 통해 환자의 안정을 돕습니다.
-                </p>
+              <div class="hifi-panel__img-group">
+                <p class="hifi-panel__img-label">User's view</p>
+                <div class="phone-mockup">
+                  <div class="img-placeholder" style="width:100%;height:100%;border-radius:var(--radius-sm);">
+                    <span class="img-placeholder__label">유저 화면 3</span>
+                  </div>
+                </div>
               </div>
+            </div>
+            <div class="hifi-content">
+              <div class="hifi-content__label">자동대응 : 추가 지원</div>
+              <h3 class="hifi-content__title">자동대응 : 환자 맞춤형 추가 지원</h3>
+              <p class="hifi-content__desc">
+                자동 대응을 진행하며 실시간 환자에 대한 상태와 정보, 상황 요약 정보를 확인할 수 있습니다.
+                환자 개인에 알맞는 추가 지원 전환 전략을 통해 환자의 안정을 돕습니다.
+              </p>
             </div>
           </div>
         </div>
@@ -849,7 +911,35 @@
         <!-- 슬라이드 4 -->
         <div class="hifi-slide" style="z-index:4">
           <div class="container">
-            <div class="hifi-row hifi-row--reverse">
+            <div class="hifi-row">
+              <div class="hifi-tracker-col">
+                <div class="hifi-tracker">
+                  <div class="hifi-tracker__node is-done">
+                    <div class="hifi-tracker__bcol">
+                      <div class="hifi-tracker__dot"></div>
+                      <div class="hifi-tracker__vl is-done"></div>
+                    </div>
+                    <p class="hifi-tracker__lbl">증상 발생 시<br>알림을 받아요</p>
+                  </div>
+                  <div class="hifi-tracker__fork is-done">
+                    <div class="hifi-tracker__spine"></div>
+                    <div class="hifi-tracker__branches">
+                      <div class="hifi-tracker__node is-done">
+                        <div class="hifi-tracker__bcol"><div class="hifi-tracker__dot"></div></div>
+                        <p class="hifi-tracker__lbl">긴급 대응해요<small>자동 대응 선택 시</small></p>
+                      </div>
+                      <div class="hifi-tracker__node is-done">
+                        <div class="hifi-tracker__bcol"><div class="hifi-tracker__dot"></div></div>
+                        <p class="hifi-tracker__lbl">긴급 대응해요<small>직접 대응 선택 시</small></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hifi-tracker__node is-active">
+                    <div class="hifi-tracker__bcol"><div class="hifi-tracker__dot"></div></div>
+                    <p class="hifi-tracker__lbl">사후 리포트를<br>확인해요</p>
+                  </div>
+                </div>
+              </div>
               <div>
                 <div class="phone-mockup">
                   <div class="img-placeholder" style="width:100%; height:100%; border-radius:var(--radius-sm);">

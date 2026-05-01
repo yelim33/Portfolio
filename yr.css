@@ -1226,13 +1226,52 @@ a {
   display: flex;
   align-items: center;
   background: var(--color-bg, #fff);
-  will-change: transform;
+  will-change: opacity;
+  opacity: 0;
 }
 
-.hifi-slide .hifi-row {
-  border-bottom: none;
-  padding: 0;
+/* ── hifi 패널 레이아웃 ── */
+.hifi-panel {
+  display: flex;
+  align-items: center;
   width: 100%;
+  height: 100%;
+  padding: calc(var(--nav-h) + 24px) 48px 48px 168px;
+  box-sizing: border-box;
+  gap: 28px;
+}
+
+.hifi-panel__images {
+  display: flex;
+  gap: 12px;
+  height: 100%;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.hifi-panel__img-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 75%;
+}
+
+.hifi-panel__img-label {
+  font-family: var(--font-en);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-text-tertiary);
+  margin-bottom: 8px;
+  white-space: nowrap;
+}
+
+.hifi-panel__img-group .phone-mockup {
+  aspect-ratio: 9 / 20;
+  width: auto;
+  height: 100%;
+  margin: 0;
+  flex-shrink: 0;
 }
 
 .hifi-content__label {
@@ -1264,6 +1303,134 @@ a {
   width: 260px;
   height: 520px;
   margin: 0 auto;
+}
+
+/* ── hifi 섹션 트래커 (좌측 24px 고정, JS로 Y 이동) ── */
+.hifi-tracker-col { display: none; }
+
+.hifi-tracker {
+  position: absolute;
+  left: 24px;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 130px;
+}
+
+.hifi-tracker__node {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+}
+
+.hifi-tracker__bcol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10px;
+  flex-shrink: 0;
+}
+
+.hifi-tracker__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  background: var(--color-bg, #fff);
+  flex-shrink: 0;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+}
+
+.hifi-tracker__node.is-active .hifi-tracker__dot {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  transform: scale(1.4);
+}
+
+.hifi-tracker__node.is-done .hifi-tracker__dot {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.hifi-tracker__vl {
+  width: 2px;
+  height: 18px;
+  background: var(--color-border);
+  margin-top: 3px;
+  transition: background 0.3s;
+}
+
+.hifi-tracker__vl.is-done {
+  background: var(--color-primary);
+}
+
+.hifi-tracker__lbl {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+  margin: 0;
+}
+
+.hifi-tracker__node.is-active .hifi-tracker__lbl {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.hifi-tracker__lbl small {
+  font-size: 10px;
+  display: block;
+  font-weight: 400;
+  opacity: 0.75;
+  margin-top: 1px;
+}
+
+/* 분기 섹션 */
+.hifi-tracker__fork {
+  display: flex;
+  align-items: stretch;
+}
+
+.hifi-tracker__spine {
+  width: 2px;
+  background: var(--color-border);
+  margin: 0 4px;
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+
+.hifi-tracker__fork.is-done .hifi-tracker__spine {
+  background: var(--color-primary);
+}
+
+.hifi-tracker__branches {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 10px;
+  padding: 4px 0 4px 10px;
+}
+
+.hifi-tracker__branches .hifi-tracker__node {
+  position: relative;
+}
+
+.hifi-tracker__branches .hifi-tracker__node::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: -10px;
+  width: 10px;
+  height: 2px;
+  background: var(--color-border);
+  transition: background 0.3s;
+}
+
+.hifi-tracker__branches .hifi-tracker__node.is-active::before,
+.hifi-tracker__branches .hifi-tracker__node.is-done::before {
+  background: var(--color-primary);
 }
 
 /* ===================== 사용성 테스트 ===================== */
