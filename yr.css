@@ -1274,6 +1274,11 @@ a {
   flex-shrink: 0;
 }
 
+.hifi-content {
+  flex: 1;
+  min-width: 0;
+}
+
 .hifi-content__label {
   font-family: var(--font-en);
   font-size: 11px;
@@ -1303,6 +1308,17 @@ a {
   width: 260px;
   height: 520px;
   margin: 0 auto;
+}
+
+/* 모바일 컨텍스트 레이블 */
+.hifi-mobile-label {
+  display: none;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  margin-bottom: 12px;
+  text-align: center;
+  padding: 0 8px;
 }
 
 /* ── hifi 섹션 트래커 (좌측 24px 고정, JS로 Y 이동) ── */
@@ -1351,8 +1367,8 @@ a {
 }
 
 .hifi-tracker__node.is-done .hifi-tracker__dot {
-  border-color: var(--color-primary);
-  background: var(--color-primary);
+  border-color: var(--color-border);
+  background: var(--color-bg, #fff);
 }
 
 .hifi-tracker__vl {
@@ -1387,50 +1403,31 @@ a {
   margin-top: 1px;
 }
 
-/* 분기 섹션 */
-.hifi-tracker__fork {
+/* 분기 노드 (긴급 대응) */
+.hifi-tracker__branch-content {
   display: flex;
-  align-items: stretch;
+  align-items: center;
+  gap: 8px;
 }
 
-.hifi-tracker__spine {
-  width: 2px;
-  background: var(--color-border);
-  margin: 0 4px;
-  flex-shrink: 0;
-  transition: background 0.3s;
-}
-
-.hifi-tracker__fork.is-done .hifi-tracker__spine {
-  background: var(--color-primary);
-}
-
-.hifi-tracker__branches {
+.hifi-tracker__sub-lbls {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  gap: 10px;
-  padding: 4px 0 4px 10px;
+  gap: 3px;
 }
 
-.hifi-tracker__branches .hifi-tracker__node {
-  position: relative;
+.hifi-tracker__sub-lbl {
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--color-text-tertiary);
+  opacity: 0.5;
+  transition: opacity 0.3s, color 0.3s;
 }
 
-.hifi-tracker__branches .hifi-tracker__node::before {
-  content: '';
-  position: absolute;
-  top: 4px;
-  left: -10px;
-  width: 10px;
-  height: 2px;
-  background: var(--color-border);
-  transition: background 0.3s;
-}
-
-.hifi-tracker__branches .hifi-tracker__node.is-active::before,
-.hifi-tracker__branches .hifi-tracker__node.is-done::before {
-  background: var(--color-primary);
+.hifi-tracker__sub-lbl.is-active {
+  color: var(--color-primary);
+  opacity: 1;
+  font-weight: 600;
 }
 
 /* ===================== 사용성 테스트 ===================== */
@@ -1607,6 +1604,27 @@ a {
 
   .hifi-row--reverse {
     direction: ltr;
+  }
+
+  /* hifi 섹션 모바일 */
+  .hifi-tracker { display: none !important; }
+
+  .hifi-panel {
+    padding-left: 24px;
+    padding-right: 24px;
+    justify-content: center;
+  }
+
+  .hifi-panel__images {
+    justify-content: center;
+  }
+
+  .hifi-panel__images .hifi-panel__img-group:first-child {
+    display: none;
+  }
+
+  .hifi-mobile-label {
+    display: block;
   }
 }
 

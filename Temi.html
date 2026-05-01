@@ -9,9 +9,18 @@
   <link rel="stylesheet" href="yr.css">
   <style>
     @media (max-width: 1024px) {
-      .hifi-panel { padding-left: 24px; flex-wrap: wrap; }
-      .hifi-panel__images { height: auto; }
-      .hifi-panel__img-group { height: 40vh; }
+      .hifi-panel {
+        padding-left: 24px;
+        flex-wrap: wrap;
+      }
+
+      .hifi-panel__images {
+        height: auto;
+      }
+
+      .hifi-panel__img-group {
+        height: 40vh;
+      }
     }
   </style>
 </head>
@@ -789,24 +798,26 @@
               <div class="hifi-tracker__dot"></div>
               <div class="hifi-tracker__vl"></div>
             </div>
-            <p class="hifi-tracker__lbl">증상 발생 시<br>알림을 받아요</p>
+            <p class="hifi-tracker__lbl">증상 알림</p>
           </div>
-          <div class="hifi-tracker__fork">
-            <div class="hifi-tracker__spine"></div>
-            <div class="hifi-tracker__branches">
-              <div class="hifi-tracker__node">
-                <div class="hifi-tracker__bcol"><div class="hifi-tracker__dot"></div></div>
-                <p class="hifi-tracker__lbl">긴급 대응해요<small>자동 대응 선택 시</small></p>
-              </div>
-              <div class="hifi-tracker__node">
-                <div class="hifi-tracker__bcol"><div class="hifi-tracker__dot"></div></div>
-                <p class="hifi-tracker__lbl">긴급 대응해요<small>직접 대응 선택 시</small></p>
+          <div class="hifi-tracker__node hifi-tracker__node--branch">
+            <div class="hifi-tracker__bcol">
+              <div class="hifi-tracker__dot"></div>
+              <div class="hifi-tracker__vl"></div>
+            </div>
+            <div class="hifi-tracker__branch-content">
+              <p class="hifi-tracker__lbl">긴급 대응</p>
+              <div class="hifi-tracker__sub-lbls">
+                <span class="hifi-tracker__sub-lbl" data-sub="auto">자동 대응</span>
+                <span class="hifi-tracker__sub-lbl" data-sub="direct">직접 대응</span>
               </div>
             </div>
           </div>
           <div class="hifi-tracker__node">
-            <div class="hifi-tracker__bcol"><div class="hifi-tracker__dot"></div></div>
-            <p class="hifi-tracker__lbl">사후 리포트를<br>확인해요</p>
+            <div class="hifi-tracker__bcol">
+              <div class="hifi-tracker__dot"></div>
+            </div>
+            <p class="hifi-tracker__lbl">사후 리포트</p>
           </div>
         </nav>
 
@@ -824,6 +835,7 @@
               </div>
               <div class="hifi-panel__img-group">
                 <p class="hifi-panel__img-label">User's view</p>
+                <p class="hifi-mobile-label">in home : Temi가 센서로 어머니의 증상을 감지합니다.</p>
                 <div class="phone-mockup">
                   <div class="img-placeholder" style="width:100%;height:100%;border-radius:var(--radius-sm);">
                     <span class="img-placeholder__label">유저 화면 1</span>
@@ -909,53 +921,34 @@
         </div>
 
         <!-- 슬라이드 4 -->
-        <div class="hifi-slide" style="z-index:4">
-          <div class="container">
-            <div class="hifi-row">
-              <div class="hifi-tracker-col">
-                <div class="hifi-tracker">
-                  <div class="hifi-tracker__node is-done">
-                    <div class="hifi-tracker__bcol">
-                      <div class="hifi-tracker__dot"></div>
-                      <div class="hifi-tracker__vl is-done"></div>
-                    </div>
-                    <p class="hifi-tracker__lbl">증상 발생 시<br>알림을 받아요</p>
-                  </div>
-                  <div class="hifi-tracker__fork is-done">
-                    <div class="hifi-tracker__spine"></div>
-                    <div class="hifi-tracker__branches">
-                      <div class="hifi-tracker__node is-done">
-                        <div class="hifi-tracker__bcol"><div class="hifi-tracker__dot"></div></div>
-                        <p class="hifi-tracker__lbl">긴급 대응해요<small>자동 대응 선택 시</small></p>
-                      </div>
-                      <div class="hifi-tracker__node is-done">
-                        <div class="hifi-tracker__bcol"><div class="hifi-tracker__dot"></div></div>
-                        <p class="hifi-tracker__lbl">긴급 대응해요<small>직접 대응 선택 시</small></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="hifi-tracker__node is-active">
-                    <div class="hifi-tracker__bcol"><div class="hifi-tracker__dot"></div></div>
-                    <p class="hifi-tracker__lbl">사후 리포트를<br>확인해요</p>
-                  </div>
-                </div>
-              </div>
-              <div>
+        <div class="hifi-slide">
+          <div class="hifi-panel">
+            <div class="hifi-panel__images">
+              <div class="hifi-panel__img-group">
+                <p class="hifi-panel__img-label">What Temi do</p>
                 <div class="phone-mockup">
-                  <div class="img-placeholder" style="width:100%; height:100%; border-radius:var(--radius-sm);">
+                  <div class="img-placeholder" style="width:100%;height:100%;border-radius:var(--radius-sm);">
                     <span class="img-placeholder__label">앱 화면 4</span>
                   </div>
                 </div>
               </div>
-              <div class="hifi-content">
-                <div class="hifi-content__label">직접 대응</div>
-                <h3 class="hifi-content__title">직접 대응 : 환자와 소통하기</h3>
-                <p class="hifi-content__desc">
-                  보호자가 환자와 직접 소통하는 대응 방법입니다. 실제 음성 화상통화와 AI 보이스를 통한
-                  텍스트 소통 모두 가능하며, 환자와의 대화 과정에서 Temi가 보호자와 환자의 충돌을 완화하기
-                  위한 조언 메시지를 제공합니다.
-                </p>
+              <div class="hifi-panel__img-group">
+                <p class="hifi-panel__img-label">User's view</p>
+                <div class="phone-mockup">
+                  <div class="img-placeholder" style="width:100%;height:100%;border-radius:var(--radius-sm);">
+                    <span class="img-placeholder__label">유저 화면 4</span>
+                  </div>
+                </div>
               </div>
+            </div>
+            <div class="hifi-content">
+              <div class="hifi-content__label">직접 대응</div>
+              <h3 class="hifi-content__title">직접 대응 : 환자와 소통하기</h3>
+              <p class="hifi-content__desc">
+                보호자가 환자와 직접 소통하는 대응 방법입니다. 실제 음성 화상통화와 AI 보이스를 통한
+                텍스트 소통 모두 가능하며, 환자와의 대화 과정에서 Temi가 보호자와 환자의 충돌을 완화하기
+                위한 조언 메시지를 제공합니다.
+              </p>
             </div>
           </div>
         </div>

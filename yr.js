@@ -119,9 +119,13 @@ const hifiTracker      = document.getElementById('hifi-tracker');
 const hifiTrackerNodes = hifiTracker ? [...hifiTracker.querySelectorAll('.hifi-tracker__node')] : [];
 const hifiTrackerDots  = hifiTracker ? [...hifiTracker.querySelectorAll('.hifi-tracker__dot')]  : [];
 
+// 슬라이드 인덱스(0~3) → 트래커 dot 인덱스(0~2) 매핑 (슬라이드 1,2 모두 긴급대응 dot)
+const DOT_IDX_MAP = [0, 1, 1, 2];
+
 let hifiTarget = 0, hifiCurrent = 0;
 let hifiTrackerYTarget = 0, hifiTrackerYCurrent = 0;
 let hifiRafId = null;
+let hifiCurrentSlide = 0;
 let isTouch = false;
 window.addEventListener('touchstart', () => { isTouch = true; }, { once: true, passive: true });
 
@@ -139,7 +143,6 @@ function recalcDotPositions() {
     return r.top - tr.top + r.height / 2;
   });
   hifiTracker.style.transform = saved || '';
-  // 초기 위치 즉시 적용
   const activeIdx = Math.round(hifiTarget * Math.max(0, hifiSlides.length - 1));
   hifiTrackerYTarget  = getTrackerYTarget(activeIdx);
   hifiTrackerYCurrent = hifiTrackerYTarget;
@@ -150,35 +153,53 @@ window.addEventListener('resize', () => { recalcDotPositions(); onHifiScroll(); 
 
 function getTrackerYTarget(activeIdx) {
   if (!dotYsInTracker.length) return 0;
-  const y = dotYsInTracker[Math.min(activeIdx, dotYsInTracker.length - 1)];
+  const dotIdx = DOT_IDX_MAP[Math.min(activeIdx, DOT_IDX_MAP.length - 1)] ?? 0;
+  const y = dotYsInTracker[Math.min(dotIdx, dotYsInTracker.length - 1)];
   return window.innerHeight / 2 - y;
 }
 
 // 슬라이드 인덱스 → 트래커 상태 업데이트
 function updateTrackerState(activeIdx) {
   if (!hifiTracker) return;
-  hifiTrackerNodes.forEach((node, i) => {
-    node.classList.remove('is-active', 'is-done');
-    if      (i === 0) { activeIdx === 0 ? node.classList.add('is-active') : node.classList.add('is-done'); }
-    else if (i === 1) { if (activeIdx === 1) node.classList.add('is-active'); else if (activeIdx === 3) node.classList.add('is-done'); }
-    else if (i === 2) { if (activeIdx === 2) node.classList.add('is-active'); else if (activeIdx === 3) node.classList.add('is-done'); }
-    else if (i === 3) { if (activeIdx === 3) node.classList.add('is-active'); }
+  // 노드 0: 증상알림 / 노드 1: 긴급대응(분기) / 노드 2: 사후리포트
+  hifiTrackerNodes.forEach(n => n.classList.remove('is-active', 'is-done'));
+
+  if (activeIdx === 0) {
+    hifiTrackerNodes[0]?.classList.add('is-active');
+  } else if (activeIdx === 1) {
+    hifiTrackerNodes[0]?.classList.add('is-done');
+    hifiTrackerNodes[1]?.classList.add('is-active');
+    updateSubLabel(hifiTrackerNodes[1], 'auto');
+  } else if (activeIdx === 2) {
+    hifiTrackerNodes[0]?.classList.add('is-done');
+    hifiTrackerNodes[1]?.classList.add('is-active');
+    updateSubLabel(hifiTrackerNodes[1], 'direct');
+  } else if (activeIdx === 3) {
+    hifiTrackerNodes[0]?.classList.add('is-done');
+    hifiTrackerNodes[1]?.classList.add('is-done');
+    hifiTrackerNodes[2]?.classList.add('is-active');
+  }
+
+  // VL 색상: vl[0] = 노드0→1 사이 / vl[1] = 노드1→2 사이
+  const vls = [...hifiTracker.querySelectorAll('.hifi-tracker__vl')];
+  vls[0]?.classList.toggle('is-done', activeIdx >= 1);
+  vls[1]?.classList.toggle('is-done', activeIdx >= 3);
+}
+
+function updateSubLabel(node, which) {
+  if (!node) return;
+  node.querySelectorAll('.hifi-tracker__sub-lbl').forEach(lbl => {
+    lbl.classList.toggle('is-active', lbl.dataset.sub === which);
   });
-  const vl   = hifiTracker.querySelector('.hifi-tracker__vl');
-  const fork = hifiTracker.querySelector('.hifi-tracker__fork');
-  if (vl)   vl.classList.toggle('is-done',   activeIdx >= 1);
-  if (fork) fork.classList.toggle('is-done', activeIdx === 3);
 }
 
 function applyHifi(progress) {
   const segments = hifiSlides.length - 1;
-  // 슬라이드 크로스페이드
   hifiSlides.forEach((slide, i) => {
     const dist = Math.abs(progress * segments - i);
     slide.style.opacity = String(Math.max(0, 1 - dist));
     slide.style.zIndex  = dist < 0.5 ? '2' : '1';
   });
-  // 트래커 Y 이동
   if (hifiTracker) hifiTracker.style.transform = `translateY(${hifiTrackerYCurrent}px)`;
   updateTrackerState(Math.round(progress * segments));
 }
@@ -206,12 +227,56 @@ function onHifiScroll() {
   const scrolled = -rect.top;
   const total    = rect.height - window.innerHeight;
   hifiTarget     = Math.max(0, Math.min(1, scrolled / total));
-  hifiTrackerYTarget = getTrackerYTarget(Math.round(hifiTarget * (hifiSlides.length - 1)));
+  hifiCurrentSlide = Math.round(hifiTarget * (hifiSlides.length - 1));
+  hifiTrackerYTarget = getTrackerYTarget(hifiCurrentSlide);
   if (!hifiRafId) hifiRafId = requestAnimationFrame(hifiTick);
 }
 
 window.addEventListener('scroll', onHifiScroll, { passive: true });
 onHifiScroll();
+
+// ─── hifi 섹션 스냅 스크롤 ───
+const SNAP_COOLDOWN = 800;
+let snapLastTime = 0;
+let hifiWrapAbsTop = 0;
+
+function calcWrapAbsTop() {
+  if (!hifiWrap) return;
+  hifiWrapAbsTop = hifiWrap.getBoundingClientRect().top + window.scrollY;
+}
+window.addEventListener('load',   calcWrapAbsTop);
+window.addEventListener('resize', calcWrapAbsTop);
+
+function getSlideScrollY(slideIdx) {
+  const total = hifiWrap.offsetHeight - window.innerHeight;
+  return hifiWrapAbsTop + (slideIdx / (hifiSlides.length - 1)) * total;
+}
+
+function snapToSlide(slideIdx) {
+  window.scrollTo({ top: getSlideScrollY(Math.max(0, Math.min(hifiSlides.length - 1, slideIdx))), behavior: 'smooth' });
+}
+
+function onHifiWheel(e) {
+  if (!hifiWrap) return;
+  const rect = hifiWrap.getBoundingClientRect();
+  // 스티키 구간 밖이면 무시
+  if (rect.top > 1 || rect.bottom < window.innerHeight - 1) return;
+
+  const dir = e.deltaY > 0 ? 1 : -1;
+  // 끝 슬라이드에서는 기본 스크롤 허용
+  if (dir > 0 && hifiCurrentSlide >= hifiSlides.length - 1) return;
+  if (dir < 0 && hifiCurrentSlide <= 0) return;
+
+  e.preventDefault();
+  const now = Date.now();
+  if (now - snapLastTime < SNAP_COOLDOWN) return;
+  snapLastTime = now;
+  snapToSlide(hifiCurrentSlide + dir);
+}
+
+if (hifiWrap) {
+  hifiWrap.addEventListener('wheel', onHifiWheel, { passive: false });
+}
 
 // ─── 스무스 스크롤 (내부 링크) ───
 document.querySelectorAll('a[href^="#"]').forEach(link => {
