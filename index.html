@@ -481,6 +481,18 @@
             .mobile-card>div {
                 overflow: hidden;
             }
+
+            .mobile-lock-badge {
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                pointer-events: none;
+                z-index: 10;
+            }
+
+            .mobile-card:not([data-locked]) .mobile-lock-badge {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -787,6 +799,7 @@
                 <div class="card-gradient-bg-persoAI"></div>
                 <img class="card-img-fill" src="PersoAI_Image/Perso_hero.png" alt="PersoAI hero"
                     style="scale:calc(1.6); padding-top:20px; padding-left:20px; object-position: top;">
+                <div class="mobile-lock-badge"><svg width="17" height="19.9" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="5" width="10" height="7.5" rx="2" fill="rgba(10,10,10,0.85)"/><path d="M2.5 5V3.5A3 3 0 0 1 8.5 3.5V5" stroke="rgba(10,10,10,0.85)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></div>
                 <div class="card-text-block">
                     <h1>Perso.AI</h1>
                     <p style="font-size: 12px; line-height: 1.4;">AI 기반 영상편집 SaaS</p>
@@ -804,6 +817,7 @@
                 <div class="card-gradient-bg-wise"></div>
                 <img class="card-img-fill" src="Wise_Image/Wise_hero.png" alt="Wise hero"
                     style="object-fit: contain; padding-top:12px; padding-left: 64px;scale:calc(1.03)">
+                <div class="mobile-lock-badge"><svg width="17" height="19.9" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="5" width="10" height="7.5" rx="2" fill="rgba(10,10,10,0.85)"/><path d="M2.5 5V3.5A3 3 0 0 1 8.5 3.5V5" stroke="rgba(10,10,10,0.85)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></div>
                 <div class="card-text-block">
                     <h1>Wise</h1>
                     <p style="font-size: 12px; line-height: 1.4;">핀테크 송금 투명성 개선</p>
@@ -1249,7 +1263,7 @@
             });
 
             /* 잠금 카드: data-locked 속성이 있으면 클릭 차단 + 커서에 자물쇠 아이콘 표시 */
-            const LOCK_SVG = '<svg width="20" height="23.4" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:4px"><rect x="0.5" y="5" width="10" height="7.5" rx="2" fill="rgba(152,152,152,1)"/><path d="M2.5 5V3.5A3 3 0 0 1 8.5 3.5V5" stroke="rgba(152,152,152,1)" stroke-width="1.5" stroke-linecap="round" fill="none"/><circle cx="5.5" cy="8.5" r="1" fill="rgba(10,10,10,0.85)"/></svg>';
+            const LOCK_SVG = '<svg width="20" height="23.4" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:4px"><rect x="0.5" y="5" width="10" height="7.5" rx="2" fill="rgba(152,152,152,1)"/><path d="M2.5 5V3.5A3 3 0 0 1 8.5 3.5V5" stroke="rgba(152,152,152,1)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>';
             document.querySelectorAll('[data-locked]').forEach(link => {
                 link.addEventListener('click', e => e.preventDefault());
                 link.addEventListener('mouseenter', () => { seeLabel.innerHTML = LOCK_SVG; });
