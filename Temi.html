@@ -33,7 +33,7 @@
       <a href="index.html" class="navbar__logo"><img src="Temi_Image/logo.png" style="width: 20px; height: 20px;">Yerim
         Shin</a>
       <ul class="navbar__links">
-        <li style="display:none;"><a href="#">English</a></li>
+        <li><button class="lang-toggle" type="button" aria-label="언어 전환"><span class="lang-toggle__label">EN</span></button></li>
         <li class="navbar__dropdown">
           <a href="#">Projects</a>
           <div class="navbar__dropdown-menu">
@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="navbar__mobile-menu" id="mobileMenu">
-      <a href="#" style="display:none;">English</a>
+      <button class="lang-toggle" type="button" aria-label="언어 전환" style="background:none;border:1px solid rgba(0,0,0,0.18);border-radius:4px;cursor:pointer;padding:4px 10px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.08em;color:#555;margin-bottom:4px;"><span class="lang-toggle__label">EN</span></button>
       <div class="mobile-projects-row" id="mobileProjectsRow">
         Projects <span class="mobile-projects-arrow">+</span>
       </div>
@@ -397,7 +397,7 @@
         <h3 class="section-title matrix-title"
           style="font-size: 18px; text-align: center; color: var(--color-text-secondary);font-weight: 500; margin-bottom: 24px;font-style: italic;">
           다음과 같은 순서로 인터뷰를 진행했습니다.</h3>
-        <div class="grid-3">
+        <div class="grid-2">
           <div>
             <div
               style="width:100%; aspect-ratio:4/3; overflow:hidden; border-radius:var(--radius-md); margin-bottom:10px; outline:1px solid var(--color-border);">
@@ -407,18 +407,11 @@
             <p class="img-caption">1. 인터뷰 프로토콜</p>
           </div>
           <div>
-            <div style="width:100%; aspect-ratio:4/3; overflow:hidden; margin-bottom:10px;">
-              <img src="Temi_Image/interview_memo.png" alt="인터뷰 질문지 & 진행 시 메모"
-                style="width:100%; height:100%; object-fit:cover; object-position:top;border: 1px solid var(--color-border);">
-            </div>
-            <p class="img-caption">2. 인터뷰 질문지 &amp; 진행 시 메모</p>
-          </div>
-          <div>
             <div style="width:100%; aspect-ratio:4/3; overflow:hidden;margin-bottom:10px;">
               <img src="Temi_Image/interview_color.png" alt="인터뷰 컬러 분석"
                 style="width:100%; height:100%; object-fit:cover; object-position:top;border: 1px solid var(--color-border);">
             </div>
-            <p class="img-caption">3. 인터뷰 컬러 코딩</p>
+            <p class="img-caption">2. 인터뷰 컬러 코딩</p>
           </div>
         </div>
         <h3 class="section-title matrix-title"
@@ -469,11 +462,6 @@
               <img src="Temi_Image/interview_protocol.png" alt="인터뷰 프로토콜"
                 style="width:100%; height:auto; margin-bottom:10px;">
               <p class="img-caption">인터뷰 프로토콜</p>
-            </div>
-            <div>
-              <img src="Temi_Image/interview_memo.png" alt="인터뷰 질문지 & 진행 시 메모"
-                style="width:100%; height:auto; margin-bottom:10px;">
-              <p class="img-caption">인터뷰 질문지 &amp; 진행 시 메모</p>
             </div>
             <div>
               <img src="Temi_Image/interview_color.png" alt="인터뷰 컬러 분석"
@@ -1043,6 +1031,7 @@
 
   <script src="yr.js" defer></script>
 
+<script src="lang.js"></script>
 </body>
 
 </html>
